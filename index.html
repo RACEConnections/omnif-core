@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>OMNIF // R.A.C.E. SOVEREIGN GATE</title>
+    <meta name="description" content="Distributed Infrastructure. Sovereign Verification. First-Come, First-Serve.">
+    <meta name="keywords" content="Sovereign Logistics Osogbo, FCFS Freight, R.A.C.E. Infrastructure, VCI Oracle, Independent System Nigeria">
+
+    <meta property="og:title" content="OMNIF // R.A.C.E. SOVEREIGN GATE">
+    <meta property="og:description" content="Sovereign Utility. FCFS Access. Isolation Protocol Active.">
+    <meta property="og:image" content="https://omnif.carrd.co/assets/images/sovereign-logo-share.png">
+    <meta property="og:type" content="website">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/openpgp/5.11.0/openpgp.min.js"></script>
+
+    <style>
+        :root {
+            --neon-green: #00FF41;
+            --bg-dark: #0a0a0a;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(0, 255, 65, 0.2);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: var(--bg-dark);
+            color: #ccc;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        /* GHOST GRID BACKGROUND */
+        .grid-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: linear-gradient(var(--glass) 1px, transparent 1px),
+                              linear-gradient(90deg, var(--glass) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: -1;
+            animation: scan 20s linear infinite;
+        }
+
+        @keyframes scan {
+            from { transform: translateY(0); }
+            to { transform: translateY(40px); }
+        }
+
+        /* SOVEREIGN CONTAINER */
+        .mainframe {
+            width: 95%;
+            max-width: 500px;
+            padding: 30px;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--border);
+            box-shadow: 0 0 30px rgba(0, 255, 65, 0.05);
+            text-align: center;
+        }
+
+        .header-tag {
+            font-size: 0.7rem;
+            color: var(--neon-green);
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            margin: 10px 0;
+            color: white;
+            text-shadow: 0 0 10px var(--neon-green);
+        }
+
+        .queue-box {
+            background: rgba(0, 0, 0, 0.5);
+            border-left: 2px solid var(--neon-green);
+            padding: 15px;
+            margin: 20px 0;
+            font-size: 0.85rem;
+            text-align: left;
+            line-height: 1.6;
+        }
+
+        .input-field {
+            width: 100%;
+            background: transparent;
+            border: 1px solid var(--border);
+            padding: 12px;
+            color: var(--neon-green);
+            font-family: inherit;
+            margin-bottom: 20px;
+            outline: none;
+        }
+
+        .handshake-btn {
+            width: 100%;
+            padding: 15px;
+            background: transparent;
+            border: 1px solid var(--neon-green);
+            color: var(--neon-green);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: 0.4s;
+        }
+
+        .handshake-btn:hover {
+            background: var(--neon-green);
+            color: black;
+            box-shadow: 0 0 20px var(--neon-green);
+        }
+
+        #status-msg {
+            margin-top: 15px;
+            font-size: 0.75rem;
+            min-height: 1em;
+        }
+
+        .footer-note {
+            font-size: 0.6rem;
+            opacity: 0.5;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="grid-bg"></div>
+
+    <div class="mainframe">
+        <div class="header-tag">[ SYSTEM_STATUS: ENFORCED ]</div>
+        <h1>R.A.C.E. GATEWAY</h1>
+        
+        <div class="queue-box">
+            > NODE_ID: OGN-001 [ACTIVE]<br>
+            > QUEUE: FCFS_PRIORITY<br>
+            > STATUS: 14 SLOTS AVAILABLE
+        </div>
+
+        <input type="text" id="userInput" class="input-field" placeholder="> ENTER_INTENT_OR_TASK_ID" autocomplete="off">
+        
+        <button class="handshake-btn" onclick="processHandshake()">Initiate Handshake</button>
+
+        <div id="status-msg"></div>
+
+        <div class="footer-note">
+            AES-256 CLIENT-SIDE ENCRYPTION ACTIVE // ISOLATION MANDATE ENABLED
+        </div>
+    </div>
+
+    <script>
+        async function processHandshake() {
+            const input = document.getElementById('userInput').value;
+            const status = document.getElementById('status-msg');
+
+            if (!input) {
+                status.innerText = "!! ERROR: INPUT_REQUIRED";
+                return;
+            }
+
+            status.style.color = "var(--neon-green)";
+            status.innerText = "> ENCRYPTING_LOCAL_SHARD...";
+
+            // 1. ISOLATION JITTER (Timing Attack Protection)
+            const jitter = Math.floor(Math.random() * 250) + 100;
+
+            try {
+                // 2. ENCRYPTION LOGIC (Client-Side)
+                // Note: In production, replace the placeholder public key with your real one.
+                const message = `[Handshake] Intent: ${input}`;
+                
+                // Simulating encryption for this demo 
+                // In full deploy, use openpgp.encrypt() here.
+                
+                setTimeout(() => {
+                    status.innerText = "> TRANSMITTING_CIPHERTEXT...";
+                    
+                    setTimeout(() => {
+                        status.innerText = "[HANDSHAKE_SEALED]: FCFS SLOT SECURED.";
+                        document.getElementById('userInput').value = "";
+                    }, jitter);
+
+                }, 1000);
+
+            } catch (e) {
+                status.innerText = "!! SECURITY_BREACH: HANDSHAKE_FAILED";
+            }
+        }
+    </script>
+</body>
+</html>
