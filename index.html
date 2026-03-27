@@ -137,11 +137,10 @@
     <div class="grid-bg"></div>
 
     <div class="mainframe">
-        <div class="header-tag">[ SYSTEM_STATUS: ENFORCED ]</div>
-        <h1>R.A.C.E. GATEWAY</h1>
-        
-        <div class="queue-box">
-            > NODE_ID: OGN-001 [ACTIVE]<br>
+        <div class="header-tag">[ SYSTEM_STATUS: <span id="sys-status">LOADING...</span> ]</div>
+<h1>R.A.C.E. GATEWAY</h1>
+<div class="queue-box">
+    > NODE_ID: <span id="node-id">ENCRYPTED</span> [ACTIVE]<br>
             > QUEUE: FCFS_PRIORITY<br>
             > STATUS: 14 SLOTS AVAILABLE
         </div>
@@ -196,5 +195,13 @@
             }
         }
     </script>
+    <script>
+    // This script pulls the data from the Vercel Vault
+    const nodeIdentity = process.env.NEXT_PUBLIC_NODE_ID || "OGN-001";
+    const sysStatus = process.env.NEXT_PUBLIC_SYSTEM_STATUS || "ENFORCED";
+
+    document.getElementById('node-id').innerText = nodeIdentity;
+    document.getElementById('sys-status').innerText = sysStatus;
+        </script>
 </body>
 </html>
