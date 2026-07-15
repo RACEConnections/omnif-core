@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OurMarketplace | Industrial Food Chain & Distribution Network</title>
+    <title>OurMarketplace | Industrial Food Chain & Consumer Rewards</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
     <style>
@@ -12,6 +12,7 @@
             --emerald-medium: #0b4c35;
             --emerald-bright: #128155;
             --clay: #d96b27;
+            --gold: #f39c12;
             --charcoal: #121614;
             --light-cream: #f4f7f5;
         }
@@ -22,7 +23,6 @@
             color: var(--charcoal);
         }
 
-        /* Hero & Header Branding */
         .hero-banner {
             background: linear-gradient(135deg, var(--emerald-dark) 0%, var(--emerald-medium) 100%);
             color: white;
@@ -30,16 +30,12 @@
             border-bottom: 5px solid var(--clay);
         }
 
-        .navbar-brand, .btn-primary-custom {
-            font-weight: bold;
-            letter-spacing: 0.05em;
-        }
-
         .btn-primary-custom {
             background-color: var(--clay);
             color: white;
             border: none;
             transition: all 0.3s ease;
+            font-weight: bold;
         }
 
         .btn-primary-custom:hover {
@@ -48,7 +44,6 @@
             transform: translateY(-2px);
         }
 
-        /* Cards and Components */
         .card-custom {
             border: none;
             border-radius: 12px;
@@ -66,9 +61,9 @@
             padding-left: 15px;
             color: var(--emerald-dark);
             margin-bottom: 2rem;
+            font-weight: bold;
         }
 
-        /* Directory Badges */
         .sector-badge {
             font-size: 0.85rem;
             font-weight: bold;
@@ -80,7 +75,21 @@
         .badge-canteen { background-color: #e2f0cb; color: #4b6b1d; }
         .badge-streetchef { background-color: #d1f2f2; color: #156262; }
 
-        /* Protocol 01 Interactive Node Terminal */
+        /* Consumer Reward Badge Module Styles */
+        .reward-badge-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f9fbf9 100%);
+            border: 2px solid #e1ebe6;
+            border-radius: 14px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .reward-badge-icon {
+            font-size: 2.5rem;
+            color: var(--gold);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
         .terminal-block {
             background-color: var(--emerald-dark);
             color: #4ef2a6;
@@ -110,15 +119,16 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3">
         <div class="container">
-            <a class="navbar-brand" href="#"><i class="bi bi-geo-alt-fill text-warning"></i> OURMARKETPLACE.NAME.NG</a>
+            <a class="navbar-brand fw-bold" href="#"><i class="bi bi-geo-alt-fill text-warning"></i> OURMARKETPLACE.NAME.NG</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link active" href="#distribution">Supply Chain Map</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#local-operators">Food Merchants Directory</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#verify-node">Verify Protocol 01 Token</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#distribution">Logistics Chains</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#local-operators">Food Registry</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#consumer-rewards">Consumer Badges</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#verify-node">Protocol Verification</a></li>
                 </ul>
             </div>
         </div>
@@ -126,63 +136,64 @@
 
     <div class="hero-banner text-center">
         <div class="container">
-            <span class="badge bg-warning text-dark mb-2 px-3 py-2 fw-bold">PROTOCOL 01 ACTIVE</span>
-            <h1 class="display-4 fw-bold">Inter-Distribution Farm Integration Platform</h1>
-            <p class="lead">Unifying Industrial Agri-Supply and Local Street Chefs with Absolute Data Sovereignty.</p>
+            <span class="badge bg-warning text-dark mb-2 px-3 py-2 fw-bold">PROTOCOL 01 ENGINE ONLINE</span>
+            <h1 class="display-4 fw-bold">Industrial Supply Chain & Inter-Distribution Portal</h1>
+            <p class="lead">Protecting farm-to-table logistics, local canteens, and consumer markets with unyielding data sovereignty.</p>
             <a href="#verify-node" class="btn btn-primary-custom btn-lg mt-3 px-4 py-3"><i class="bi bi-shield-check"></i> Launch Decodable Handshake</a>
         </div>
     </div>
 
     <div class="container my-5">
+        
         <section id="distribution" class="mb-5">
-            <h2 class="section-header">Industrial Supply & Distribution Trends</h2>
-            <p class="text-muted">Real-time status tracking profiles and operational waybills mapping out grain silo collections and wholesale distribution hubs throughout the sector.</p>
+            <h2 class="section-header">Industrial Farm Produce & Logistics Channels</h2>
+            <p class="text-muted">Tracking raw supply influx, inventory volumes, and distribution waybills completely offline before tokenization mapping.</p>
             
             <div class="row g-4">
                 <div class="col-md-4">
                     <div class="card card-custom p-4 border-top border-5 border-success">
                         <div class="d-flex justify-content-between align-items-center mb-3">
-                            <span class="badge bg-success text-white">ACTIVE INFLOW</span>
-                            <small class="text-muted">Node ID: SIL01</small>
+                            <span class="badge bg-success text-white">GRAIN INTAKE</span>
+                            <small class="text-muted">Node: SIL01</small>
                         </div>
-                        <h4 class="fw-bold">Grain Silo Hub 01</h4>
-                        <p class="text-muted">Currently tracking primary wheat and yellow corn intake streams directly from regional agricultural gates.</p>
+                        <h4 class="fw-bold">Grain Silo Storage</h4>
+                        <p class="text-muted">Managing regional wheat allocations and raw bulk maize volumes across supply centers.</p>
                         <hr>
-                        <p class="mb-0 text-secondary"><strong>Active Code Token:</strong> <code>SIL01-MAZ_BULK-ING-B109</code></p>
+                        <p class="mb-0 text-secondary" style="font-size:0.9rem;"><strong>Active Status Node:</strong> <code>SIL01-MAZ_BULK-ING-B109</code></p>
                     </div>
                 </div>
 
                 <div class="col-md-4">
                     <div class="card card-custom p-4 border-top border-5 border-warning">
                         <div class="d-flex justify-content-between align-items-center mb-3">
-                            <span class="badge bg-warning text-dark">PROCESSING</span>
-                            <small class="text-muted">Node ID: MIL02</small>
+                            <span class="badge bg-warning text-dark">PROCESSING RUN</span>
+                            <small class="text-muted">Node: MIL02</small>
                         </div>
-                        <h4 class="fw-bold">Milling & Processing</h4>
-                        <p class="text-muted">Active processing of cereal batches and cassava root conversions. Sourced waybills strictly audited locally.</p>
+                        <h4 class="fw-bold">Milling Plant Complex</h4>
+                        <p class="text-muted">Active transformation of grain arrivals and cassava root reserves into wholesale commodities.</p>
                         <hr>
-                        <p class="mb-0 text-secondary"><strong>Active Code Token:</strong> <code>MIL02-WHT_PRC-EXP-B84</code></p>
+                        <p class="mb-0 text-secondary" style="font-size:0.9rem;"><strong>Active Status Node:</strong> <code>MIL02-WHT_PRC-EXP-B84</code></p>
                     </div>
                 </div>
 
                 <div class="col-md-4">
                     <div class="card card-custom p-4 border-top border-5 border-primary">
                         <div class="d-flex justify-content-between align-items-center mb-3">
-                            <span class="badge bg-primary text-white">DISPATCHED</span>
-                            <small class="text-muted">Node ID: WHD03</small>
+                            <span class="badge bg-primary text-white">WHOLESALE ROUTE</span>
+                            <small class="text-muted">Node: WHD03</small>
                         </div>
-                        <h4 class="fw-bold">Wholesale Distribution</h4>
-                        <p class="text-muted">Dispatched shipments routed toward local markets, commercial warehouses, and regional merchant hubs.</p>
+                        <h4 class="fw-bold">Distribution Outflow</h4>
+                        <p class="text-muted">Securing out-of-facility manifest clearances bound for food markets and city commercial corridors.</p>
                         <hr>
-                        <p class="mb-0 text-secondary"><strong>Active Code Token:</strong> <code>WHD03-CAS_QAC-EXP-B95</code></p>
+                        <p class="mb-0 text-secondary" style="font-size:0.9rem;"><strong>Active Status Node:</strong> <code>WHD03-CAS_QAC-EXP-B95</code></p>
                     </div>
                 </div>
             </div>
         </section>
 
         <section id="local-operators" class="mb-5">
-            <h2 class="section-header">Active Food Merchants & Cooking Service Registry</h2>
-            <p class="text-muted">Ensuring task effectiveness, ingredient accountability, and secure food network routing without worker displacement.</p>
+            <h2 class="section-header">Specialized Commercial Cooking Services Directory</h2>
+            <p class="text-muted">Tracking operational alignment, task metrics, and asset verification across regional dining houses, stalls, and chefs.</p>
             
             <div class="row g-4">
                 <div class="col-lg-3 col-md-6">
@@ -223,15 +234,83 @@
             </div>
         </section>
 
+        <section id="spotlight-reels" class="mb-5 bg-white p-4 rounded-3 shadow-sm border-start border-5 border-success">
+            <h3 class="fw-bold text-success mb-3"><i class="bi bi-star-fill text-warning"></i> Human Force Spotlight: Protection Against Profit Loss</h3>
+            <p class="text-muted">Honoring our regional suppliers and kitchen workforce. We supply direct, clean verification frameworks to guard your earnings against inflation errors.</p>
+
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="p-3 border rounded bg-light">
+                        <span class="badge bg-success mb-2">FARM OWNER ENGINE</span>
+                        <h5 class="fw-bold mb-1">Baba Tolani Cassava Yards</h5>
+                        <small class="text-muted d-block mb-2">Ota-Efun Supply Gate</small>
+                        <p class="small text-secondary">"Tracking harvest weight codes through un-copyable paper tokens ensures my wholesale profit boundaries are completely safe."</p>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="p-3 border rounded bg-light">
+                        <span class="badge bg-warning text-dark mb-2">MARKET TRADER METRIC</span>
+                        <h5 class="fw-bold mb-1">Mama Chidi Wholesale Grains</h5>
+                        <small class="text-muted d-block mb-2">Igbona Market Corridor</small>
+                        <p class="small text-secondary">"Market supply rates shift daily. Using offline short codes lets me match my incoming storage values accurately every morning."</p>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="p-3 border rounded bg-light">
+                        <span class="badge bg-primary mb-2">WAGE SERVICE SAFEGUARD</span>
+                        <h5 class="fw-bold mb-1">Iya Agba Canteen Operations</h5>
+                        <small class="text-muted d-block mb-2">Ayegbaju Market Sector</small>
+                        <p class="small text-secondary">"Logging kitchen assistant daily payouts directly into the structured ledger layout removes confusion and keeps my team happy."</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="consumer-rewards" class="mb-5">
+            <h2 class="section-header">Community Grid: Consumer Reward Badge Registry</h2>
+            <p class="text-muted">Rewarding public social interest and patronage across verified local food nodes. Consumers present their tokenized receipt stamps to confirm brand interaction tiers.</p>
+            
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card card-custom reward-badge-card p-4 text-center">
+                        <div class="reward-badge-icon mb-2"><i class="bi bi-award-fill"></i></div>
+                        <h4 class="fw-bold">Corridor Champion</h4>
+                        <p class="small text-muted mb-3">Awarded for multi-node support along the Ogo-Oluwa food corridor network.</p>
+                        <span class="badge bg-dark text-warning font-monospace py-2">NODE TYPE: RWD-COR-01</span>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card card-custom reward-badge-card p-4 text-center">
+                        <div class="reward-badge-icon mb-2" style="color: #cbd5e1;"><i class="bi bi-shield-shaded"></i></div>
+                        <h4 class="fw-bold">Sovereign Patron</h4>
+                        <p class="small text-muted mb-3">Earned by clients running verified alphanumeric text handshakes at local bukaland nodes.</p>
+                        <span class="badge bg-dark text-light font-monospace py-2">NODE TYPE: RWD-SOV-02</span>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card card-custom reward-badge-card p-4 text-center">
+                        <div class="reward-badge-icon mb-2" style="color: #b45309;"><i class="bi bi-lightning-charge-fill"></i></div>
+                        <h4 class="fw-bold">Zero-Waste Advocate</h4>
+                        <p class="small text-muted mb-3">Honoring patrons executing high-speed, direct meal clearances with active street chefs.</p>
+                        <span class="badge bg-dark text-info font-monospace py-2">NODE TYPE: RWD-ZWA-03</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section id="verify-node" class="mb-5">
             <div class="row justify-content-center">
                 <div class="col-lg-8">
                     <div class="card card-custom p-5 border-start border-5 border-danger">
-                        <h3 class="fw-bold text-danger mb-3"><i class="bi bi-shield-lock-fill"></i> Protocol 01 Air-Gapped Token Decryption</h3>
-                        <p class="text-muted">Verify any active alphanumeric token directly below. Because the core system is completely air-gapped, this interface only performs locally matched, zero-knowledge calculations based on your physical book page index.</p>
+                        <h3 class="fw-bold text-danger mb-3"><i class="bi bi-shield-lock-fill"></i> Protocol 01 Local Code Validation</h3>
+                        <p class="text-muted">Verify any cross-sector alphanumeric token right here. Since the core system database runs purely air-gapped, this module computes translation matches based entirely on the physical book indexes.</p>
                         
                         <div class="terminal-block my-4">
-                            <label class="form-label text-warning mb-2 fw-bold" style="font-size: 0.85rem;">ENTER ACTIVE TOKEN FOR ENVELOPE DECRYPTION:</label>
+                            <label class="form-label text-warning mb-2 fw-bold" style="font-size: 0.85rem;">INJECT CO-PILOT STRING EXTRESION:</label>
                             <input type="text" class="terminal-input" id="tokenInput" placeholder="e.g., SIL01-MAZ_BULK-ING-B109" oninput="verifyToken()">
                             
                             <div class="mt-4" id="decryptionFeedback">
@@ -247,7 +326,7 @@
     <footer class="bg-dark text-white py-4 mt-5 border-top border-warning">
         <div class="container text-center">
             <p class="mb-1 fw-bold">RHYTHM ARTS AND CULTURE ENTERTAINMENT LIMITED (R.A.C.E. LLC)</p>
-            <p class="small text-muted mb-0">&copy; 2026. Handcrafted under Protocol 01 Zero-Knowledge Guidelines.</p>
+            <p class="small text-muted mb-0">&copy; 2026. Configured strictly under offline data-hardening frameworks.</p>
         </div>
     </footer>
 
@@ -263,57 +342,43 @@
 
             const segments = inputVal.split('-');
             if (segments.length !== 4) {
-                feedback.innerHTML = '<span class="text-danger">&gt; ERROR: INVALID SEGMENT LENGTH. MUST CONFORM TO EXACT 4-BLOCK PATTERN.</span>';
+                feedback.innerHTML = '<span class="text-danger">&gt; ERROR: INVALID FORMAT LENGTH. SYSTEM REQUIRES UNIFORM 4-BLOCK STRUCTURAL CIPHER.</span>';
                 return;
             }
 
             const [origin, subject, action, index] = segments;
 
-            // Simplified Mock Database mapping segments
-            const map = {
+            const glossary = {
                 origins: {
-                    "SIL01": "Grain Silo Complex (Sector Hub 01)",
-                    "MIL02": "Processing & Milling Factory",
+                    "SIL01": "Grain Silo Complex (Regional Hub 01)",
+                    "MIL02": "Processing & Milling Factory Core",
                     "WHD03": "Wholesale Distribution Terminal",
-                    "AYE01": "Ayegbaju Node",
-                    "OSG03": "Osogbo Central Core"
+                    "AYE01": "Ayegbaju Chamber Workspace Node",
+                    "OSG03": "Osogbo Central Core Court Corridor"
                 },
                 subjects: {
-                    "MAZ_BULK": "Yellow Maize Inflow",
-                    "WHT": "Bulk Wheat Stock",
-                    "CAS": "Cassava Tubers",
-                    "C_KIT": "Cornerstone Kitchen Portfolio",
-                    "M_BUK": "Mamma-Joy Buka",
-                    "G_SPI": "Grill & Spice Express Logs",
-                    "A_MAS": "Alhaji Masa Food Stall"
+                    "MAZ_BULK": "Yellow Maize Inflow Batch",
+                    "WHT": "Bulk Wheat Consignment",
+                    "CAS": "Cassava Tuber Stocks",
+                    "C_KIT": "Cornerstone Kitchen Sub-ledger",
+                    "M_BUK": "Mamma-Joy Buka Ledger File",
+                    "G_SPI": "Grill & Spice Express Activity Logs",
+                    "A_MAS": "Alhaji Masa Food Stall Inventory"
                 },
                 actions: {
-                    "ING": "Successfully Ingested to Storage",
-                    "PRC": "Under Processing Stream",
-                    "QAC": "Passed Quality Assurance Check",
-                    "CLR": "Cleared and Completed",
-                    "REV": "Under Core Technical Audit",
-                    "EXP": "Expelled to Outbound Transport"
+                    "ING": "Securely Ingested into Offline Storage Facility",
+                    "PRC": "Under Local Factory Production Processing",
+                    "QAC": "Passed Quality Assurance Integrity Check",
+                    "CLR": "Cleared, Reconciled, and Formatted Completely",
+                    "REV": "Under Core Analytical Audit and Evaluation",
+                    "EXP": "Expelled to Outbound Logistics Channel"
                 }
             };
 
-            const originDecoded = map.origins[origin] || `Unknown Node (${origin})`;
-            const subjectDecoded = map.subjects[subject] || `Custom Subject ID (${subject})`;
-            const actionDecoded = map.actions[action] || `Custom Process State (${action})`;
-            const isWaybill = index.startsWith('B') ? `Waybill Ticket No. ${index.substring(1)}` : `Physical Book Page Index Reference: ${index}`;
+            const originDecoded = glossary.origins[origin] || `Custom Node Registry (${origin})`;
+            const subjectDecoded = glossary.subjects[subject] || `Custom Group Identifier (${subject})`;
+            const actionDecoded = glossary.actions[action] || `Custom Progress State (${action})`;
+            const isWaybill = index.startsWith('B') ? `Waybill Ticket Manifest ID No. ${index.substring(1)}` : `Original Physical Book Page Reference: ${index}`;
 
             feedback.innerHTML = `
-                <span class="text-success">&gt; DECRYPTION HANDSHAKE SUCCESSFUL:</span><br>
-                <div class="ms-3 mt-2 text-white">
-                    <strong>1. ORIGIN VECTOR:</strong> ${originDecoded}<br>
-                    <strong>2. CO-PILOT SUBSECTION:</strong> ${subjectDecoded}<br>
-                    <strong>3. OPERATIONAL STATE:</strong> ${actionDecoded}<br>
-                    <strong>4. PHYSICAL LINK:</strong> ${isWaybill}<br>
-                </div>
-                <div class="mt-3 text-warning fw-bold">&gt; STATUS VERDICT: [AIR_GAPPED_LOCK ENGAGED - ALL CLEAR]</div>
-            `;
-        }
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-    </html>
+                <span class="text-success">&gt; CIPHER HAN
