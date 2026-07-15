@@ -3,204 +3,317 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="google-site-verification" content="LbdE4UQwZ2mjD92sHtxrOBMKBq389fTxrPpiu6h8lyU" />
-    <title>OMNIF // R.A.C.E. SOVEREIGN GATE</title>
-    <meta name="description" content="Distributed Infrastructure. Sovereign Verification. First-Come, First-Serve.">
-    <meta name="keywords" content="Sovereign Logistics Osogbo, FCFS Freight, R.A.C.E. Infrastructure, VCI Oracle, Independent System Nigeria">
-
-    <meta property="og:title" content="OMNIF // R.A.C.E. SOVEREIGN GATE">
-    <meta property="og:description" content="Sovereign Utility. FCFS Access. Isolation Protocol Active.">
-    <meta property="og:image" content="https://omnif.carrd.co/assets/images/sovereign-logo-share.png">
-    <meta property="og:type" content="website">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/openpgp/5.11.0/openpgp.min.js"></script>
-
+    <title>OurMarketplace | Industrial Food Chain & Distribution Network</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
     <style>
         :root {
-            --neon-green: #00FF41;
-            --bg-dark: #0a0a0a;
-            --glass: rgba(255, 255, 255, 0.03);
-            --border: rgba(0, 255, 65, 0.2);
+            --emerald-dark: #072a1d;
+            --emerald-medium: #0b4c35;
+            --emerald-bright: #128155;
+            --clay: #d96b27;
+            --charcoal: #121614;
+            --light-cream: #f4f7f5;
         }
-
-        * { box-sizing: border-box; }
 
         body {
-            margin: 0;
-            padding: 0;
-            background: var(--bg-dark);
-            color: #ccc;
-            font-family: 'Courier New', Courier, monospace;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            overflow: hidden;
+            background-color: var(--light-cream);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            color: var(--charcoal);
         }
 
-        /* GHOST GRID BACKGROUND */
-        .grid-bg {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-image: linear-gradient(var(--glass) 1px, transparent 1px),
-                              linear-gradient(90deg, var(--glass) 1px, transparent 1px);
-            background-size: 40px 40px;
-            z-index: -1;
-            animation: scan 20s linear infinite;
-        }
-
-        @keyframes scan {
-            from { transform: translateY(0); }
-            to { transform: translateY(40px); }
-        }
-
-        /* SOVEREIGN CONTAINER */
-        .mainframe {
-            width: 95%;
-            max-width: 500px;
-            padding: 30px;
-            background: rgba(10, 10, 10, 0.8);
-            backdrop-filter: blur(15px);
-            border: 1px solid var(--border);
-            box-shadow: 0 0 30px rgba(0, 255, 65, 0.05);
-            text-align: center;
-        }
-
-        .header-tag {
-            font-size: 0.7rem;
-            color: var(--neon-green);
-            letter-spacing: 3px;
-            margin-bottom: 10px;
-        }
-
-        h1 {
-            font-size: 1.5rem;
-            margin: 10px 0;
+        /* Hero & Header Branding */
+        .hero-banner {
+            background: linear-gradient(135deg, var(--emerald-dark) 0%, var(--emerald-medium) 100%);
             color: white;
-            text-shadow: 0 0 10px var(--neon-green);
+            padding: 4rem 2rem;
+            border-bottom: 5px solid var(--clay);
         }
 
-        .queue-box {
-            background: rgba(0, 0, 0, 0.5);
-            border-left: 2px solid var(--neon-green);
-            padding: 15px;
-            margin: 20px 0;
+        .navbar-brand, .btn-primary-custom {
+            font-weight: bold;
+            letter-spacing: 0.05em;
+        }
+
+        .btn-primary-custom {
+            background-color: var(--clay);
+            color: white;
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary-custom:hover {
+            background-color: var(--emerald-bright);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Cards and Components */
+        .card-custom {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            background: white;
+            transition: transform 0.3s ease;
+        }
+
+        .card-custom:hover {
+            transform: translateY(-5px);
+        }
+
+        .section-header {
+            border-left: 5px solid var(--clay);
+            padding-left: 15px;
+            color: var(--emerald-dark);
+            margin-bottom: 2rem;
+        }
+
+        /* Directory Badges */
+        .sector-badge {
             font-size: 0.85rem;
-            text-align: left;
-            line-height: 1.6;
+            font-weight: bold;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
         }
 
-        .input-field {
-            width: 100%;
+        .badge-restaurant { background-color: #ffe8d6; color: #a0522d; }
+        .badge-canteen { background-color: #e2f0cb; color: #4b6b1d; }
+        .badge-streetchef { background-color: #d1f2f2; color: #156262; }
+
+        /* Protocol 01 Interactive Node Terminal */
+        .terminal-block {
+            background-color: var(--emerald-dark);
+            color: #4ef2a6;
+            font-family: 'Courier New', Courier, monospace;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--emerald-bright);
+        }
+
+        .terminal-input {
             background: transparent;
-            border: 1px solid var(--border);
-            padding: 12px;
-            color: var(--neon-green);
-            font-family: inherit;
-            margin-bottom: 20px;
+            border: none;
+            border-bottom: 2px solid var(--emerald-bright);
+            color: #ffffff;
+            font-size: 1.2rem;
+            font-family: monospace;
+            width: 100%;
+        }
+
+        .terminal-input:focus {
             outline: none;
-        }
-
-        .handshake-btn {
-            width: 100%;
-            padding: 15px;
-            background: transparent;
-            border: 1px solid var(--neon-green);
-            color: var(--neon-green);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            cursor: pointer;
-            transition: 0.4s;
-        }
-
-        .handshake-btn:hover {
-            background: var(--neon-green);
-            color: black;
-            box-shadow: 0 0 20px var(--neon-green);
-        }
-
-        #status-msg {
-            margin-top: 15px;
-            font-size: 0.75rem;
-            min-height: 1em;
-        }
-
-        .footer-note {
-            font-size: 0.6rem;
-            opacity: 0.5;
-            margin-top: 20px;
+            border-color: var(--clay);
         }
     </style>
 </head>
 <body>
 
-    <div class="grid-bg"></div>
-
-    <div class="mainframe">
-        <div class="header-tag">[ SYSTEM_STATUS: <span id="sys-status">LOADING...</span> ]</div>
-<h1>R.A.C.E. GATEWAY</h1>
-<div class="queue-box">
-    > NODE_ID: <span id="node-id">ENCRYPTED</span> [ACTIVE]<br>
-            > QUEUE: FCFS_PRIORITY<br>
-            > STATUS: 14 SLOTS AVAILABLE
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3">
+        <div class="container">
+            <a class="navbar-brand" href="#"><i class="bi bi-geo-alt-fill text-warning"></i> OURMARKETPLACE.NAME.NG</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" href="#distribution">Supply Chain Map</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#local-operators">Food Merchants Directory</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#verify-node">Verify Protocol 01 Token</a></li>
+                </ul>
+            </div>
         </div>
+    </nav>
 
-        <input type="text" id="userInput" class="input-field" placeholder="> ENTER_INTENT_OR_TASK_ID" autocomplete="off">
-        
-        <button class="handshake-btn" onclick="processHandshake()">Initiate Handshake</button>
-
-        <div id="status-msg"></div>
-
-        <div class="footer-note">
-            AES-256 CLIENT-SIDE ENCRYPTION ACTIVE // ISOLATION MANDATE ENABLED
+    <div class="hero-banner text-center">
+        <div class="container">
+            <span class="badge bg-warning text-dark mb-2 px-3 py-2 fw-bold">PROTOCOL 01 ACTIVE</span>
+            <h1 class="display-4 fw-bold">Inter-Distribution Farm Integration Platform</h1>
+            <p class="lead">Unifying Industrial Agri-Supply and Local Street Chefs with Absolute Data Sovereignty.</p>
+            <a href="#verify-node" class="btn btn-primary-custom btn-lg mt-3 px-4 py-3"><i class="bi bi-shield-check"></i> Launch Decodable Handshake</a>
         </div>
     </div>
 
-    <script>
-        async function processHandshake() {
-            const input = document.getElementById('userInput').value;
-            const status = document.getElementById('status-msg');
+    <div class="container my-5">
+        <section id="distribution" class="mb-5">
+            <h2 class="section-header">Industrial Supply & Distribution Trends</h2>
+            <p class="text-muted">Real-time status tracking profiles and operational waybills mapping out grain silo collections and wholesale distribution hubs throughout the sector.</p>
+            
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card card-custom p-4 border-top border-5 border-success">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="badge bg-success text-white">ACTIVE INFLOW</span>
+                            <small class="text-muted">Node ID: SIL01</small>
+                        </div>
+                        <h4 class="fw-bold">Grain Silo Hub 01</h4>
+                        <p class="text-muted">Currently tracking primary wheat and yellow corn intake streams directly from regional agricultural gates.</p>
+                        <hr>
+                        <p class="mb-0 text-secondary"><strong>Active Code Token:</strong> <code>SIL01-MAZ_BULK-ING-B109</code></p>
+                    </div>
+                </div>
 
-            if (!input) {
-                status.innerText = "!! ERROR: INPUT_REQUIRED";
+                <div class="col-md-4">
+                    <div class="card card-custom p-4 border-top border-5 border-warning">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="badge bg-warning text-dark">PROCESSING</span>
+                            <small class="text-muted">Node ID: MIL02</small>
+                        </div>
+                        <h4 class="fw-bold">Milling & Processing</h4>
+                        <p class="text-muted">Active processing of cereal batches and cassava root conversions. Sourced waybills strictly audited locally.</p>
+                        <hr>
+                        <p class="mb-0 text-secondary"><strong>Active Code Token:</strong> <code>MIL02-WHT_PRC-EXP-B84</code></p>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card card-custom p-4 border-top border-5 border-primary">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="badge bg-primary text-white">DISPATCHED</span>
+                            <small class="text-muted">Node ID: WHD03</small>
+                        </div>
+                        <h4 class="fw-bold">Wholesale Distribution</h4>
+                        <p class="text-muted">Dispatched shipments routed toward local markets, commercial warehouses, and regional merchant hubs.</p>
+                        <hr>
+                        <p class="mb-0 text-secondary"><strong>Active Code Token:</strong> <code>WHD03-CAS_QAC-EXP-B95</code></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="local-operators" class="mb-5">
+            <h2 class="section-header">Active Food Merchants & Cooking Service Registry</h2>
+            <p class="text-muted">Ensuring task effectiveness, ingredient accountability, and secure food network routing without worker displacement.</p>
+            
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-6">
+                    <div class="card card-custom p-3 text-center">
+                        <div class="mb-2"><span class="sector-badge badge-restaurant">Fine Restaurant</span></div>
+                        <h5 class="fw-bold mb-1">Cornerstone Kitchen</h5>
+                        <small class="text-muted">Ogo-Oluwa Corridor</small>
+                        <p class="mt-2 text-secondary font-monospace" style="font-size: 0.85rem;">Token: AYE01-C_KIT-CLR-P08</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="card card-custom p-3 text-center">
+                        <div class="mb-2"><span class="sector-badge badge-canteen">Local Canteen</span></div>
+                        <h5 class="fw-bold mb-1">Mamma-Joy Buka</h5>
+                        <small class="text-muted">Ayegbaju Sector</small>
+                        <p class="mt-2 text-secondary font-monospace" style="font-size: 0.85rem;">Token: AYE01-M_BUK-CLR-P22</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="card card-custom p-3 text-center">
+                        <div class="mb-2"><span class="sector-badge badge-streetchef">Active Chef</span></div>
+                        <h5 class="fw-bold mb-1">Grill & Spice Express</h5>
+                        <small class="text-muted">Osogbo Bypass</small>
+                        <p class="mt-2 text-secondary font-monospace" style="font-size: 0.85rem;">Token: OSG03-G_SPI-REV-P15</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="card card-custom p-3 text-center">
+                        <div class="mb-2"><span class="sector-badge badge-streetchef">Food Stall</span></div>
+                        <h5 class="fw-bold mb-1">Alhaji Masa Corner</h5>
+                        <small class="text-muted">Post Office Sector</small>
+                        <p class="mt-2 text-secondary font-monospace" style="font-size: 0.85rem;">Token: OSG03-A_MAS-CLR-P04</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="verify-node" class="mb-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card card-custom p-5 border-start border-5 border-danger">
+                        <h3 class="fw-bold text-danger mb-3"><i class="bi bi-shield-lock-fill"></i> Protocol 01 Air-Gapped Token Decryption</h3>
+                        <p class="text-muted">Verify any active alphanumeric token directly below. Because the core system is completely air-gapped, this interface only performs locally matched, zero-knowledge calculations based on your physical book page index.</p>
+                        
+                        <div class="terminal-block my-4">
+                            <label class="form-label text-warning mb-2 fw-bold" style="font-size: 0.85rem;">ENTER ACTIVE TOKEN FOR ENVELOPE DECRYPTION:</label>
+                            <input type="text" class="terminal-input" id="tokenInput" placeholder="e.g., SIL01-MAZ_BULK-ING-B109" oninput="verifyToken()">
+                            
+                            <div class="mt-4" id="decryptionFeedback">
+                                <span class="text-secondary">&gt; Awaiting alphanumeric string injection...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="bg-dark text-white py-4 mt-5 border-top border-warning">
+        <div class="container text-center">
+            <p class="mb-1 fw-bold">RHYTHM ARTS AND CULTURE ENTERTAINMENT LIMITED (R.A.C.E. LLC)</p>
+            <p class="small text-muted mb-0">&copy; 2026. Handcrafted under Protocol 01 Zero-Knowledge Guidelines.</p>
+        </div>
+    </footer>
+
+    <script>
+        function verifyToken() {
+            const inputVal = document.getElementById('tokenInput').value.trim().toUpperCase();
+            const feedback = document.getElementById('decryptionFeedback');
+            
+            if (inputVal === "") {
+                feedback.innerHTML = '<span class="text-secondary">&gt; Awaiting alphanumeric string injection...</span>';
                 return;
             }
 
-            status.style.color = "var(--neon-green)";
-            status.innerText = "> ENCRYPTING_LOCAL_SHARD...";
-
-            // 1. ISOLATION JITTER (Timing Attack Protection)
-            const jitter = Math.floor(Math.random() * 250) + 100;
-
-            try {
-                // 2. ENCRYPTION LOGIC (Client-Side)
-                // Note: In production, replace the placeholder public key with your real one.
-                const message = `[Handshake] Intent: ${input}`;
-                
-                // Simulating encryption for this demo 
-                // In full deploy, use openpgp.encrypt() here.
-                
-                setTimeout(() => {
-                    status.innerText = "> TRANSMITTING_CIPHERTEXT...";
-                    
-                    setTimeout(() => {
-                        status.innerText = "[HANDSHAKE_SEALED]: FCFS SLOT SECURED.";
-                        document.getElementById('userInput').value = "";
-                    }, jitter);
-
-                }, 1000);
-
-            } catch (e) {
-                status.innerText = "!! SECURITY_BREACH: HANDSHAKE_FAILED";
+            const segments = inputVal.split('-');
+            if (segments.length !== 4) {
+                feedback.innerHTML = '<span class="text-danger">&gt; ERROR: INVALID SEGMENT LENGTH. MUST CONFORM TO EXACT 4-BLOCK PATTERN.</span>';
+                return;
             }
+
+            const [origin, subject, action, index] = segments;
+
+            // Simplified Mock Database mapping segments
+            const map = {
+                origins: {
+                    "SIL01": "Grain Silo Complex (Sector Hub 01)",
+                    "MIL02": "Processing & Milling Factory",
+                    "WHD03": "Wholesale Distribution Terminal",
+                    "AYE01": "Ayegbaju Node",
+                    "OSG03": "Osogbo Central Core"
+                },
+                subjects: {
+                    "MAZ_BULK": "Yellow Maize Inflow",
+                    "WHT": "Bulk Wheat Stock",
+                    "CAS": "Cassava Tubers",
+                    "C_KIT": "Cornerstone Kitchen Portfolio",
+                    "M_BUK": "Mamma-Joy Buka",
+                    "G_SPI": "Grill & Spice Express Logs",
+                    "A_MAS": "Alhaji Masa Food Stall"
+                },
+                actions: {
+                    "ING": "Successfully Ingested to Storage",
+                    "PRC": "Under Processing Stream",
+                    "QAC": "Passed Quality Assurance Check",
+                    "CLR": "Cleared and Completed",
+                    "REV": "Under Core Technical Audit",
+                    "EXP": "Expelled to Outbound Transport"
+                }
+            };
+
+            const originDecoded = map.origins[origin] || `Unknown Node (${origin})`;
+            const subjectDecoded = map.subjects[subject] || `Custom Subject ID (${subject})`;
+            const actionDecoded = map.actions[action] || `Custom Process State (${action})`;
+            const isWaybill = index.startsWith('B') ? `Waybill Ticket No. ${index.substring(1)}` : `Physical Book Page Index Reference: ${index}`;
+
+            feedback.innerHTML = `
+                <span class="text-success">&gt; DECRYPTION HANDSHAKE SUCCESSFUL:</span><br>
+                <div class="ms-3 mt-2 text-white">
+                    <strong>1. ORIGIN VECTOR:</strong> ${originDecoded}<br>
+                    <strong>2. CO-PILOT SUBSECTION:</strong> ${subjectDecoded}<br>
+                    <strong>3. OPERATIONAL STATE:</strong> ${actionDecoded}<br>
+                    <strong>4. PHYSICAL LINK:</strong> ${isWaybill}<br>
+                </div>
+                <div class="mt-3 text-warning fw-bold">&gt; STATUS VERDICT: [AIR_GAPPED_LOCK ENGAGED - ALL CLEAR]</div>
+            `;
         }
     </script>
-    <script>
-    // This script pulls the data from the Vercel Vault
-    const nodeIdentity = process.env.NEXT_PUBLIC_NODE_ID || "OGN-001";
-    const sysStatus = process.env.NEXT_PUBLIC_SYSTEM_STATUS || "ENFORCED";
-
-    document.getElementById('node-id').innerText = nodeIdentity;
-    document.getElementById('sys-status').innerText = sysStatus;
-        </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-</html>
+    </html>
