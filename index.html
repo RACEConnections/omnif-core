@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SACIPHUB Marketplace | Food Supply & Community Culture</title>
+    <title>SACIPHUB Marketplace | VCI Government & Community Registry</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
     <style>
@@ -16,6 +16,7 @@
             --charcoal: #111413;
             --light-cream: #f4f7f5;
             --violet-brand: #4a154b;
+            --royal-red: #6b0c08;
         }
 
         body {
@@ -24,11 +25,49 @@
             color: var(--charcoal);
         }
 
+        /* Blinking Vacancy Badge Animation */
+        @keyframes blinker {
+            0% { opacity: 1; }
+            50% { opacity: 0.2; }
+            100% { opacity: 1; }
+        }
+
+        .vacancy-blink {
+            animation: blinker 1.5s linear infinite;
+            background-color: var(--clay) !important;
+            color: white !important;
+            font-weight: bold;
+            letter-spacing: 0.1em;
+        }
+
+        /* Navigation */
+        .navbar-custom {
+            background-color: var(--charcoal);
+            border-bottom: 3px solid var(--gold);
+        }
+
+        /* Hero banner */
         .hero-banner {
             background: linear-gradient(135deg, var(--emerald-dark) 0%, var(--emerald-medium) 100%);
             color: white;
-            padding: 4.5rem 2rem;
+            padding: 4rem 2rem;
             border-bottom: 5px solid var(--clay);
+        }
+
+        /* Monarch Tributes at Header */
+        .monarch-header-banner {
+            background: linear-gradient(135deg, #440a08 0%, #200403 100%);
+            color: #f1c40f;
+            border-bottom: 4px solid var(--gold);
+            padding: 2rem 1rem;
+        }
+
+        /* Government High-Regards Section */
+        .govt-regards-banner {
+            background: linear-gradient(135deg, #0d1e36 0%, #050d18 100%);
+            color: #e2e8f0;
+            border-bottom: 3px solid #3182ce;
+            padding: 1.5rem 1rem;
         }
 
         .btn-primary-custom {
@@ -41,20 +80,6 @@
 
         .btn-primary-custom:hover {
             background-color: var(--emerald-bright);
-            color: white;
-            transform: translateY(-2px);
-        }
-
-        .btn-violet {
-            background-color: var(--violet-brand);
-            color: white;
-            border: none;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
-
-        .btn-violet:hover {
-            background-color: #631e64;
             color: white;
             transform: translateY(-2px);
         }
@@ -89,29 +114,9 @@
         .badge-restaurant { background-color: #ffe8d6; color: #a0522d; }
         .badge-canteen { background-color: #e2f0cb; color: #4b6b1d; }
         .badge-streetchef { background-color: #d1f2f2; color: #156262; }
+        .badge-elders { background-color: #e2d9f3; color: var(--violet-brand); }
 
-        .saciphub-header {
-            border-left: 5px solid var(--violet-brand);
-            padding-left: 15px;
-            color: var(--violet-brand);
-            margin-bottom: 2rem;
-            font-weight: bold;
-        }
-
-        .award-gold-card {
-            background: linear-gradient(135deg, #fffcf3 0%, #fff9e6 100%);
-            border: 2px solid #fcebb6;
-            border-radius: 14px;
-        }
-
-        .concert-card {
-            background: linear-gradient(135deg, var(--emerald-dark) 0%, var(--charcoal) 100%);
-            color: white;
-            border-radius: 14px;
-            border: 1px solid var(--emerald-bright);
-        }
-
-        /* Printable Menu Card */
+        /* Printable Menu Area */
         .printable-menu-frame {
             background-color: var(--emerald-dark);
             color: #ffffff;
@@ -174,16 +179,6 @@
             transform: scale(1.1);
         }
 
-        .monarch-banner {
-            background: linear-gradient(135deg, #440a08 0%, #200403 100%);
-            color: #f1c40f;
-            border-top: 4px solid var(--gold);
-            border-bottom: 4px solid var(--gold);
-            padding: 2.5rem 1.5rem;
-            border-radius: 12px;
-        }
-
-        /* Print Override */
         @media print {
             body * { visibility: hidden; }
             .printable-menu-frame, .printable-menu-frame * { visibility: visible; }
@@ -194,28 +189,53 @@
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3 no-print">
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom py-3 no-print">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="#"><i class="bi bi-geo-alt-fill text-warning"></i> MARKET.PROTOCOLX.ONE</a>
+            <a class="navbar-brand fw-bold text-uppercase" href="#"><i class="bi bi-geo-alt-fill text-warning"></i> MARKET.PROTOCOLX.ONE</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#distribution">Supply Map</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#distribution">Logistics Chains</a></li>
                     <li class="nav-item"><a class="nav-link" href="#local-operators">Canteen Registry</a></li>
                     <li class="nav-item"><a class="nav-link" href="#jpm-showcase">JPM Menu Core</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#saciphub-spotlight">SACIPHUB Honors</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#verify-node">Verification Terminal</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
+    <header class="monarch-header-banner text-center shadow-sm">
+        <div class="container">
+            <i class="bi bi-shield-shaded fs-1 d-block mb-1 text-warning"></i>
+            <h3 class="fw-bold text-uppercase tracking-wider">Kábíyèsí o! Olúògangan Òfìrìgidi</h3>
+            <h5 class="fw-light text-warning mb-2">Supreme Royal Respect to His Royal Majesty, the Ataoja of Osogbo Land</h5>
+            <p class="mx-auto mt-2 mb-0 text-white-50 small" style="max-width: 800px;">
+                Operating in the historical center of Osogbo, R.A.C.E. LLC and SACIPHUB honor the traditional throne. May the reign of the Ataoja continue to foster prosperity, safe harvests, and peaceful commerce across our local market sectors.
+            </p>
+        </div>
+    </header>
+
+    <section class="govt-regards-banner text-center no-print">
+        <div class="container">
+            <div class="d-flex justify-content-center align-items-center gap-2 mb-2">
+                <span class="badge bg-primary px-3 py-1">FEDERAL</span>
+                <span class="badge bg-success px-3 py-1">STATE</span>
+                <span class="badge bg-secondary px-3 py-1">LOCAL</span>
+            </div>
+            <h5 class="fw-bold text-white tracking-wide mb-1">OFFICIAL RESPECTS TO GOVERNMENT EXECUTIVE LEADERSHIP</h5>
+            <p class="mx-auto mb-0 text-white-50 small" style="max-width: 850px; font-size: 0.85rem;">
+                We convey our utmost professional regards and administrative respect to the Executive, Legislative, and Judicial pillars of the Local Government Authorities, the Osun State Government Cabinet, and the Federal Republic of Nigeria. Protocol 01 functions to reinforce commercial transparency and localized economic strength.
+            </p>
+        </div>
+    </section>
+
     <div class="hero-banner text-center no-print">
         <div class="container">
-            <span class="badge bg-warning text-dark mb-2 px-3 py-2 fw-bold">VCI NETWORK LIVE</span>
-            <h1 class="display-4 fw-bold">SACIPHUB Food, Logistics & Cultural Platform</h1>
-            <p class="lead">Unifying elite regional catering operators and industrial food supply routes into a single secure matrix.</p>
+            <span class="badge bg-warning text-dark mb-2 px-3 py-2 fw-bold">VIRTUAL CONSUMPTION INDEX (VCI) SYNC</span>
+            <h1 class="display-4 fw-bold">SACIPHUB Food, Logistics & Government Hub</h1>
+            <p class="lead">Synchronizing agricultural supply corridors, active local chefs, and premium corporate networks under secure data-hardening protocols.</p>
             <div class="d-flex justify-content-center gap-3 flex-wrap mt-4">
                 <a href="#jpm-showcase" class="btn btn-warning btn-lg px-4 py-3 fw-bold text-dark"><i class="bi bi-journal-text"></i> View JPM Premium Menu</a>
                 <a href="#verify-node" class="btn btn-primary-custom btn-lg px-4 py-3"><i class="bi bi-shield-check"></i> Verification Handshake</a>
@@ -226,8 +246,8 @@
     <div class="container my-5">
         
         <section id="jpm-showcase" class="mb-5">
-            <h2 class="section-header">Premier Node: Jolly Premium Meal (JPM)</h2>
-            <p class="text-muted no-print">Located at the Library Compound, adjacent to the Court Premises, Governor's Lounge, and Police HQ, Oke-Fia. High-status clean self-service, takeaway, and rapid delivery network.</p>
+            <h2 class="section-header">Premier Active Node: Jolly Premium Meal (JPM)</h2>
+            <p class="text-muted no-print">Located at the Library Compound, adjacent to the Court Premises and Government Reserved Area (GRA), Oke-Fia. Clean self-service dining, takeout, and corporate deliveries.</p>
             
             <div class="row g-4 justify-content-center">
                 <div class="col-lg-8">
@@ -266,7 +286,7 @@
 
                         <div class="mb-4">
                             <h5 class="text-warning text-uppercase fw-bold border-bottom border-secondary pb-2 mb-3"><i class="bi bi-truck"></i> Institutional Orders & Delivery Parameters</h5>
-                            <p class="small text-white-50 mb-0">Serving the Oke-Fia Court Sector, State House Offices, and Library Complex. Call or SMS <strong>08106326967</strong> ahead of your timeline to clear waiting periods entirely. Secure token records processed via R.A.C.E. LLC parameters.</p>
+                            <p class="small text-white-50 mb-0">Serving the Oke-Fia Court Sector, GRA Offices, and Library Complex. Call or SMS <strong>08106326967</strong> ahead of your timeline to clear waiting periods. Secure token records processed via R.A.C.E. LLC parameters.</p>
                         </div>
 
                         <div class="text-center mt-4 no-print">
@@ -280,7 +300,7 @@
         </section>
 
         <section id="distribution" class="mb-5 no-print">
-            <h2 class="section-header">Agricultural Produce Logistics Channels</h2>
+            <h2 class="section-header">Agricultural Produce Logistics Channels (GRA Hubs)</h2>
             <div class="row g-4">
                 <div class="col-md-4">
                     <div class="card card-custom p-4 border-top border-5 border-success">
@@ -324,41 +344,47 @@
         </section>
 
         <section id="local-operators" class="mb-5 no-print">
-            <h2 class="section-header">Specialized Commercial Cooking Services</h2>
+            <h2 class="section-header">Active Cooking Services & ELDERS CLUB Integration</h2>
+            <p class="text-muted">Tracking local bukaland nodes, active canteens, and distinguished hospitality clusters operating under rentable air-gap systems.</p>
+            
             <div class="row g-4">
                 <div class="col-lg-3 col-md-6">
                     <div class="card card-custom p-3 text-center border-start border-3 border-warning">
                         <div class="mb-2"><span class="sector-badge badge-restaurant">Premium Anchor</span></div>
                         <h5 class="fw-bold mb-1">Jolly Premium Meal</h5>
-                        <small class="text-muted">Oke-Fia Library Compound</small>
+                        <small class="text-muted">Oke-Fia Library & GRA Compound</small>
                         <p class="mt-2 text-secondary font-monospace" style="font-size: 0.85rem;">Token: OSG03-JPM_KIT-CLR-P09</p>
                     </div>
                 </div>
 
                 <div class="col-lg-3 col-md-6">
-                    <div class="card card-custom p-3 text-center">
-                        <div class="mb-2"><span class="sector-badge badge-canteen">Local Canteen</span></div>
-                        <h5 class="fw-bold mb-1">Mamma-Joy Buka</h5>
-                        <small class="text-muted">Ayegbaju Sector</small>
-                        <p class="mt-2 text-secondary font-monospace" style="font-size: 0.85rem;">Token: AYE01-M_BUK-CLR-P22</p>
+                    <div class="card card-custom p-3 text-center border-start border-3 border-secondary">
+                        <div class="mb-2"><span class="sector-badge badge-elders">Elders Club Hub</span></div>
+                        <h5 class="fw-bold mb-1">Elders Executive Suite</h5>
+                        <small class="text-muted">GRA Area Administrative Sector</small>
+                        <p class="mt-2 text-secondary font-monospace" style="font-size: 0.85rem;">Token: GRA05-ELD_SEC-REV-P02</p>
                     </div>
                 </div>
 
                 <div class="col-lg-3 col-md-6">
-                    <div class="card card-custom p-3 text-center">
-                        <div class="mb-2"><span class="sector-badge badge-streetchef">Active Chef</span></div>
-                        <h5 class="fw-bold mb-1">Grill & Spice Express</h5>
-                        <small class="text-muted">Osogbo Bypass</small>
-                        <p class="mt-2 text-secondary font-monospace" style="font-size: 0.85rem;">Token: OSG03-G_SPI-REV-P15</p>
+                    <div class="card card-custom p-3 text-center border-dashed border-2">
+                        <div class="mb-2">
+                            <span class="sector-badge vacancy-blink">VACANCY</span>
+                        </div>
+                        <h5 class="fw-bold mb-1 text-muted">OPEN CORRIDOR SLOT</h5>
+                        <small class="text-muted">Oke-Fia / GRA Pipeline</small>
+                        <p class="mt-2 text-secondary font-monospace" style="font-size: 0.85rem;">Token: AWAITING_INGESTION</p>
                     </div>
                 </div>
 
                 <div class="col-lg-3 col-md-6">
-                    <div class="card card-custom p-3 text-center">
-                        <div class="mb-2"><span class="sector-badge badge-streetchef">Food Stall</span></div>
-                        <h5 class="fw-bold mb-1">Alhaji Masa Corner</h5>
-                        <small class="text-muted">Post Office Sector</small>
-                        <p class="mt-2 text-secondary font-monospace" style="font-size: 0.85rem;">Token: OSG03-A_MAS-CLR-P04</p>
+                    <div class="card card-custom p-3 text-center border-dashed border-2">
+                        <div class="mb-2">
+                            <span class="sector-badge vacancy-blink">VACANCY</span>
+                        </div>
+                        <h5 class="fw-bold mb-1 text-muted">OPEN SERVICE NODE</h5>
+                        <small class="text-muted">Osogbo Market Core</small>
+                        <p class="mt-2 text-secondary font-monospace" style="font-size: 0.85rem;">Token: AWAITING_INGESTION</p>
                     </div>
                 </div>
             </div>
@@ -376,7 +402,7 @@
                                 <span class="badge bg-dark text-warning mt-1">2026 EDITION</span>
                             </div>
                         </div>
-                        <p class="text-secondary">Recognizing the unsung behind-the-scenes drivers of our local supply chains. Spotlighting frontline active service operators for consistent commercial excellence.</p>
+                        <p class="text-secondary">Recognizing behind-the-scenes drivers of our local supply systems. Spotlighting frontline active service operators for consistent commercial excellence.</p>
                     </div>
                 </div>
 
@@ -389,20 +415,9 @@
                                 <span class="badge bg-danger mt-1">LIVE PERFORMANCE SECTOR</span>
                             </div>
                         </div>
-                        <p class="text-light-50">Celebrating a secured annual harvest and regional business milestones with music! Uniting tech developers, active cooks, market women, and corporate leaders at our high-energy seasonal concerts.</p>
+                        <p class="text-light-50">Celebrating secured harvest indices and regional business milestones with live music! Uniting tech developers, active cooks, market women, and corporate leaders.</p>
                     </div>
                 </div>
-            </div>
-        </section>
-
-        <section id="royal-tribute" class="mb-5 no-print">
-            <div class="monarch-banner text-center shadow">
-                <i class="bi bi-shield-shaded fs-1 d-block mb-2"></i>
-                <h3 class="fw-bold text-uppercase tracking-wider">Kábíyèsí o! Olúògangan Òfìrìgidi</h3>
-                <h4 class="fw-light text-warning">Supreme Respect to His Royal Majesty, the Ataoja of Osogbo Land</h4>
-                <p class="mx-auto mt-3 mb-0 text-white-50 small" style="max-width: 700px;">
-                    Operating within the spiritual, agricultural, and commercial capital of Osun State, this platform honors the ancestral seat of Osogbo. May the reign of the Ataoja continue to bring prosperity, abundant harvests, and absolute peace to all market operators and trade guilds.
-                </p>
             </div>
         </section>
 
@@ -427,8 +442,14 @@
     <footer class="bg-dark text-white py-5 mt-5 border-top border-warning no-print">
         <div class="container text-center">
             <p class="fw-bold mb-1">RHYTHM ARTS AND CULTURE ENTERTAINMENT LIMITED (R.A.C.E. LLC)</p>
-            <p class="small text-muted mb-4">SACIPHUB Project Hub &copy; 2026. Handcrafted under Protocol 01 Data-Hardening Standards.</p>
+            <p class="small text-muted mb-3">SACIPHUB Project Hub &copy; 2026. Configured under Protocol 01 Data-Hardening Standards.</p>
             
+            <div class="d-flex flex-column align-items-center mb-4 text-warning">
+                <span class="small text-muted mb-1">SYSTEM INGESTION HOT-LINES:</span>
+                <span class="font-monospace fw-bold"><i class="bi bi-telephone-outbound-fill"></i> 08127833493 [System Controller]</span>
+                <span class="font-monospace fw-bold"><i class="bi bi-telephone-fill"></i> 08106326967 [Jolly Premium Meal Direct]</span>
+            </div>
+
             <div class="d-flex justify-content-center mb-4">
                 <a class="social-btn" href="https://www.youtube.com/SACIPHUB" target="_blank" title="SACIPHUB YouTube"><i class="bi bi-youtube"></i></a>
                 <a class="social-btn" href="https://x.com" target="_blank" title="R.A.C.E. X"><i class="bi bi-twitter-x"></i></a>
@@ -464,7 +485,8 @@
                     "MIL02": "Processing & Milling Factory",
                     "WHD03": "Wholesale Distribution Center",
                     "AYE01": "Ayegbaju Chamber Terminal Node",
-                    "OSG03": "Osogbo Central Core Court Corridor"
+                    "OSG03": "Osogbo Central Core Court Corridor",
+                    "GRA05": "Government Reserved Area (GRA) Sector Office"
                 },
                 subjects: {
                     "MAZ_BULK": "Yellow Maize Volume",
@@ -474,7 +496,8 @@
                     "M_BUK": "Mamma-Joy Buka Ledger File",
                     "G_SPI": "Grill & Spice Express Activity Logs",
                     "A_MAS": "Alhaji Masa Food Stall Inventory",
-                    "JPM_KIT": "Jolly Premium Meal Inventory Matrix"
+                    "JPM_KIT": "Jolly Premium Meal Inventory Matrix",
+                    "ELD_SEC": "Elders Club VIP Operations"
                 },
                 actions: {
                     "ING": "Securely Ingested into Offline Storage",
@@ -504,4 +527,4 @@
         }
     </script>
 </body>
-</html>
+</html>          
