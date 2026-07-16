@@ -1,23 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <a class="navbar-brand fw-bold" href="#"><i class="bi bi-geo-alt-fill text-warning"></i> MARKET.PROTOCOLX.ONE</a>
-
-<footer class="bg-dark text-white py-4 mt-5 border-top border-warning">
-    <div class="container text-center">
-        <p class="mb-1 fw-bold">RHYTHM ARTS AND CULTURE ENTERTAINMENT LIMITED (R.A.C.E. LLC)</p>
-        <p class="small text-muted mb-0">&copy; 2026. Configured under Protocol 01 Zero-Knowledge Guidelines at market.protocolx.one</p>
-    </div>
-</footer>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SACIPHUB Marketplace | Food Supply & Community Culture</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
     <style>
         :root {
-            --emerald-dark: #072a1d;
+            --emerald-dark: #061f15;
             --emerald-medium: #0b4c35;
             --emerald-bright: #128155;
             --clay: #d96b27;
-            --gold: #f39c12;
-            --charcoal: #121614;
+            --gold: #f1c40f;
+            --charcoal: #111413;
             --light-cream: #f4f7f5;
+            --violet-brand: #4a154b;
         }
 
         body {
@@ -26,10 +24,11 @@
             color: var(--charcoal);
         }
 
+        /* Hero styling */
         .hero-banner {
             background: linear-gradient(135deg, var(--emerald-dark) 0%, var(--emerald-medium) 100%);
             color: white;
-            padding: 4rem 2rem;
+            padding: 4.5rem 2rem;
             border-bottom: 5px solid var(--clay);
         }
 
@@ -43,6 +42,20 @@
 
         .btn-primary-custom:hover {
             background-color: var(--emerald-bright);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .btn-violet {
+            background-color: var(--violet-brand);
+            color: white;
+            border: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .btn-violet:hover {
+            background-color: #631e64;
             color: white;
             transform: translateY(-2px);
         }
@@ -78,21 +91,29 @@
         .badge-canteen { background-color: #e2f0cb; color: #4b6b1d; }
         .badge-streetchef { background-color: #d1f2f2; color: #156262; }
 
-        /* Consumer Reward Badge Module Styles */
-        .reward-badge-card {
-            background: linear-gradient(135deg, #ffffff 0%, #f9fbf9 100%);
-            border: 2px solid #e1ebe6;
+        /* SACIPHUB Spotlight Module */
+        .saciphub-header {
+            border-left: 5px solid var(--violet-brand);
+            padding-left: 15px;
+            color: var(--violet-brand);
+            margin-bottom: 2rem;
+            font-weight: bold;
+        }
+
+        .award-gold-card {
+            background: linear-gradient(135deg, #fffcf3 0%, #fff9e6 100%);
+            border: 2px solid #fcebb6;
             border-radius: 14px;
-            position: relative;
-            overflow: hidden;
         }
 
-        .reward-badge-icon {
-            font-size: 2.5rem;
-            color: var(--gold);
-            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        .concert-card {
+            background: linear-gradient(135deg, var(--emerald-dark) 0%, var(--charcoal) 100%);
+            color: white;
+            border-radius: 14px;
+            border: 1px solid var(--emerald-bright);
         }
 
+        /* Verification terminal styling */
         .terminal-block {
             background-color: var(--emerald-dark);
             color: #4ef2a6;
@@ -116,22 +137,44 @@
             outline: none;
             border-color: var(--clay);
         }
+
+        /* Social Connection Cluster */
+        .social-btn {
+            width: 45px;
+            height: 45px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: #2c302e;
+            color: white;
+            font-size: 1.2rem;
+            margin: 0 8px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-btn:hover {
+            background-color: var(--clay);
+            color: white;
+            transform: scale(1.1);
+        }
     </style>
 </head>
 <body>
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="#"><i class="bi bi-geo-alt-fill text-warning"></i> OURMARKETPLACE.NAME.NG</a>
+            <a class="navbar-brand fw-bold" href="#"><i class="bi bi-geo-alt-fill text-warning"></i> MARKET.PROTOCOLX.ONE</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#distribution">Logistics Chains</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#local-operators">Food Registry</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#consumer-rewards">Consumer Badges</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#verify-node">Protocol Verification</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#distribution">Supply Map</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#local-operators">Canteen Registry</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#saciphub-spotlight">SACIPHUB Honors</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#verify-node">Verification Terminal</a></li>
                 </ul>
             </div>
         </div>
@@ -139,64 +182,67 @@
 
     <div class="hero-banner text-center">
         <div class="container">
-            <span class="badge bg-warning text-dark mb-2 px-3 py-2 fw-bold">PROTOCOL 01 ENGINE ONLINE</span>
-            <h1 class="display-4 fw-bold">Industrial Supply Chain & Inter-Distribution Portal</h1>
-            <p class="lead">Protecting farm-to-table logistics, local canteens, and consumer markets with unyielding data sovereignty.</p>
-            <a href="#verify-node" class="btn btn-primary-custom btn-lg mt-3 px-4 py-3"><i class="bi bi-shield-check"></i> Launch Decodable Handshake</a>
+            <span class="badge bg-warning text-dark mb-2 px-3 py-2 fw-bold">PROTOCOL 01 ENCRYPTED</span>
+            <h1 class="display-4 fw-bold">SACIPHUB Food, Logistics & Cultural Platform</h1>
+            <p class="lead">Merging food sovereignty, community awards, and high-energy music festivals into one integrated gateway.</p>
+            <div class="d-flex justify-content-center gap-3 flex-wrap mt-4">
+                <a href="#verify-node" class="btn btn-primary-custom btn-lg px-4 py-3"><i class="bi bi-shield-check"></i> Decodable Handshake</a>
+                <a href="#saciphub-spotlight" class="btn btn-violet btn-lg px-4 py-3"><i class="bi bi-star-fill"></i> View Cultural Reels</a>
+            </div>
         </div>
     </div>
 
     <div class="container my-5">
         
         <section id="distribution" class="mb-5">
-            <h2 class="section-header">Industrial Farm Produce & Logistics Channels</h2>
-            <p class="text-muted">Tracking raw supply influx, inventory volumes, and distribution waybills completely offline before tokenization mapping.</p>
+            <h2 class="section-header">Agricultural Produce Logistics Channels</h2>
+            <p class="text-muted">Tracking wholesale waybills, crop weights, and distribution networks without exposing unencrypted client data.</p>
             
             <div class="row g-4">
                 <div class="col-md-4">
                     <div class="card card-custom p-4 border-top border-5 border-success">
                         <div class="d-flex justify-content-between align-items-center mb-3">
-                            <span class="badge bg-success text-white">GRAIN INTAKE</span>
+                            <span class="badge bg-success text-white">GRAIN INGESTION</span>
                             <small class="text-muted">Node: SIL01</small>
                         </div>
                         <h4 class="fw-bold">Grain Silo Storage</h4>
-                        <p class="text-muted">Managing regional wheat allocations and raw bulk maize volumes across supply centers.</p>
+                        <p class="text-muted">Securing regional grain, crop arrivals, and wheat storage allocations in verified silos.</p>
                         <hr>
-                        <p class="mb-0 text-secondary" style="font-size:0.9rem;"><strong>Active Status Node:</strong> <code>SIL01-MAZ_BULK-ING-B109</code></p>
+                        <p class="mb-0 text-secondary" style="font-size:0.9rem;"><strong>Alphanumeric Node:</strong> <code>SIL01-MAZ_BULK-ING-B109</code></p>
                     </div>
                 </div>
 
                 <div class="col-md-4">
                     <div class="card card-custom p-4 border-top border-5 border-warning">
                         <div class="d-flex justify-content-between align-items-center mb-3">
-                            <span class="badge bg-warning text-dark">PROCESSING RUN</span>
+                            <span class="badge bg-warning text-dark">PROCESSING</span>
                             <small class="text-muted">Node: MIL02</small>
                         </div>
-                        <h4 class="fw-bold">Milling Plant Complex</h4>
-                        <p class="text-muted">Active transformation of grain arrivals and cassava root reserves into wholesale commodities.</p>
+                        <h4 class="fw-bold">Milling Plant Matrix</h4>
+                        <p class="text-muted">Converting raw grain deliveries and cassava root reserves into commercial market volumes.</p>
                         <hr>
-                        <p class="mb-0 text-secondary" style="font-size:0.9rem;"><strong>Active Status Node:</strong> <code>MIL02-WHT_PRC-EXP-B84</code></p>
+                        <p class="mb-0 text-secondary" style="font-size:0.9rem;"><strong>Alphanumeric Node:</strong> <code>MIL02-WHT_PRC-EXP-B84</code></p>
                     </div>
                 </div>
 
                 <div class="col-md-4">
                     <div class="card card-custom p-4 border-top border-5 border-primary">
                         <div class="d-flex justify-content-between align-items-center mb-3">
-                            <span class="badge bg-primary text-white">WHOLESALE ROUTE</span>
+                            <span class="badge bg-primary text-white">DISTRIBUTION</span>
                             <small class="text-muted">Node: WHD03</small>
                         </div>
-                        <h4 class="fw-bold">Distribution Outflow</h4>
-                        <p class="text-muted">Securing out-of-facility manifest clearances bound for food markets and city commercial corridors.</p>
+                        <h4 class="fw-bold">Outflow Logistics</h4>
+                        <p class="text-muted">Securing transport waybills bound for regional food markets and local canteens.</p>
                         <hr>
-                        <p class="mb-0 text-secondary" style="font-size:0.9rem;"><strong>Active Status Node:</strong> <code>WHD03-CAS_QAC-EXP-B95</code></p>
+                        <p class="mb-0 text-secondary" style="font-size:0.9rem;"><strong>Alphanumeric Node:</strong> <code>WHD03-CAS_QAC-EXP-B95</code></p>
                     </div>
                 </div>
             </div>
         </section>
 
         <section id="local-operators" class="mb-5">
-            <h2 class="section-header">Specialized Commercial Cooking Services Directory</h2>
-            <p class="text-muted">Tracking operational alignment, task metrics, and asset verification across regional dining houses, stalls, and chefs.</p>
+            <h2 class="section-header">Specialized Commercial Cooking Services</h2>
+            <p class="text-muted">Tracking local bukaland nodes, active canteens, and cooking services operating under our rentable air-gap systems.</p>
             
             <div class="row g-4">
                 <div class="col-lg-3 col-md-6">
@@ -237,69 +283,54 @@
             </div>
         </section>
 
-        <section id="spotlight-reels" class="mb-5 bg-white p-4 rounded-3 shadow-sm border-start border-5 border-success">
-            <h3 class="fw-bold text-success mb-3"><i class="bi bi-star-fill text-warning"></i> Human Force Spotlight: Protection Against Profit Loss</h3>
-            <p class="text-muted">Honoring our regional suppliers and kitchen workforce. We supply direct, clean verification frameworks to guard your earnings against inflation errors.</p>
+        <section id="saciphub-spotlight" class="mb-5">
+            <h2 class="saciphub-header"><i class="bi bi-music-note-beamed"></i> SACIPHUB Cultural & Creative Hub</h2>
+            <p class="text-muted">Highlighting the creative life that fuels the workforce. Bridging local business stability with public social interest, musical festivals, and honor awards.</p>
 
             <div class="row g-4">
-                <div class="col-md-4">
-                    <div class="p-3 border rounded bg-light">
-                        <span class="badge bg-success mb-2">FARM OWNER ENGINE</span>
-                        <h5 class="fw-bold mb-1">Baba Tolani Cassava Yards</h5>
-                        <small class="text-muted d-block mb-2">Ota-Efun Supply Gate</small>
-                        <p class="small text-secondary">"Tracking harvest weight codes through un-copyable paper tokens ensures my wholesale profit boundaries are completely safe."</p>
+                <div class="col-md-6">
+                    <div class="card card-custom award-gold-card p-4 h-100 border-start border-5 border-warning">
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="bi bi-award-fill text-warning fs-1 me-3"></i>
+                            <div>
+                                <h4 class="fw-bold mb-0 text-dark">SACIPHUB Honors Program</h4>
+                                <span class="badge bg-dark text-warning mt-1">2026 EDITION</span>
+                            </div>
+                        </div>
+                        <p class="text-secondary">Recognizing the unsung drivers of our daily supply systems. From persistent farm owners to the street chefs feeding our regional hubs, these honors spotlight consistent performance and social commitment.</p>
+                        
+                        <div class="mt-3">
+                            <div class="d-flex justify-content-between border-bottom py-2">
+                                <span class="text-dark fw-bold">1. Sovereign Agriculture Champion</span>
+                                <span class="badge bg-success">Baba Tolani Cassava</span>
+                            </div>
+                            <div class="d-flex justify-content-between border-bottom py-2">
+                                <span class="text-dark fw-bold">2. Local Culinary Excellence</span>
+                                <span class="badge bg-primary">Iya Agba Canteen</span>
+                            </div>
+                            <div class="d-flex justify-content-between py-2">
+                                <span class="text-dark fw-bold">3. Fleet Logistics Steward</span>
+                                <span class="badge bg-secondary">Igbona Grain Transit</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="col-md-4">
-                    <div class="p-3 border rounded bg-light">
-                        <span class="badge bg-warning text-dark mb-2">MARKET TRADER METRIC</span>
-                        <h5 class="fw-bold mb-1">Mama Chidi Wholesale Grains</h5>
-                        <small class="text-muted d-block mb-2">Igbona Market Corridor</small>
-                        <p class="small text-secondary">"Market supply rates shift daily. Using offline short codes lets me match my incoming storage values accurately every morning."</p>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="p-3 border rounded bg-light">
-                        <span class="badge bg-primary mb-2">WAGE SERVICE SAFEGUARD</span>
-                        <h5 class="fw-bold mb-1">Iya Agba Canteen Operations</h5>
-                        <small class="text-muted d-block mb-2">Ayegbaju Market Sector</small>
-                        <p class="small text-secondary">"Logging kitchen assistant daily payouts directly into the structured ledger layout removes confusion and keeps my team happy."</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="consumer-rewards" class="mb-5">
-            <h2 class="section-header">Community Grid: Consumer Reward Badge Registry</h2>
-            <p class="text-muted">Rewarding public social interest and patronage across verified local food nodes. Consumers present their tokenized receipt stamps to confirm brand interaction tiers.</p>
-            
-            <div class="row g-4">
-                <div class="col-md-4">
-                    <div class="card card-custom reward-badge-card p-4 text-center">
-                        <div class="reward-badge-icon mb-2"><i class="bi bi-award-fill"></i></div>
-                        <h4 class="fw-bold">Corridor Champion</h4>
-                        <p class="small text-muted mb-3">Awarded for multi-node support along the Ogo-Oluwa food corridor network.</p>
-                        <span class="badge bg-dark text-warning font-monospace py-2">NODE TYPE: RWD-COR-01</span>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="card card-custom reward-badge-card p-4 text-center">
-                        <div class="reward-badge-icon mb-2" style="color: #cbd5e1;"><i class="bi bi-shield-shaded"></i></div>
-                        <h4 class="fw-bold">Sovereign Patron</h4>
-                        <p class="small text-muted mb-3">Earned by clients running verified alphanumeric text handshakes at local bukaland nodes.</p>
-                        <span class="badge bg-dark text-light font-monospace py-2">NODE TYPE: RWD-SOV-02</span>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="card card-custom reward-badge-card p-4 text-center">
-                        <div class="reward-badge-icon mb-2" style="color: #b45309;"><i class="bi bi-lightning-charge-fill"></i></div>
-                        <h4 class="fw-bold">Zero-Waste Advocate</h4>
-                        <p class="small text-muted mb-3">Honoring patrons executing high-speed, direct meal clearances with active street chefs.</p>
-                        <span class="badge bg-dark text-info font-monospace py-2">NODE TYPE: RWD-ZWA-03</span>
+                <div class="col-md-6">
+                    <div class="card card-custom concert-card p-4 h-100 border-start border-5 border-danger">
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="bi bi-mic-fill text-danger fs-1 me-3"></i>
+                            <div>
+                                <h4 class="fw-bold mb-0">SACIPHUB End-of-Party Concerts</h4>
+                                <span class="badge bg-danger mt-1">LIVE PERFORMANCE SECTOR</span>
+                            </div>
+                        </div>
+                        <p class="text-light-50">Celebrating a secured annual harvest and regional business milestones with music! Uniting tech developers, active cooks, market women, and corporate leaders at our high-energy seasonal concerts.</p>
+                        
+                        <div class="p-3 bg-dark rounded border border-secondary mt-3">
+                            <h5 class="fw-bold text-warning mb-1"><i class="bi bi-calendar-check"></i> Next Up: Osogbo Harvest Jam 2026</h5>
+                            <p class="small text-muted mb-0">Join our community artists, local drummers, and modern afro-fusion performers in celebrating a completely secured supply chain cycle.</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -309,11 +340,11 @@
             <div class="row justify-content-center">
                 <div class="col-lg-8">
                     <div class="card card-custom p-5 border-start border-5 border-danger">
-                        <h3 class="fw-bold text-danger mb-3"><i class="bi bi-shield-lock-fill"></i> Protocol 01 Local Code Validation</h3>
-                        <p class="text-muted">Verify any cross-sector alphanumeric token right here. Since the core system database runs purely air-gapped, this module computes translation matches based entirely on the physical book indexes.</p>
+                        <h3 class="fw-bold text-danger mb-3"><i class="bi bi-shield-lock-fill"></i> Protocol 01 Alphanumeric Decryption</h3>
+                        <p class="text-muted">Verify any active, offline alphanumeric token directly below. Calculations run entirely client-side, ensuring that zero human-readable context is ever pushed to the cloud network.</p>
                         
                         <div class="terminal-block my-4">
-                            <label class="form-label text-warning mb-2 fw-bold" style="font-size: 0.85rem;">INJECT CO-PILOT STRING EXTRESION:</label>
+                            <label class="form-label text-warning mb-2 fw-bold" style="font-size: 0.85rem;">INJECT TOKEN STRING REFERENCE:</label>
                             <input type="text" class="terminal-input" id="tokenInput" placeholder="e.g., SIL01-MAZ_BULK-ING-B109" oninput="verifyToken()">
                             
                             <div class="mt-4" id="decryptionFeedback">
@@ -326,10 +357,20 @@
         </section>
     </div>
 
-    <footer class="bg-dark text-white py-4 mt-5 border-top border-warning">
+    <footer class="bg-dark text-white py-5 mt-5 border-top border-warning">
         <div class="container text-center">
-            <p class="mb-1 fw-bold">RHYTHM ARTS AND CULTURE ENTERTAINMENT LIMITED (R.A.C.E. LLC)</p>
-            <p class="small text-muted mb-0">&copy; 2026. Configured strictly under offline data-hardening frameworks.</p>
+            <p class="fw-bold mb-1">RHYTHM ARTS AND CULTURE ENTERTAINMENT LIMITED (R.A.C.E. LLC)</p>
+            <p class="small text-muted mb-4">SACIPHUB Project Hub &copy; 2026. Handcrafted under Protocol 01 Data-Hardening Standards.</p>
+            
+            <div class="d-flex justify-content-center mb-4">
+                <a class="social-btn" href="https://www.youtube.com/SACIPHUB" target="_blank" title="SACIPHUB YouTube"><i class="bi bi-youtube"></i></a>
+                <a class="social-btn" href="https://x.com" target="_blank" title="R.A.C.E. X"><i class="bi bi-twitter-x"></i></a>
+                <a class="social-btn" href="https://instagram.com" target="_blank" title="R.A.C.E. Instagram"><i class="bi bi-instagram"></i></a>
+                <a class="social-btn" href="https://facebook.com" target="_blank" title="R.A.C.E. Facebook"><i class="bi bi-facebook"></i></a>
+                <a class="social-btn" href="https://linkedin.com" target="_blank" title="Professional Network"><i class="bi bi-linkedin"></i></a>
+            </div>
+            
+            <p class="small text-muted mb-0">Running securely on <strong>market.protocolx.one</strong></p>
         </div>
     </footer>
 
@@ -345,43 +386,19 @@
 
             const segments = inputVal.split('-');
             if (segments.length !== 4) {
-                feedback.innerHTML = '<span class="text-danger">&gt; ERROR: INVALID FORMAT LENGTH. SYSTEM REQUIRES UNIFORM 4-BLOCK STRUCTURAL CIPHER.</span>';
+                feedback.innerHTML = '<span class="text-danger">&gt; ERROR: INVALID FORMAT PATTERN. RE-ALIGN CODES UNIFORMLY.</span>';
                 return;
             }
 
             const [origin, subject, action, index] = segments;
 
-            const glossary = {
+            const map = {
                 origins: {
-                    "SIL01": "Grain Silo Complex (Regional Hub 01)",
-                    "MIL02": "Processing & Milling Factory Core",
-                    "WHD03": "Wholesale Distribution Terminal",
-                    "AYE01": "Ayegbaju Chamber Workspace Node",
+                    "SIL01": "Grain Silo Complex (Regional Warehouse Hub)",
+                    "MIL02": "Processing & Milling Factory",
+                    "WHD03": "Wholesale Distribution Center",
+                    "AYE01": "Ayegbaju Chamber Terminal Node",
                     "OSG03": "Osogbo Central Core Court Corridor"
                 },
                 subjects: {
-                    "MAZ_BULK": "Yellow Maize Inflow Batch",
-                    "WHT": "Bulk Wheat Consignment",
-                    "CAS": "Cassava Tuber Stocks",
-                    "C_KIT": "Cornerstone Kitchen Sub-ledger",
-                    "M_BUK": "Mamma-Joy Buka Ledger File",
-                    "G_SPI": "Grill & Spice Express Activity Logs",
-                    "A_MAS": "Alhaji Masa Food Stall Inventory"
-                },
-                actions: {
-                    "ING": "Securely Ingested into Offline Storage Facility",
-                    "PRC": "Under Local Factory Production Processing",
-                    "QAC": "Passed Quality Assurance Integrity Check",
-                    "CLR": "Cleared, Reconciled, and Formatted Completely",
-                    "REV": "Under Core Analytical Audit and Evaluation",
-                    "EXP": "Expelled to Outbound Logistics Channel"
-                }
-            };
-
-            const originDecoded = glossary.origins[origin] || `Custom Node Registry (${origin})`;
-            const subjectDecoded = glossary.subjects[subject] || `Custom Group Identifier (${subject})`;
-            const actionDecoded = glossary.actions[action] || `Custom Progress State (${action})`;
-            const isWaybill = index.startsWith('B') ? `Waybill Ticket Manifest ID No. ${index.substring(1)}` : `Original Physical Book Page Reference: ${index}`;
-
-            feedback.innerHTML = `
-                <span class="text-success">&gt; CIPHER HAN
+                    "M
