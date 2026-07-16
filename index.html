@@ -111,6 +111,24 @@
             border: 1px solid var(--emerald-bright);
         }
 
+        /* Printable Menu Card */
+        .printable-menu-frame {
+            background-color: var(--emerald-dark);
+            color: #ffffff;
+            border: 4px double var(--gold);
+            border-radius: 16px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .menu-dots {
+            flex-grow: 1;
+            border-bottom: 2px dotted rgba(255, 255, 255, 0.2);
+            margin: 0 10px;
+            position: relative;
+            top: -4px;
+        }
+
         .terminal-block {
             background-color: var(--emerald-dark);
             color: #4ef2a6;
@@ -156,7 +174,6 @@
             transform: scale(1.1);
         }
 
-        /* Monarch Tributes style */
         .monarch-banner {
             background: linear-gradient(135deg, #440a08 0%, #200403 100%);
             color: #f1c40f;
@@ -165,11 +182,19 @@
             padding: 2.5rem 1.5rem;
             border-radius: 12px;
         }
+
+        /* Print Override */
+        @media print {
+            body * { visibility: hidden; }
+            .printable-menu-frame, .printable-menu-frame * { visibility: visible; }
+            .printable-menu-frame { position: absolute; left: 0; top: 0; width: 100%; border: none; background: black !important; color: white !important; }
+            .no-print { display: none !important; }
+        }
     </style>
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3 no-print">
         <div class="container">
             <a class="navbar-brand fw-bold" href="#"><i class="bi bi-geo-alt-fill text-warning"></i> MARKET.PROTOCOLX.ONE</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -179,31 +204,83 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="#distribution">Supply Map</a></li>
                     <li class="nav-item"><a class="nav-link" href="#local-operators">Canteen Registry</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#jpm-showcase">JPM Menu Core</a></li>
                     <li class="nav-item"><a class="nav-link" href="#saciphub-spotlight">SACIPHUB Honors</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#verify-node">Verification Terminal</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <div class="hero-banner text-center">
+    <div class="hero-banner text-center no-print">
         <div class="container">
-            <span class="badge bg-warning text-dark mb-2 px-3 py-2 fw-bold">VCI PROTOCOL ACTIVE</span>
-            <h1 class="display-4 fw-bold">Virtual Consumption Index (VCI) Sync</h1>
-            <p class="lead">Synchronizing physical trade inventories and street culinary talents with secure offline token validation pipelines.</p>
+            <span class="badge bg-warning text-dark mb-2 px-3 py-2 fw-bold">VCI NETWORK LIVE</span>
+            <h1 class="display-4 fw-bold">SACIPHUB Food, Logistics & Cultural Platform</h1>
+            <p class="lead">Unifying elite regional catering operators and industrial food supply routes into a single secure matrix.</p>
             <div class="d-flex justify-content-center gap-3 flex-wrap mt-4">
-                <a href="#verify-node" class="btn btn-primary-custom btn-lg px-4 py-3"><i class="bi bi-shield-check"></i> Decodable Handshake</a>
-                <a href="#saciphub-spotlight" class="btn btn-violet btn-lg px-4 py-3"><i class="bi bi-star-fill"></i> View Cultural Reels</a>
+                <a href="#jpm-showcase" class="btn btn-warning btn-lg px-4 py-3 fw-bold text-dark"><i class="bi bi-journal-text"></i> View JPM Premium Menu</a>
+                <a href="#verify-node" class="btn btn-primary-custom btn-lg px-4 py-3"><i class="bi bi-shield-check"></i> Verification Handshake</a>
             </div>
         </div>
     </div>
 
     <div class="container my-5">
         
-        <section id="distribution" class="mb-5">
-            <h2 class="section-header">Agricultural Produce Logistics Channels</h2>
-            <p class="text-muted">Tracking wholesale waybills, crop weights, and distribution networks without exposing unencrypted client data.</p>
+        <section id="jpm-showcase" class="mb-5">
+            <h2 class="section-header">Premier Node: Jolly Premium Meal (JPM)</h2>
+            <p class="text-muted no-print">Located at the Library Compound, adjacent to the Court Premises, Governor's Lounge, and Police HQ, Oke-Fia. High-status clean self-service, takeaway, and rapid delivery network.</p>
             
+            <div class="row g-4 justify-content-center">
+                <div class="col-lg-8">
+                    <div class="printable-menu-frame">
+                        <div class="text-center mb-4">
+                            <span class="text-warning font-monospace small tracking-wider d-block mb-1">[ SECURED NODE: OSG03-JPM_KIT-CLR-P09 ]</span>
+                            <h2 class="fw-bold text-uppercase tracking-wide" style="color: var(--gold);">JOLLY PREMIUM MEAL</h2>
+                            <p class="fst-italic text-white-50 mb-2">Premium Self-Service • Takeout • Elite Local Delivery</p>
+                            <div class="badge bg-dark border border-warning px-3 py-2 text-warning fw-bold font-monospace" style="font-size: 1.1rem;">
+                                <i class="bi bi-telephone-fill me-2"></i> 08106326967
+                            </div>
+                            <hr class="border-warning my-3 opacity-25">
+                        </div>
+
+                        <div class="mb-4">
+                            <h5 class="text-warning text-uppercase fw-bold border-bottom border-secondary pb-2 mb-3"><i class="bi bi-egg-fried"></i> Sovereign Core Entrées</h5>
+                            
+                            <div class="d-flex justify-content-between align-items-baseline mb-3">
+                                <span class="fw-bold">Premium Rice Medley <small class="text-white-50 d-block fw-normal">Richly seasoned baseline Jollof / Fried variant</small></span>
+                                <span class="menu-dots"></span>
+                                <span class="fw-bold text-warning">Standard Base</span>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-baseline mb-3">
+                                <span class="fw-bold">Traditional Swallow Selection <small class="text-white-50 d-block fw-normal">Pounded Yam / Amala paired with clean local soups</small></span>
+                                <span class="menu-dots"></span>
+                                <span class="fw-bold text-warning">Premium Feast</span>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-baseline mb-3">
+                                <span class="fw-bold">Elite Protein Accoutrements <small class="text-white-50 d-block fw-normal">Strictly inspected beef, chicken, or fresh catch protein units</small></span>
+                                <span class="menu-dots"></span>
+                                <span class="fw-bold text-warning">Market Choice</span>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <h5 class="text-warning text-uppercase fw-bold border-bottom border-secondary pb-2 mb-3"><i class="bi bi-truck"></i> Institutional Orders & Delivery Parameters</h5>
+                            <p class="small text-white-50 mb-0">Serving the Oke-Fia Court Sector, State House Offices, and Library Complex. Call or SMS <strong>08106326967</strong> ahead of your timeline to clear waiting periods entirely. Secure token records processed via R.A.C.E. LLC parameters.</p>
+                        </div>
+
+                        <div class="text-center mt-4 no-print">
+                            <button onclick="window.print();" class="btn btn-warning fw-bold text-dark px-4 py-2">
+                                <i class="bi bi-printer-fill me-2"></i> Print Physical Menu Sheet
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="distribution" class="mb-5 no-print">
+            <h2 class="section-header">Agricultural Produce Logistics Channels</h2>
             <div class="row g-4">
                 <div class="col-md-4">
                     <div class="card card-custom p-4 border-top border-5 border-success">
@@ -246,17 +323,15 @@
             </div>
         </section>
 
-        <section id="local-operators" class="mb-5">
+        <section id="local-operators" class="mb-5 no-print">
             <h2 class="section-header">Specialized Commercial Cooking Services</h2>
-            <p class="text-muted">Tracking local bukaland nodes, active canteens, and cooking services operating under our rentable air-gap systems.</p>
-            
             <div class="row g-4">
                 <div class="col-lg-3 col-md-6">
-                    <div class="card card-custom p-3 text-center">
-                        <div class="mb-2"><span class="sector-badge badge-restaurant">Fine Restaurant</span></div>
-                        <h5 class="fw-bold mb-1">Cornerstone Kitchen</h5>
-                        <small class="text-muted">Ogo-Oluwa Corridor</small>
-                        <p class="mt-2 text-secondary font-monospace" style="font-size: 0.85rem;">Token: AYE01-C_KIT-CLR-P08</p>
+                    <div class="card card-custom p-3 text-center border-start border-3 border-warning">
+                        <div class="mb-2"><span class="sector-badge badge-restaurant">Premium Anchor</span></div>
+                        <h5 class="fw-bold mb-1">Jolly Premium Meal</h5>
+                        <small class="text-muted">Oke-Fia Library Compound</small>
+                        <p class="mt-2 text-secondary font-monospace" style="font-size: 0.85rem;">Token: OSG03-JPM_KIT-CLR-P09</p>
                     </div>
                 </div>
 
@@ -289,10 +364,8 @@
             </div>
         </section>
 
-        <section id="saciphub-spotlight" class="mb-5">
+        <section id="saciphub-spotlight" class="mb-5 no-print">
             <h2 class="saciphub-header"><i class="bi bi-music-note-beamed"></i> SACIPHUB Cultural & Creative Hub</h2>
-            <p class="text-muted">Highlighting the behind-the-scenes service providers. Bridging local business stability with public social interest, musical festivals, and honor awards.</p>
-
             <div class="row g-4">
                 <div class="col-md-6">
                     <div class="card card-custom award-gold-card p-4 h-100 border-start border-5 border-warning">
@@ -303,22 +376,7 @@
                                 <span class="badge bg-dark text-warning mt-1">2026 EDITION</span>
                             </div>
                         </div>
-                        <p class="text-secondary">Recognizing the unsung drivers of our daily supply systems. From persistent farm owners to the street chefs feeding our regional hubs, these honors spotlight consistent performance and social commitment.</p>
-                        
-                        <div class="mt-3">
-                            <div class="d-flex justify-content-between border-bottom py-2">
-                                <span class="text-dark fw-bold">1. Sovereign Agriculture Champion</span>
-                                <span class="badge bg-success">Baba Tolani Cassava</span>
-                            </div>
-                            <div class="d-flex justify-content-between border-bottom py-2">
-                                <span class="text-dark fw-bold">2. Local Culinary Excellence</span>
-                                <span class="badge bg-primary">Iya Agba Canteen</span>
-                            </div>
-                            <div class="d-flex justify-content-between py-2">
-                                <span class="text-dark fw-bold">3. Fleet Logistics Steward</span>
-                                <span class="badge bg-secondary">Igbona Grain Transit</span>
-                            </div>
-                        </div>
+                        <p class="text-secondary">Recognizing the unsung behind-the-scenes drivers of our local supply chains. Spotlighting frontline active service operators for consistent commercial excellence.</p>
                     </div>
                 </div>
 
@@ -332,17 +390,12 @@
                             </div>
                         </div>
                         <p class="text-light-50">Celebrating a secured annual harvest and regional business milestones with music! Uniting tech developers, active cooks, market women, and corporate leaders at our high-energy seasonal concerts.</p>
-                        
-                        <div class="p-3 bg-dark rounded border border-secondary mt-3">
-                            <h5 class="fw-bold text-warning mb-1"><i class="bi bi-calendar-check"></i> Next Up: Osogbo Harvest Jam 2026</h5>
-                            <p class="small text-muted mb-0">Join our community artists, local drummers, and modern afro-fusion performers in celebrating a completely secured supply chain cycle.</p>
-                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="royal-tribute" class="mb-5">
+        <section id="royal-tribute" class="mb-5 no-print">
             <div class="monarch-banner text-center shadow">
                 <i class="bi bi-shield-shaded fs-1 d-block mb-2"></i>
                 <h3 class="fw-bold text-uppercase tracking-wider">Kábíyèsí o! Olúògangan Òfìrìgidi</h3>
@@ -353,17 +406,14 @@
             </div>
         </section>
 
-        <section id="verify-node" class="mb-5">
+        <section id="verify-node" class="mb-5 no-print">
             <div class="row justify-content-center">
                 <div class="col-lg-8">
                     <div class="card card-custom p-5 border-start border-5 border-danger">
                         <h3 class="fw-bold text-danger mb-3"><i class="bi bi-shield-lock-fill"></i> Protocol 01 Alphanumeric Decryption</h3>
-                        <p class="text-muted">Verify any active, offline alphanumeric token directly below. Calculations run entirely client-side, ensuring that zero human-readable context is ever pushed to the cloud network.</p>
-                        
                         <div class="terminal-block my-4">
                             <label class="form-label text-warning mb-2 fw-bold" style="font-size: 0.85rem;">INJECT TOKEN STRING REFERENCE:</label>
                             <input type="text" class="terminal-input" id="tokenInput" placeholder="e.g., SIL01-MAZ_BULK-ING-B109" oninput="verifyToken()">
-                            
                             <div class="mt-4" id="decryptionFeedback">
                                 <span class="text-secondary">&gt; Awaiting alphanumeric string injection...</span>
                             </div>
@@ -374,7 +424,7 @@
         </section>
     </div>
 
-    <footer class="bg-dark text-white py-5 mt-5 border-top border-warning">
+    <footer class="bg-dark text-white py-5 mt-5 border-top border-warning no-print">
         <div class="container text-center">
             <p class="fw-bold mb-1">RHYTHM ARTS AND CULTURE ENTERTAINMENT LIMITED (R.A.C.E. LLC)</p>
             <p class="small text-muted mb-4">SACIPHUB Project Hub &copy; 2026. Handcrafted under Protocol 01 Data-Hardening Standards.</p>
@@ -386,7 +436,6 @@
                 <a class="social-btn" href="https://facebook.com" target="_blank" title="R.A.C.E. Facebook"><i class="bi bi-facebook"></i></a>
                 <a class="social-btn" href="https://linkedin.com" target="_blank" title="Professional Network"><i class="bi bi-linkedin"></i></a>
             </div>
-            
             <p class="small text-muted mb-0">Running securely on <strong>market.protocolx.one</strong></p>
         </div>
     </footer>
@@ -424,7 +473,8 @@
                     "C_KIT": "Cornerstone Kitchen Sub-ledger",
                     "M_BUK": "Mamma-Joy Buka Ledger File",
                     "G_SPI": "Grill & Spice Express Activity Logs",
-                    "A_MAS": "Alhaji Masa Food Stall Inventory"
+                    "A_MAS": "Alhaji Masa Food Stall Inventory",
+                    "JPM_KIT": "Jolly Premium Meal Inventory Matrix"
                 },
                 actions: {
                     "ING": "Securely Ingested into Offline Storage",
@@ -437,7 +487,7 @@
             };
 
             const originDecoded = map.origins[origin] || `Custom Node Registry (${origin})`;
-            const subjectDecoded = map.subjects[subject] || `Custom Group Identifier (${subject})`;
+            const subjectDecoded = map.subjects[subject] || `Custom Subject ID (${subject})`;
             const actionDecoded = map.actions[action] || `Custom Process State (${action})`;
             const isWaybill = index.startsWith('B') ? `Waybill Manifest Ticket No. ${index.substring(1)}` : `Physical Book Reference Page Index: ${index}`;
 
@@ -453,6 +503,5 @@
             `;
         }
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
