@@ -15,26 +15,12 @@
             --gold: #f1c40f;
             --charcoal: #111413;
             --light-cream: #f4f7f5;
-            --violet-brand: #4a154b;
         }
 
         body {
             background-color: var(--light-cream);
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             color: var(--charcoal);
-        }
-
-        @keyframes blinker {
-            0% { opacity: 1; }
-            50% { opacity: 0.2; }
-            100% { opacity: 1; }
-        }
-
-        .vacancy-blink {
-            animation: blinker 1.5s linear infinite;
-            background-color: var(--clay) !important;
-            color: white !important;
-            font-weight: bold;
         }
 
         .navbar-custom {
@@ -76,11 +62,6 @@
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
             background: white;
-            transition: transform 0.3s ease;
-        }
-
-        .card-custom:hover {
-            transform: translateY(-5px);
         }
 
         .pledge-blockquote {
@@ -107,35 +88,10 @@
             border-bottom: 2px solid var(--emerald-bright);
             color: #ffffff;
             font-size: 1.2rem;
-            font-family: monospace;
             width: 100%;
         }
 
-        .terminal-input:focus {
-            outline: none;
-            border-color: var(--clay);
-        }
-
-        .social-btn {
-            width: 45px;
-            height: 45px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            background-color: #2c302e;
-            color: white;
-            font-size: 1.2rem;
-            margin: 0 8px;
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
-
-        .social-btn:hover {
-            background-color: var(--clay);
-            color: white;
-            transform: scale(1.1);
-        }
+        .terminal-input:focus { outline: none; border-color: var(--clay); }
     </style>
 </head>
 <body>
@@ -143,18 +99,6 @@
     <nav class="navbar navbar-expand-lg navbar-dark navbar-custom py-3">
         <div class="container">
             <a class="navbar-brand fw-bold text-uppercase" href="#"><i class="bi bi-shield-lock-fill text-warning"></i> VCI.PROTOCOLX.ONE</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#vci-integration">Integration Core</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#presence-mandate">Presence Protocol</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#trinity-pledge">The Pledge</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#market-nodes">Market Hubs</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#verify-node">Terminal</a></li>
-                </ul>
-            </div>
         </div>
     </nav>
 
@@ -190,19 +134,16 @@
             <p class="lead mb-4">The core integration matrix linking physical workplace presence with verified, zero-knowledge digital records.</p>
             
             <div class="d-flex justify-content-center mt-3">
-                <a href="#market-nodes" class="btn btn-warning btn-lg px-5 py-3 fw-bold text-dark shadow-sm">
-                    <i class="bi bi-shop me-2"></i> Explore Physical Market Nodes & Reels
+                <a href="https://market.protocolx.one" target="_blank" class="btn btn-warning btn-lg px-5 py-3 fw-bold text-dark shadow-sm">
+                    <i class="bi bi-shop me-2"></i> Explore Physical Market Nodes & Reels <i class="bi bi-arrow-up-right-circle-fill ms-1"></i>
                 </a>
             </div>
         </div>
     </div>
 
     <div class="container my-5">
-        
         <section id="vci-integration" class="mb-5">
             <h2 class="section-header">VCI Engine Integration Architecture</h2>
-            <p class="text-muted">The precise, low-overhead synchronization model translating day-to-day transaction records into protected, cryptographic strings.</p>
-            
             <div class="row g-4">
                 <div class="col-md-4">
                     <div class="card card-custom p-4 border-start border-4 border-success">
@@ -232,18 +173,12 @@
                     <div class="card card-custom p-4 bg-white">
                         <h4 class="fw-bold text-dark"><i class="bi bi-geo-fill text-danger"></i> The Reality of Physical Presence</h4>
                         <p class="text-secondary">True economic strength relies on physical spaces—the secure metal stands, local grain storage vaults, and legal chambers situated within the regional GRA and market zones. These nodes run the tangible day-to-day transactions that build communities.</p>
-                        <div class="d-flex align-items-center gap-2 mt-3 text-danger fw-bold" style="font-size: 0.9rem;">
-                            <span class="badge vacancy-blink">ACTIVE NODE</span> OGN-001 THROUGH OGN-118 SECURED
-                        </div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="card card-custom p-4 bg-white">
                         <h4 class="fw-bold text-dark"><i class="bi bi-cpu-fill text-info"></i> The Shield of Digital Presence</h4>
                         <p class="text-secondary">By mapping physical actions into an unhackable web profile directory at <code>vci.protocolx.one</code>, local operators display verified commercial excellence. This projects immense professional status to high-value institutional clients across the grid.</p>
-                        <div class="d-flex align-items-center gap-2 mt-3 text-info fw-bold" style="font-size: 0.9rem;">
-                            <i class="bi bi-shield-check"></i> ANONYMOUS SYSTEM SECURITY POSTURE ENFORCED
-                        </div>
                     </div>
                 </div>
             </div>
@@ -251,116 +186,12 @@
 
         <section id="trinity-pledge" class="mb-5">
             <h2 class="section-header">The Trinity Pledge</h2>
-            <div class="row justify-content-center">
-                <div class="col-lg-12">
-                    <div class="card card-custom p-4 bg-light">
-                        <blockquote class="pledge-blockquote mb-0">
-                            "We pledge absolute structural dedication to protecting local trade networks without worker displacement. We pledge to maintain iron-clad, air-gapped systems that shield personal business records from predatory corporate aggregators. We commit to maintaining the highest professional appearance, absolute technical discipline, and unwavering transparency for the facility elders overseeing our expansion corridors."
-                        </blockquote>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="market-nodes" class="mb-5 bg-white p-4 rounded-3 shadow-sm border-start border-5 border-warning">
-            <h2 class="section-header text-dark"><i class="bi bi-camera-reels-fill text-clay"></i> Deployed Physical Nodes, Showreels & Ceremony</h2>
-            <p class="text-muted">Honoring active service providers, local kitchen grids, and corporate catering installations across the region. Access behind-the-scenes multimedia metrics and our integrated community culture programs below.</p>
-
-            <div class="row g-4 mt-2">
-                <div class="col-md-6">
-                    <div class="p-4 border rounded bg-light border-start border-4 border-success">
-                        <div class="d-flex justify-content-between align-items-start mb-2">
-                            <span class="badge bg-success">PREMIUM CATERING NODE</span>
-                            <small class="font-monospace text-muted">OSG03-JPM_KIT-CLR-P09</small>
-                        </div>
-                        <h4 class="fw-bold mb-1">Jolly Premium Meal (JPM)</h4>
-                        <small class="text-muted d-block mb-3"><i class="bi bi-geo-alt-fill"></i> Library Compound, Adjacent Court Chambers & GRA Sector</small>
-                        <p class="small text-secondary">Clean self-service dining, high-profile institutional takeout, and corporate field deliveries. Secure communication routing initialized via system lines.</p>
-                        <div class="mt-3 d-flex gap-2">
-                            <a href="tel:08106326967" class="btn btn-dark btn-sm font-monospace text-warning"><i class="bi bi-telephone-fill"></i> 08106326967</a>
-                            <span class="btn btn-outline-secondary btn-sm disabled"><i class="bi bi-play-circle-fill"></i> Media Showreel Armed</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <div class="p-4 border rounded bg-dark text-white h-100 border-start border-4 border-warning">
-                        <span class="badge bg-warning text-dark mb-2">SACIPHUB FESTIVE CORRIDOR</span>
-                        <h4 class="fw-bold text-warning mb-2"><i class="bi bi-music-note-beamed"></i> Cultural Festive Ceremonies & Annual Concerts</h4>
-                        <p class="small text-white-50">Bridging technology integration with public social celebration. Honoring our frontline operators through live musical events, traditional assemblies, and annual harvest acknowledgments.</p>
-                        <div class="alert alert-secondary py-1 px-2 mb-0 mt-3 font-monospace small bg-dark text-muted border-secondary">
-                            &gt; NEXT MILESTONE: Osogbo Harvest Festival 2026
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="verify-node" class="mb-5">
-            <div class="row justify-content-center">
-                <div class="col-lg-12">
-                    <div class="card card-custom p-5 border-start border-5 border-danger">
-                        <h3 class="fw-bold text-danger mb-3"><i class="bi bi-shield-lock-fill"></i> Protocol 01 Ingestion Interface</h3>
-                        <p class="text-muted">Test localized alphanumeric strings below. The processing routine performs calculations completely client-side, ensuring that zero human-readable context leaves your local station.</p>
-                        
-                        <div class="terminal-block my-4">
-                            <label class="form-label text-warning mb-2 fw-bold" style="font-size: 0.85rem;">INJECT CO-PILOT STRING EXTENSION:</label>
-                            <input type="text" class="terminal-input" id="tokenInput" placeholder="e.g., SIL01-MAZ_BULK-ING-B109" oninput="verifyToken()">
-                            <div class="mt-4" id="decryptionFeedback">
-                                <span class="text-secondary">&gt; Awaiting alphanumeric string injection...</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="card card-custom p-4 bg-light">
+                <blockquote class="pledge-blockquote mb-0">
+                    "We pledge absolute structural dedication to protecting local trade networks without worker displacement. We pledge to maintain iron-clad, air-gapped systems that shield personal business records from predatory corporate aggregators. We commit to maintaining the highest professional appearance, absolute technical discipline, and unwavering transparency for the facility elders overseeing our expansion corridors."
+                </blockquote>
             </div>
         </section>
     </div>
-
-    <footer class="bg-dark text-white py-5 mt-5 border-top border-warning">
-        <div class="container text-center">
-            <p class="fw-bold mb-1">RHYTHM ARTS AND CULTURE ENTERTAINMENT LIMITED (R.A.C.E. LLC)</p>
-            <p class="small text-muted mb-4">SACIPHUB Project Network &copy; 2026. Controlled strictly under offline data-hardening frameworks.</p>
-            
-            <div class="d-flex flex-column align-items-center mb-4 text-warning" style="font-size: 0.95rem;">
-                <span class="small text-muted mb-1">SYSTEM INGESTION PIPELINE HOT-LINE:</span>
-                <span class="font-monospace fw-bold"><i class="bi bi-telephone-outbound-fill"></i> 08127833493 [System Controller Channel]</span>
-            </div>
-
-            <div class="d-flex justify-content-center mb-4">
-                <a class="social-btn" href="https://www.youtube.com/SACIPHUB" target="_blank" title="SACIPHUB YouTube"><i class="bi bi-youtube"></i></a>
-                <a class="social-btn" href="https://x.com" target="_blank" title="R.A.C.E. X"><i class="bi bi-twitter-x"></i></a>
-                <a class="social-btn" href="https://instagram.com" target="_blank" title="R.A.C.E. Instagram"><i class="bi bi-instagram"></i></a>
-                <a class="social-btn" href="https://facebook.com" target="_blank" title="R.A.C.E. Facebook"><i class="bi bi-facebook"></i></a>
-                <a class="social-btn" href="https://linkedin.com" target="_blank" title="Professional Network"><i class="bi bi-linkedin"></i></a>
-            </div>
-            
-            <p class="small text-muted mb-0">Running securely under the sovereign root of <strong>vci.protocolx.one</strong></p>
-        </div>
-    </footer>
-
-    <script>
-        function verifyToken() {
-            const inputVal = document.getElementById('tokenInput').value.trim().toUpperCase();
-            const feedback = document.getElementById('decryptionFeedback');
-            
-            if (inputVal === "") {
-                feedback.innerHTML = '<span class="text-secondary">&gt; Awaiting alphanumeric string injection...</span>';
-                return;
-            }
-
-            const segments = inputVal.split('-');
-            if (segments.length !== 4) {
-                feedback.innerHTML = '<span class="text-danger">&gt; ERROR: INVALID FORMAT PATTERN. RE-ALIGN CODES UNIFORMLY.</span>';
-                return;
-            }
-
-            const [origin, subject, action, index] = segments;
-
-            const map = {
-                origins: {
-                    "SIL01": "Grain Silo Complex (Regional Warehouse Hub)",
-                    "MIL02": "Processing & Milling Factory Complex",
-                    "WHD03": "Wholesale Distribution Terminal Outflow",
-                    "AYE01": "Ayegbaju Chamber Terminal Node",
-                    "OSG03": "Osogbo Central Core Court Corridor",
-                    "GRA05": "Government Reserved Area (GRA) S
+</body>
+    </html>
