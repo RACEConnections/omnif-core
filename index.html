@@ -3,350 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SACIPHUB | VCI Engine System Integration Terminal</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <title>Protocol 01 Engine | VCI</title>
     <style>
-        :root {
-            --emerald-dark: #061f15;
-            --emerald-medium: #0b4c35;
-            --emerald-bright: #128155;
-            --clay: #d96b27;
-            --gold: #f1c40f;
-            --charcoal: #111413;
-            --light-cream: #f4f7f5;
-            --violet-brand: #4a154b;
-        }
+        :root { --primary-green: #005a32; --dark-slate: #1a1f24; --light-bg: #f4f6f8; --text-main: #333333; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: var(--light-bg); color: var(--text-main); display: flex; flex-direction: column; min-height: 100vh; }
+        
+        .top-nav { background-color: var(--dark-slate); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; }
+        .back-btn { color: #fff; text-decoration: none; font-size: 14px; border: 1px solid #444; padding: 6px 12px; border-radius: 4px; }
+        .back-btn:hover { border-color: var(--primary-green); }
+        .nav-title { color: var(--primary-green); font-weight: bold; letter-spacing: 1px; }
 
-        body {
-            background-color: var(--light-cream);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            color: var(--charcoal);
-        }
-
-        .navbar-custom {
-            background-color: var(--charcoal);
-            border-bottom: 3px solid var(--gold);
-        }
-
-        .monarch-header-banner {
-            background: linear-gradient(135deg, #440a08 0%, #200403 100%);
-            color: #f1c40f;
-            border-bottom: 4px solid var(--gold);
-            padding: 2.5rem 1rem;
-        }
-
-        .govt-regards-banner {
-            background: linear-gradient(135deg, #0d1e36 0%, #050d18 100%);
-            color: #e2e8f0;
-            border-bottom: 3px solid #3182ce;
-            padding: 1.5rem 1rem;
-        }
-
-        .hero-banner {
-            background: linear-gradient(135deg, var(--emerald-dark) 0%, var(--emerald-medium) 100%);
-            color: white;
-            padding: 4.5rem 2rem;
-            border-bottom: 5px solid var(--clay);
-        }
-
-        .section-header {
-            border-left: 5px solid var(--clay);
-            padding-left: 15px;
-            color: var(--emerald-dark);
-            margin: 2.5rem 0 1.5rem 0;
-            font-weight: bold;
-        }
-
-        .card-custom {
-            border: none;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-            background: white;
-            transition: transform 0.3s ease;
-        }
-
-        .card-custom:hover {
-            transform: translateY(-4px);
-        }
-
-        .pledge-blockquote {
-            background-color: var(--emerald-dark);
-            color: #e2f0cb;
-            border-left: 5px solid var(--gold);
-            padding: 1.5rem;
-            border-radius: 0 8px 8px 0;
-            font-style: italic;
-        }
-
-        .terminal-block {
-            background-color: var(--emerald-dark);
-            color: #4ef2a6;
-            font-family: 'Courier New', Courier, monospace;
-            padding: 1.5rem;
-            border-radius: 8px;
-            border: 1px solid var(--emerald-bright);
-        }
-
-        .terminal-input {
-            background: transparent;
-            border: none;
-            border-bottom: 2px solid var(--emerald-bright);
-            color: #ffffff;
-            font-size: 1.2rem;
-            font-family: monospace;
-            width: 100%;
-        }
-
-        .terminal-input:focus {
-            outline: none;
-            border-color: var(--clay);
-        }
-
-        .social-btn {
-            width: 45px;
-            height: 45px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            background-color: #2c302e;
-            color: white;
-            font-size: 1.2rem;
-            margin: 0 8px;
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
-
-        .social-btn:hover {
-            background-color: var(--clay);
-            color: white;
-            transform: scale(1.1);
-        }
+        .dashboard-container { flex-grow: 1; padding: 40px 5%; display: flex; flex-direction: column; align-items: center; }
+        .auth-card { background: #fff; width: 100%; max-width: 400px; padding: 30px; border-radius: 6px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-top: 4px solid var(--primary-green); }
+        
+        .auth-card h2 { color: var(--dark-slate); margin-bottom: 20px; text-align: center; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; font-size: 13px; color: #666; margin-bottom: 5px; text-transform: uppercase; }
+        .form-group input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; outline: none; }
+        .form-group input:focus { border-color: var(--primary-green); }
+        
+        .btn-submit { width: 100%; background: var(--primary-green); color: #fff; padding: 12px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        footer { text-align: center; padding: 20px; font-size: 12px; color: #888; background: #fff; }
     </style>
 </head>
 <body>
-
-    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom py-3">
-        <div class="container">
-            <a class="navbar-brand fw-bold text-uppercase" href="#"><i class="bi bi-shield-lock-fill text-warning"></i> VCI.PROTOCOLX.ONE</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#vci-guide">Universal Guide</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#vci-integration">Integration Architecture</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#global-channels">Global Channels</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#trinity-pledge">The Pledge</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#verify-node">Terminal</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <header class="monarch-header-banner text-center shadow-sm">
-        <div class="container">
-            <i class="bi bi-shield-shaded fs-1 d-block mb-1 text-warning"></i>
-            
-            <h3 class="fw-bold text-uppercase tracking-wider mb-1" style="color: #f1c40f;">
-                Kábíyèsí o! Olúògangan Òfìrìgidi
-            </h3>
-            
-            <h5 class="fw-light text-warning mb-3">
-                Supreme Royal Respect to His Royal Majesty, the Ataoja of Osogbo Land
-            </h5>
-
-            <div class="p-3 bg-dark bg-opacity-50 rounded border border-warning border-opacity-25 mx-auto text-start" style="max-width: 850px;">
-                <p class="small text-warning fw-bold mb-1">
-                    <i class="bi bi-info-circle-fill me-1"></i> CULTURAL & LINGUISTIC EXPLANATORY NOTE:
-                </p>
-                <p class="small text-white-50 mb-2" style="font-size: 0.85rem; line-height: 1.5;">
-                    <strong>Local & International Context:</strong> In Yoruba royal heritage, <em>"Kábíyèsí"</em> acknowledges supreme monarchical authority. The title <em>"Olúògangan Òfìrìgidi"</em> is the traditional praise-epithet (Oriki) honoring the <strong>Ataoja of Osogbo</strong> as the paramount, unshakable pillar and protective shield over Osogbo kingdom, its traditional markets, and surrounding trade corridors.
-                </p>
-                <p class="small text-white-50 mb-0" style="font-size: 0.85rem; line-height: 1.5;">
-                    R.A.C.E. LLC and SACIPHUB offer this formal invocation to foster peace, regional harmony, and cultural clarity across all local chieftaincy guilds, government institutions, and international observers.
-                </p>
-            </div>
-        </div>
-    </header>
-
-    <section class="govt-regards-banner text-center">
-        <div class="container">
-            <div class="d-flex justify-content-center align-items-center gap-2 mb-2">
-                <span class="badge bg-primary px-3 py-1">FEDERAL</span>
-                <span class="badge bg-success px-3 py-1">STATE</span>
-                <span class="badge bg-secondary px-3 py-1">LOCAL</span>
-            </div>
-            <h5 class="fw-bold text-white tracking-wide mb-1">OFFICIAL RESPECTS TO GOVERNMENT EXECUTIVE LEADERSHIP</h5>
-            <p class="mx-auto mb-0 text-white-50 small" style="max-width: 850px; font-size: 0.85rem;">
-                We convey our utmost professional regards and administrative respect to the Executive, Legislative, and Judicial pillars of the Local Government Authorities, the Osun State Government Cabinet, and the Federal Republic of Nigeria. Protocol 01 aligns strictly to support institutional accountability and sovereign economic data metrics.
-            </p>
-        </div>
-    </section>
-
-    <div class="hero-banner text-center">
-        <div class="container">
-            <span class="badge bg-warning text-dark mb-2 px-3 py-2 fw-bold">VCI MASTER TERMINAL LIVE</span>
-            <h1 class="display-4 fw-bold">Virtual Consumption Index (VCI)</h1>
-            <p class="lead mb-4">A universal, non-intrusive integration framework connecting local trade wisdom with secure global verification.</p>
-            
-            <div class="d-flex justify-content-center gap-3 flex-wrap mt-3">
-                <a href="https://market.protocolx.one" target="_blank" class="btn btn-warning btn-lg px-4 py-3 fw-bold text-dark shadow-sm">
-                    <i class="bi bi-shop me-2"></i> Local Market & JPM Nodes <i class="bi bi-arrow-up-right-circle-fill ms-1"></i>
-                </a>
-                <a href="https://ourmarketplace.protocolx.one" target="_blank" class="btn btn-outline-light btn-lg px-4 py-3 fw-bold shadow-sm">
-                    <i class="bi bi-globe-europe-africa me-2 text-warning"></i> UK & Global Marketplace <i class="bi bi-arrow-up-right-circle-fill ms-1 text-warning"></i>
-                </a>
-            </div>
-        </div>
+    <div class="top-nav">
+        <a href="https://protocolx.one" class="back-btn">← Main Hub</a>
+        <div class="nav-title">VCI ENGINE</div>
     </div>
 
-    <div class="container my-5">
-        
-        <section id="vci-guide" class="mb-5">
-            <h2 class="section-header">How the VCI Creates a Universal Network Without Forcing Change</h2>
-            <p class="text-muted">Understanding the core philosophy of the Virtual Consumption Index in simple, practical terms.</p>
-
-            <div class="row g-4">
-                <div class="col-md-4">
-                    <div class="card card-custom p-4 h-100 border-start border-4 border-success">
-                        <h4 class="fw-bold text-dark mb-3"><i class="bi bi-heart-pulse-fill text-success me-2"></i> 1. Respects Local Traditions</h4>
-                        <p class="small text-secondary mb-0">The VCI never replaces how people traditionally trade, cook, or keep records. Whether a market woman uses a handwritten notebook or a canteen chef manages orders orally, the VCI respects their existing knowledge and ethnicity completely. Nothing is forced.</p>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="card card-custom p-4 h-100 border-start border-4 border-warning">
-                        <h4 class="fw-bold text-dark mb-3"><i class="bi bi-cpu-fill text-warning me-2"></i> 2. Enhances Beautifully</h4>
-                        <p class="small text-secondary mb-0">The VCI acts as a bridge. It takes the existing physical business activity and turns it into a secure, air-gapped alphanumeric token. This gives local business owners an enterprise-grade digital footprint without forcing them to learn complex tech systems.</p>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="card card-custom p-4 h-100 border-start border-4 border-primary">
-                        <h4 class="fw-bold text-dark mb-3"><i class="bi bi-globe-americas text-primary me-2"></i> 3. Universal Network</h4>
-                        <p class="small text-secondary mb-0">Because the VCI converts local transactions into a standard, zero-knowledge verification format, a small canteen in Osogbo (like JPM) and a fine dining establishment in London can exist on the same global network seamlessly.</p>
-                    </div>
-                </div>
+    <div class="dashboard-container">
+        <div class="auth-card">
+            <h2>Secure Ledger Access</h2>
+            <div class="form-group">
+                <label>Entity ID / Warehouse Node</label>
+                <input type="text" placeholder="Enter Registration ID">
             </div>
-        </section>
-
-        <section id="global-channels" class="mb-5">
-            <h2 class="section-header">R.A.C.E. LLC Consolidated Network Channels</h2>
-            <p class="text-muted">Access our specialized sub-gateways operating under the sovereign <code>protocolx.one</code> architecture.</p>
-
-            <div class="row g-4">
-                <div class="col-md-6">
-                    <div class="card card-custom p-4 border-start border-5 border-warning bg-white h-100">
-                        <div class="d-flex justify-content-between align-items-center mb-2">
-                            <span class="badge bg-warning text-dark fw-bold">LOCAL MARKET CHANNEL</span>
-                            <small class="font-monospace text-muted">market.protocolx.one</small>
-                        </div>
-                        <h4 class="fw-bold text-dark">Osogbo Market & Culinary Corridor</h4>
-                        <p class="small text-secondary">Anchoring premier local chef nodes—including <strong>Jolly Premium Meal (JPM)</strong> at the Oke-Fia GRA / Library Compound—alongside blinking industrial vacancy slots for farms, processing plants, and wholesale merchants. Includes hard-copy paper audit compliance protocols.</p>
-                        <div class="mt-auto pt-3">
-                            <a href="https://market.protocolx.one" target="_blank" class="btn btn-dark btn-sm fw-bold text-warning">
-                                Launch Local Channel <i class="bi bi-box-arrow-up-right ms-1"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <div class="card card-custom p-4 border-start border-5 border-info bg-white h-100">
-                        <div class="d-flex justify-content-between align-items-center mb-2">
-                            <span class="badge bg-info text-dark fw-bold">INTERNATIONAL CHANNEL</span>
-                            <small class="font-monospace text-muted">ourmarketplace.protocolx.one</small>
-                        </div>
-                        <h4 class="fw-bold text-dark">London & UK Global Marketplace</h4>
-                        <p class="small text-secondary">Dedicated to anchoring international restaurants, UK flagship establishments, and master chef entries. Connects global hospitality hubs directly into our dual-presence verification matrix.</p>
-                        <div class="mt-auto pt-3">
-                            <a href="https://ourmarketplace.protocolx.one" target="_blank" class="btn btn-dark btn-sm fw-bold text-info">
-                                Launch Global Channel <i class="bi bi-box-arrow-up-right ms-1"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
+            <div class="form-group">
+                <label>Security Protocol (Password)</label>
+                <input type="password" placeholder="Enter Password">
             </div>
-        </section>
-
-        <section id="vci-integration" class="mb-5">
-            <h2 class="section-header">VCI Engine Integration Architecture</h2>
-            <div class="row g-4">
-                <div class="col-md-4">
-                    <div class="card card-custom p-4 border-start border-4 border-success">
-                        <h4 class="fw-bold text-success"><i class="bi bi-book"></i> 1. Ingestion Layer</h4>
-                        <p class="small text-muted">Daily balances, waybill weights, or service ledger logs are recorded physically into the on-site King Ledger. No live cloud database connections are initialized during this window, preventing active wire leaks.</p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card card-custom p-4 border-start border-4 border-warning">
-                        <h4 class="fw-bold text-warning"><i class="bi bi-tablet-landscape"></i> 2. Terminal Sync</h4>
-                        <p class="small text-muted">An air-gapped, offline hardware terminal parses physical logs using an abstract, four-segment alphanumeric formula. Once verified, localized cache memory is completely cleared and formatted.</p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card card-custom p-4 border-start border-4 border-primary">
-                        <h4 class="fw-bold text-primary"><i class="bi bi-node-plus"></i> 3. Verification Link</h4>
-                        <p class="small text-muted">The resulting token code is published onto our centralized tracking hub, enabling high-status corporate and legal partners to cross-verify operations safely across the region.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="trinity-pledge" class="mb-5">
-            <h2 class="section-header">The Trinity Pledge</h2>
-            <div class="card card-custom p-4 bg-light">
-                <blockquote class="pledge-blockquote mb-0">
-                    "We pledge absolute structural dedication to protecting local trade networks without worker displacement. We pledge to maintain iron-clad, air-gapped systems that shield personal business records from predatory corporate aggregators. We commit to maintaining the highest professional appearance, absolute technical discipline, and unwavering transparency for the facility elders overseeing our expansion corridors."
-                </blockquote>
-            </div>
-        </section>
-
-        <section id="verify-node" class="mb-5">
-            <div class="row justify-content-center">
-                <div class="col-lg-12">
-                    <div class="card card-custom p-5 border-start border-5 border-danger">
-                        <h3 class="fw-bold text-danger mb-3"><i class="bi bi-shield-lock-fill"></i> Protocol 01 Ingestion Interface</h3>
-                        <p class="text-muted">Test localized alphanumeric strings below. The processing routine performs calculations completely client-side, ensuring zero human-readable context leaves your local station.</p>
-                        
-                        <div class="terminal-block my-4">
-                            <label class="form-label text-warning mb-2 fw-bold" style="font-size: 0.85rem;">INJECT CO-PILOT STRING EXTENSION:</label>
-                            <input type="text" class="terminal-input" id="tokenInput" placeholder="e.g., SIL01-MAZ_BULK-ING-B109" oninput="verifyToken()">
-                            <div class="mt-4" id="decryptionFeedback">
-                                <span class="text-secondary">&gt; Awaiting alphanumeric string injection...</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <footer class="bg-dark text-white py-5 mt-5 border-top border-warning">
-        <div class="container text-center">
-            <p class="fw-bold mb-1">RHYTHM ARTS AND CULTURE ENTERTAINMENT LIMITED (R.A.C.E. LLC)</p>
-            <p class="small text-muted mb-4">SACIPHUB Project Network &copy; 2026. Controlled strictly under offline data-hardening frameworks.</p>
-            
-            <div class="d-flex flex-column align-items-center mb-4 text-warning" style="font-size: 0.95rem;">
-                <span class="small text-muted mb-1">SYSTEM INGESTION PIPELINE HOT-LINE:</span>
-                <span class="font-monospace fw-bold"><i class="bi bi-telephone-outbound-fill"></i> 08127833493 [System Controller Channel]</span>
-            </div>
-
-            <div class="d-flex justify-content-center mb-4">
-                <a class="social-btn" href="https://www.youtube.com/SACIPHUB" target="_blank" title="SACIPHUB YouTube"><i class="bi bi-youtube"></i></a>
-                <a class="social-btn" href="https://x.com" target="_blank" title="R.A.C.E. X"><i class="bi bi-twitter-x"></i></a>
-                <a class="social-btn" href="https://instagram.com" target="_blank" title="R.A.C.E. Instagram"><i class="bi bi-instagram"></i></a>
-                <a class="social-btn" href="https://facebook.com" target="_blank" title="R.A.C.E. Facebook"><i class="bi bi-facebook"></i></a>
-                <a class="social-btn" href="https://linkedin.com" target="_blank" title="Professional Network"><i class="bi bi-linkedin"></i></a>
-            </div>
-            
-            <p class="small text-muted mb-0">Running securely under the sovereign root of <strong>vci.protocolx.one</strong></p>
+            <button class="btn-submit">INITIALIZE LEDGER</button>
         </div>
-    </footer>
-
-    <script>
-        function verifyToken() {
-            const inputVal = document.getElementById('tokenInput').value.trim().toUpperCase();
-            const feedback = 
+    </div>
+    <footer>&copy; 2026 R.A.C.E. LLC. Protocol 01 Dashboard.</footer>
+</body>
+</html>
