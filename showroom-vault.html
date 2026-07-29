@@ -1,5 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+    <script>
+    // R.A.C.E. LLC PROTOCOL: INSTANT INTRUDER EJECTION
+    (function checkChairmanAuth() {
+        // Check if the device holds a valid session token (generated after entering the physical card key)
+        const hasValidKey = localStorage.getItem('vanguard_chairman_key_active');
+        
+        if (!hasValidKey) {
+            // Intruder detected. Do not load the page. Redirect instantly to public engine.
+            window.location.replace("https://vci.protocolx.one");
+        }
+    })();
+    </script>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
