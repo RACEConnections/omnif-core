@@ -18,7 +18,7 @@
         .nav-title { color: var(--primary-green); font-weight: bold; letter-spacing: 1px; }
 
         .dashboard-container { flex-grow: 1; padding: 40px 5%; display: flex; flex-direction: column; align-items: center; }
-        .auth-card { background: #fff; width: 100%; max-width: 400px; padding: 30px; border-radius: 6px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-top: 4px solid var(--primary-green); }
+        .auth-card { background: #fff; width: 100%; max-width: 450px; padding: 30px; border-radius: 6px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-top: 4px solid var(--primary-green); }
         
         .auth-card h2 { color: var(--dark-slate); margin-bottom: 5px; text-align: center; }
         .auth-subtitle { text-align: center; color: #888; font-size: 13px; margin-bottom: 20px; }
@@ -28,11 +28,23 @@
         .form-group input, .form-group select { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; outline: none; }
         .form-group input:focus, .form-group select:focus { border-color: var(--primary-green); }
         
-        .btn-submit { width: 100%; background: var(--primary-green); color: #fff; padding: 12px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; margin-top: 10px; transition: background 0.3s; }
+        .btn-submit { width: 100%; background: var(--primary-green); color: #fff; padding: 14px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; margin-top: 10px; transition: background 0.3s; text-transform: uppercase; letter-spacing: 1px; }
         .btn-submit:hover { background: #004224; }
-        .toggle-link { text-align: center; display: block; margin-top: 15px; color: var(--primary-green); font-size: 13px; cursor: pointer; text-decoration: underline; }
+        .toggle-link { text-align: center; display: block; margin-top: 15px; color: var(--primary-green); font-size: 13px; cursor: pointer; text-decoration: underline; font-weight: bold; }
         
-        /* Hide signup form by default */
+        /* Subscription Tier Styles */
+        .facts-list { list-style: none; margin-bottom: 20px; }
+        .facts-list li { font-size: 14px; margin-bottom: 12px; padding-left: 20px; position: relative; color: #444; }
+        .facts-list li::before { content: "✓"; position: absolute; left: 0; color: var(--primary-green); font-weight: bold; }
+        
+        .pricing-box { background: #e8f5e9; border: 2px solid var(--primary-green); padding: 20px; border-radius: 6px; text-align: center; margin-bottom: 20px; }
+        .pricing-box h3 { color: var(--primary-green); font-size: 16px; text-transform: uppercase; margin-bottom: 10px; }
+        .pricing-amount { font-size: 28px; font-weight: 900; color: var(--dark-slate); margin-bottom: 5px; }
+        .pricing-sub { font-size: 12px; color: #666; }
+
+        /* Section Visibility */
+        #login-form { display: block; }
+        #subscription-tier { display: none; }
         #signup-form { display: none; }
     </style>
 </head>
@@ -42,9 +54,10 @@
     </div>
 
     <div class="dashboard-container">
+        
         <div class="auth-card" id="login-form">
             <h2>Secure Ledger Access</h2>
-            <div class="auth-subtitle">Authorized Nodes Only</div>
+            <div class="auth-subtitle">Authorized Business Nodes Only</div>
             
             <div class="form-group">
                 <label>Admin Email</label>
@@ -55,12 +68,33 @@
                 <input type="password" id="login-password" placeholder="Enter password">
             </div>
             <button class="btn-submit" onclick="loginNode()">INITIALIZE LEDGER</button>
-            <span class="toggle-link" onclick="toggleForms()">Register a New Node</span>
+            <span class="toggle-link" onclick="showSubscriptionTier()">Register a New Business Node</span>
+        </div>
+
+        <div class="auth-card" id="subscription-tier">
+            <h2>Protocol 01 Business Arm</h2>
+            <div class="auth-subtitle">System Facts & Commercial Mandate</div>
+            
+            <ul class="facts-list">
+                <li><strong>Absolute Structural Order:</strong> Digitize and protect your inventory with an immutable air-gapped ledger.</li>
+                <li><strong>Predictive Analytics:</strong> Instantly track your Capital Lock-Up and Depletion Horizons.</li>
+                <li><strong>SACIPHUB Compliance:</strong> Elevate your business for state-level procurement eligibility.</li>
+                <li><strong>Public Directory Access:</strong> Automatic free listing on our marketplace to drive public consumer traffic.</li>
+            </ul>
+
+            <div class="pricing-box">
+                <h3>Commercial Node License</h3>
+                <div class="pricing-amount">₦30,000</div>
+                <div class="pricing-sub">Full VCI Engine Access • Billed Annually</div>
+            </div>
+
+            <button class="btn-submit" onclick="showSignupForm()">Accept Terms & Proceed</button>
+            <span class="toggle-link" onclick="showLoginForm()">← Return to Login</span>
         </div>
 
         <div class="auth-card" id="signup-form">
             <h2>Register Node</h2>
-            <div class="auth-subtitle">Protocol 01 Infrastructure</div>
+            <div class="auth-subtitle">Enter Node Credentials</div>
             
             <div class="form-group">
                 <label>Node Classification</label>
@@ -77,8 +111,8 @@
                 <label>Create Password</label>
                 <input type="password" id="signup-password" placeholder="Min. 6 characters">
             </div>
-            <button class="btn-submit" onclick="registerNode()">ESTABLISH NODE</button>
-            <span class="toggle-link" onclick="toggleForms()">Return to Login</span>
+            <button class="btn-submit" onclick="registerNode()">FINALIZE & ESTABLISH NODE</button>
+            <span class="toggle-link" onclick="showSubscriptionTier()">← Back to Subscription Terms</span>
         </div>
     </div>
 
@@ -94,22 +128,31 @@
             measurementId: "G-NEZ7MHE259"
         };
         
-        // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
         const db = firebase.firestore();
 
-        // --- 2. UI TOGGLE LOGIC ---
-        function toggleForms() {
-            const login = document.getElementById("login-form");
-            const signup = document.getElementById("signup-form");
-            if (login.style.display === "none") {
-                login.style.display = "block";
-                signup.style.display = "none";
-            } else {
-                login.style.display = "none";
-                signup.style.display = "block";
-            }
+        // --- 2. MULTI-STAGE UI NAVIGATION ---
+        const loginForm = document.getElementById("login-form");
+        const subTier = document.getElementById("subscription-tier");
+        const signupForm = document.getElementById("signup-form");
+
+        function showLoginForm() {
+            loginForm.style.display = "block";
+            subTier.style.display = "none";
+            signupForm.style.display = "none";
+        }
+
+        function showSubscriptionTier() {
+            loginForm.style.display = "none";
+            subTier.style.display = "block";
+            signupForm.style.display = "none";
+        }
+
+        function showSignupForm() {
+            loginForm.style.display = "none";
+            subTier.style.display = "none";
+            signupForm.style.display = "block";
         }
 
         // --- 3. REGISTRATION (SIGNUP) LOGIC ---
@@ -126,16 +169,16 @@
             auth.createUserWithEmailAndPassword(email, password)
             .then((userCredential) => {
                 const user = userCredential.user;
-                // Save the Node Type to Firestore Database
                 return db.collection("Nodes").doc(user.uid).set({
                     email: email,
                     nodeType: nodeType,
                     status: "ACTIVE",
+                    subscription: "PENDING_VERIFICATION", // Commercial tracker
                     createdAt: firebase.firestore.FieldValue.serverTimestamp()
                 });
             })
             .then(() => {
-                alert("Node Established. Routing to Dashboard...");
+                alert("Commercial Node Established. Routing to Dashboard...");
                 routeUser(nodeType);
             })
             .catch((error) => {
@@ -156,14 +199,13 @@
             auth.signInWithEmailAndPassword(email, password)
             .then((userCredential) => {
                 const user = userCredential.user;
-                // Fetch the user's Node Type from Firestore to route them correctly
                 return db.collection("Nodes").doc(user.uid).get();
             })
             .then((doc) => {
                 if (doc.exists) {
                     routeUser(doc.data().nodeType);
                 } else {
-                    alert("Node classification not found in database. Contact SACIPHUB Administrator.");
+                    alert("Node classification not found in database.");
                 }
             })
             .catch((error) => {
