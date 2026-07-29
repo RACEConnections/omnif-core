@@ -3,50 +3,172 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Protocol 01 Engine | VCI</title>
+    <title>Protocol 01 Engine | VCI Gateway</title>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    
     <style>
         :root { --primary-green: #005a32; --dark-slate: #1a1f24; --light-bg: #f4f6f8; --text-main: #333333; }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
         body { background-color: var(--light-bg); color: var(--text-main); display: flex; flex-direction: column; min-height: 100vh; }
         
         .top-nav { background-color: var(--dark-slate); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; }
-        .back-btn { color: #fff; text-decoration: none; font-size: 14px; border: 1px solid #444; padding: 6px 12px; border-radius: 4px; }
-        .back-btn:hover { border-color: var(--primary-green); }
         .nav-title { color: var(--primary-green); font-weight: bold; letter-spacing: 1px; }
 
         .dashboard-container { flex-grow: 1; padding: 40px 5%; display: flex; flex-direction: column; align-items: center; }
         .auth-card { background: #fff; width: 100%; max-width: 400px; padding: 30px; border-radius: 6px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-top: 4px solid var(--primary-green); }
         
-        .auth-card h2 { color: var(--dark-slate); margin-bottom: 20px; text-align: center; }
+        .auth-card h2 { color: var(--dark-slate); margin-bottom: 5px; text-align: center; }
+        .auth-subtitle { text-align: center; color: #888; font-size: 13px; margin-bottom: 20px; }
+        
         .form-group { margin-bottom: 15px; }
         .form-group label { display: block; font-size: 13px; color: #666; margin-bottom: 5px; text-transform: uppercase; }
-        .form-group input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; outline: none; }
-        .form-group input:focus { border-color: var(--primary-green); }
+        .form-group input, .form-group select { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; outline: none; }
+        .form-group input:focus, .form-group select:focus { border-color: var(--primary-green); }
         
         .btn-submit { width: 100%; background: var(--primary-green); color: #fff; padding: 12px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; margin-top: 10px; }
-        footer { text-align: center; padding: 20px; font-size: 12px; color: #888; background: #fff; }
+        .toggle-link { text-align: center; display: block; margin-top: 15px; color: var(--primary-green); font-size: 13px; cursor: pointer; text-decoration: underline; }
+        
+        /* Hide signup form by default */
+        #signup-form { display: none; }
     </style>
 </head>
 <body>
     <div class="top-nav">
-        <a href="https://protocolx.one" class="back-btn">← Main Hub</a>
-        <div class="nav-title">VCI ENGINE</div>
+        <div class="nav-title">VCI ENGINE GATEWAY</div>
     </div>
 
     <div class="dashboard-container">
-        <div class="auth-card">
+        <div class="auth-card" id="login-form">
             <h2>Secure Ledger Access</h2>
+            <div class="auth-subtitle">Authorized Nodes Only</div>
+            
             <div class="form-group">
-                <label>Entity ID / Warehouse Node</label>
-                <input type="text" placeholder="Enter Registration ID">
+                <label>Admin Email</label>
+                <input type="email" id="login-email" placeholder="Enter registration email">
             </div>
             <div class="form-group">
                 <label>Security Protocol (Password)</label>
-                <input type="password" placeholder="Enter Password">
+                <input type="password" id="login-password" placeholder="Enter password">
             </div>
-            <button class="btn-submit">INITIALIZE LEDGER</button>
+            <button class="btn-submit" onclick="loginNode()">INITIALIZE LEDGER</button>
+            <span class="toggle-link" onclick="toggleForms()">Register a New Node</span>
+        </div>
+
+        <div class="auth-card" id="signup-form">
+            <h2>Register Node</h2>
+            <div class="auth-subtitle">Protocol 01 Infrastructure</div>
+            
+            <div class="form-group">
+                <label>Node Classification</label>
+                <select id="signup-type">
+                    <option value="RETAIL">Independent Retail / Tech</option>
+                    <option value="AGRI">Agricultural / Macro Warehouse</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Admin Email</label>
+                <input type="email" id="signup-email" placeholder="Enter official email">
+            </div>
+            <div class="form-group">
+                <label>Create Password</label>
+                <input type="password" id="signup-password" placeholder="Min. 6 characters">
+            </div>
+            <button class="btn-submit" onclick="registerNode()">ESTABLISH NODE</button>
+            <span class="toggle-link" onclick="toggleForms()">Return to Login</span>
         </div>
     </div>
-    <footer>&copy; 2026 R.A.C.E. LLC. Protocol 01 Dashboard.</footer>
+
+    <script>
+        // --- 1. FIREBASE CONFIGURATION (PASTE YOUR KEYS HERE) ---
+        const firebaseConfig = {
+  apiKey: "AIzaSyDuRjYY7jceuKgqrvfsjQiTqN54uu6vZxQ",
+  authDomain: "protocol-01-vci.firebaseapp.com",
+  projectId: "protocol-01-vci",
+  storageBucket: "protocol-01-vci.firebasestorage.app",
+  messagingSenderId: "137862917154",
+  appId: "1:137862917154:web:2eef7ba8205e0d98f12e7b",
+  measurementId: "G-NEZ7MHE259"
+}:
+        
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        // --- 2. UI TOGGLE LOGIC ---
+        function toggleForms() {
+            const login = document.getElementById("login-form");
+            const signup = document.getElementById("signup-form");
+            if (login.style.display === "none") {
+                login.style.display = "block";
+                signup.style.display = "none";
+            } else {
+                login.style.display = "none";
+                signup.style.display = "block";
+            }
+        }
+
+        // --- 3. REGISTRATION (SIGNUP) LOGIC ---
+        function registerNode() {
+            const email = document.getElementById("signup-email").value;
+            const password = document.getElementById("signup-password").value;
+            const nodeType = document.getElementById("signup-type").value;
+
+            auth.createUserWithEmailAndPassword(email, password)
+            .then((userCredential) => {
+                const user = userCredential.user;
+                // Save the Node Type to Firestore Database
+                return db.collection("Nodes").doc(user.uid).set({
+                    email: email,
+                    nodeType: nodeType,
+                    status: "ACTIVE",
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+            })
+            .then(() => {
+                alert("Node Established. Routing to Dashboard...");
+                routeUser(nodeType);
+            })
+            .catch((error) => {
+                alert("Registration Failed: " + error.message);
+            });
+        }
+
+        // --- 4. AUTHENTICATION (LOGIN) LOGIC ---
+        function loginNode() {
+            const email = document.getElementById("login-email").value;
+            const password = document.getElementById("login-password").value;
+
+            auth.signInWithEmailAndPassword(email, password)
+            .then((userCredential) => {
+                const user = userCredential.user;
+                // Fetch the user's Node Type from Firestore to route them correctly
+                return db.collection("Nodes").doc(user.uid).get();
+            })
+            .then((doc) => {
+                if (doc.exists) {
+                    routeUser(doc.data().nodeType);
+                } else {
+                    alert("Node classification not found in database.");
+                }
+            })
+            .catch((error) => {
+                alert("Access Denied: " + error.message);
+            });
+        }
+
+        // --- 5. ROUTING LOGIC ---
+        function routeUser(type) {
+            if (type === "AGRI") {
+                window.location.href = "agri-dashboard.html";
+            } else if (type === "RETAIL") {
+                window.location.href = "retail-dashboard.html";
+            } else {
+                alert("Unknown Node Classification.");
+            }
+        }
+    </script>
 </body>
-</html>
+    </html>
