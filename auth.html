@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protocol 01 | Secure Gateway</title>
+    <style>
+        :root {
+            --primary-green: #005a32;
+            --dark-slate: #0a0c10;
+            --panel-bg: #151921;
+            --text-light: #ffffff;
+            --text-muted: #8892b0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Courier New', Courier, monospace; }
+
+        body {
+            background-color: var(--dark-slate);
+            color: var(--text-light);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .auth-container {
+            background-color: var(--panel-bg);
+            padding: 50px 40px;
+            border-radius: 8px;
+            border-top: 4px solid var(--primary-green);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            width: 100%;
+            max-width: 450px;
+        }
+
+        .crest {
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .crest span { color: var(--primary-green); }
+
+        .auth-title {
+            font-size: 14px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 40px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 15px;
+        }
+
+        .input-group { margin-bottom: 25px; text-align: left; }
+        
+        .input-group label {
+            display: block;
+            font-size: 12px;
+            color: var(--primary-green);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 15px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border: 1px solid #333;
+            color: var(--text-light);
+            font-size: 16px;
+            border-radius: 4px;
+            outline: none;
+            letter-spacing: 2px;
+            text-align: center;
+        }
+
+        .input-group input:focus { border-color: var(--primary-green); }
+
+        .btn-auth {
+            width: 100%;
+            background-color: var(--primary-green);
+            color: #fff;
+            padding: 16px;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: 0.3s;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .btn-auth:hover { background-color: #007a45; }
+
+        .error-msg {
+            color: #ff4c4c;
+            font-size: 12px;
+            margin-top: 15px;
+            min-height: 15px;
+            text-transform: uppercase;
+        }
+
+        .footer-note {
+            margin-top: 30px;
+            font-size: 10px;
+            color: #555;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="auth-container">
+        <div class="crest">R.A.C.E. <span>LLC</span></div>
+        <div class="auth-title">Zero-Knowledge Authentication Gateway</div>
+
+        <div class="input-group">
+            <label>Input Engraved Onboarding Key</label>
+            <input type="password" id="vanguard-key" placeholder="XXXX-XXXX-XXXX" autocomplete="off">
+        </div>
+
+        <button class="btn-auth" onclick="verifyKey()">Initialize Vault</button>
+        
+        <div id="error-display" class="error-msg"></div>
+
+        <div class="footer-note">
+            Protocol 01 | SACIPHUB Authorized Personnel Only
+        </div>
+    </div>
+
+    <script>
+        function verifyKey() {
+            const keyInput = document.getElementById('vanguard-key').value.trim();
+            const errorDisplay = document.getElementById('error-display');
+            
+            // Clear previous errors
+            errorDisplay.innerText = "";
+
+            // PROTOCOL: Key Validation Logic
+            // In a production environment, this would query your backend database.
+            // For the Vanguard Demo phase, we validate against a secure format or hardcoded Vanguard Key.
+            
+            if (keyInput === "") {
+                errorDisplay.innerText = "PROTOCOL ERROR: KEY CANNOT BE EMPTY.";
+                return;
+            }
+
+            // Example Demo Validation: Accepting a specific key length or exact Vanguard string
+            if (keyInput === "VANGUARD-001" || keyInput.length >= 8) {
+                
+                // 1. Set the LocalStorage Token (For the JS Bouncer in the Vault)
+                localStorage.setItem('vanguard_chairman_key_active', 'true');
+                
+                // 2. Set the secure Cookie (For the Vercel Middleware.js)
+                // This cookie expires in 1 day (86400 seconds)
+                document.cookie = "chairman_auth_token=verified; path=/; max-age=86400; Secure; SameSite=Strict";
+                
+                // 3. Visual feedback for the Chairman
+                document.querySelector('.btn-auth').innerText = "DECRYPTING...";
+                document.querySelector('.btn-auth').style.backgroundColor = "#555";
+                
+                // 4. Redirect into the isolated Vault folder
+                setTimeout(() => {
+                    window.location.href = "/vault/";
+                }, 1200);
+
+            } else {
+                errorDisplay.innerText = "ACCESS DENIED: INVALID OR EXPIRED KEY.";
+                document.getElementById('vanguard-key').value = "";
+            }
+        }
+    </script>
+</body>
+  </html>
