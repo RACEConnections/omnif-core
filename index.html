@@ -3,225 +3,144 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Protocol 01 Engine | Secure Gateway</title>
-    
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-    
+    <title>Protocol 01 | R.A.C.E. LLC</title>
     <style>
-        :root { --primary-green: #005a32; --dark-slate: #1a1f24; --light-bg: #f4f6f8; --text-main: #333333; }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        body { background-color: var(--light-bg); color: var(--text-main); display: flex; flex-direction: column; min-height: 100vh; }
-        
-        .top-nav { background-color: var(--dark-slate); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; }
-        .nav-title { color: var(--primary-green); font-weight: bold; letter-spacing: 1px; }
+        :root {
+            --primary-green: #005a32;
+            --dark-slate: #1a1f24;
+            --light-bg: #f4f6f8;
+            --text-main: #333333;
+            --text-light: #ffffff;
+        }
 
-        .dashboard-container { flex-grow: 1; padding: 40px 5%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .auth-card { background: #fff; width: 100%; max-width: 450px; padding: 30px; border-radius: 6px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-top: 4px solid var(--primary-green); }
-        
-        .auth-card h2 { color: var(--dark-slate); margin-bottom: 5px; text-align: center; }
-        .auth-subtitle { text-align: center; color: #888; font-size: 13px; margin-bottom: 20px; }
-        
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; font-size: 13px; color: #666; margin-bottom: 5px; text-transform: uppercase; }
-        .form-group input, .form-group select { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; outline: none; }
-        .form-group input:focus, .form-group select:focus { border-color: var(--primary-green); }
-        
-        .btn-submit { width: 100%; background: var(--primary-green); color: #fff; padding: 14px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; margin-top: 10px; transition: background 0.3s; text-transform: uppercase; letter-spacing: 1px; }
-        .btn-submit:hover { background: #004224; }
-        .toggle-link { text-align: center; display: block; margin-top: 15px; color: var(--primary-green); font-size: 13px; cursor: pointer; text-decoration: underline; font-weight: bold; }
-        
-        .notice-box { background: #fdf8e2; border-left: 4px solid #f0ad4e; padding: 15px; font-size: 13px; color: #555; margin-bottom: 20px; line-height: 1.5; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; }
 
-        /* Section Visibility Control */
-        #login-form { display: block; }
-        #key-request-form { display: none; }
-        #signup-form { display: none; }
+        body { background-color: var(--light-bg); color: var(--text-main); line-height: 1.6; }
+
+        /* Navigation Bar */
+        header {
+            background-color: var(--dark-slate);
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid var(--primary-green);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo { color: var(--text-light); font-size: 24px; font-weight: 800; letter-spacing: 2px; }
+        .logo span { color: var(--primary-green); }
+
+        .btn {
+            display: inline-block; padding: 12px 25px; font-size: 14px; font-weight: bold;
+            text-decoration: none; border-radius: 4px; transition: all 0.3s ease;
+            text-transform: uppercase; letter-spacing: 1px; cursor: pointer; border: none;
+        }
+
+        .btn-primary { background-color: var(--primary-green); color: var(--text-light); border: 2px solid var(--primary-green); }
+        .btn-primary:hover { background-color: transparent; color: var(--primary-green); }
+
+        .btn-secondary { background-color: transparent; color: var(--dark-slate); border: 2px solid var(--dark-slate); }
+        .btn-secondary:hover { background-color: var(--dark-slate); color: var(--text-light); }
+
+        /* Hero Section */
+        .hero { padding: 80px 5%; text-align: center; background-color: #ffffff; }
+        .hero h1 { font-size: 40px; color: var(--dark-slate); margin-bottom: 20px; }
+        .hero p { font-size: 18px; max-width: 800px; margin: 0 auto 30px auto; color: #555; }
+        
+        .hero-cta-group { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
+
+        /* SACIPHUB Consultant Highlight Section */
+        .consultant-section {
+            padding: 60px 5%;
+            background-color: #e8f5e9;
+            border-top: 2px solid #c8e6c9;
+            border-bottom: 2px solid #c8e6c9;
+            text-align: center;
+        }
+
+        .consultant-card {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 6px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border-left: 6px solid var(--primary-green);
+            text-align: left;
+        }
+
+        .consultant-card h2 { color: var(--primary-green); font-size: 24px; margin-bottom: 15px; }
+        .consultant-card p { font-size: 16px; color: #444; margin-bottom: 20px; }
+
+        /* Public Sector Manifesto Section */
+        .manifesto-section { padding: 60px 5%; display: flex; justify-content: center; background-color: var(--light-bg); }
+        .manifesto-container {
+            max-width: 900px; background-color: #ffffff; padding: 50px;
+            border-left: 6px solid var(--primary-green); box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .manifesto-container h2 { color: var(--primary-green); font-size: 28px; margin-bottom: 25px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+        .manifesto-container h3 { color: var(--dark-slate); font-size: 22px; margin: 35px 0 15px 0; }
+        .manifesto-container p { font-size: 17px; margin-bottom: 20px; text-align: justify; color: #444; }
+
+        footer { background-color: var(--dark-slate); color: #888; text-align: center; padding: 30px 20px; font-size: 14px; }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 30px; }
+            .manifesto-container, .consultant-card { padding: 25px 20px; }
+            header { flex-direction: column; gap: 15px; }
+        }
     </style>
 </head>
 <body>
-    <div class="top-nav">
-        <div class="nav-title">VCI SECURE GATEWAY</div>
-    </div>
 
-    <div class="dashboard-container">
+    <header>
+        <div class="logo">R.A.C.E. <span>LLC</span></div>
+        <a href="https://vci.protocolx.one" class="btn btn-primary">Access VCI Gateway</a>
+    </header>
+
+    <header class="hero">
+        <h1>Absolute Structural Order</h1>
+        <p>The Virtual Consumption Index (VCI) System. Protecting vital business data, stock arrangements, and financial summaries through verified offline treasury architecture.</p>
         
-        <div class="auth-card" id="login-form">
-            <h2>Authorized Access</h2>
-            <div class="auth-subtitle">Protocol 01 Ledger Sign-In</div>
-            
-            <div class="form-group">
-                <label>Admin Email</label>
-                <input type="email" id="login-email" placeholder="Enter node email">
-            </div>
-            <div class="form-group">
-                <label>Security Protocol (Password)</label>
-                <input type="password" id="login-password" placeholder="Enter password">
-            </div>
-            <button class="btn-submit" onclick="loginNode()">SIGN IN</button>
-            
-            <span class="toggle-link" onclick="showKeyRequest()">Request Onboarding Key (SACIPHUB)</span>
+        <div class="hero-cta-group">
+            <a href="https://vci.protocolx.one" class="btn btn-primary">Launch VCI Engine</a>
+            <a href="#saciphub-sync" class="btn btn-secondary">SACIPHUB Consultant Desk</a>
         </div>
+    </header>
 
-        <div class="auth-card" id="key-request-form">
-            <h2>SACIPHUB Key Desk</h2>
-            <div class="auth-subtitle">Mandatory Pre-Onboarding Verification</div>
-            
-            <div class="notice-box">
-                <strong>Notice:</strong> Public registration is disabled. To obtain a fresh single-use Onboarding Key, submit your business details for consultation. Keys are issued strictly after Treasury bank deposit confirmation.
-            </div>
-
-            <div class="form-group">
-                <label>Business / Entity Name</label>
-                <input type="text" id="req-name" placeholder="e.g., Old Garage Technical Supplies">
-            </div>
-            <div class="form-group">
-                <label>Official Contact Email</label>
-                <input type="email" id="req-email" placeholder="Enter contact email">
-            </div>
-            <div class="form-group">
-                <label>Treasury Teller / Deposit Reference</label>
-                <input type="text" id="req-teller" placeholder="Enter commercial bank deposit ref">
-            </div>
-
-            <button class="btn-submit" onclick="submitKeyRequest()">Submit for Verification</button>
-            <span class="toggle-link" onclick="showLoginForm()">← Return to Sign In</span>
+    <section id="saciphub-sync" class="consultant-section">
+        <div class="consultant-card">
+            <h2>SACIPHUB Consultant & Treasury Verification</h2>
+            <p>
+                In strict compliance with R.A.C.E. LLC institutional standards, public online registrations are permanently disabled. Commercial onboarding, system licensing (₦30,000), and fresh single-use Onboarding Keys are issued <strong>exclusively</strong> after free consultation with the SACIPHUB Consultant desk and verified commercial bank deposit confirmation.
+            </p>
+            <p>
+                Are you an enterprise entity or agricultural cooperative ready to establish your verified node?
+            </p>
+            <a href="https://vci.protocolx.one" class="btn btn-primary">Initiate Key Request Protocol</a>
         </div>
+    </section>
 
-        <div class="auth-card" id="signup-form">
-            <h2>Session Key Verified</h2>
-            <div class="auth-subtitle">Establish Node Credentials</div>
+    <section class="manifesto-section">
+        <div class="manifesto-container">
+            <h2>Protocol 01: The Architecture of Public Maintenance</h2>
             
-            <div class="form-group">
-                <label>Node Classification</label>
-                <select id="signup-type">
-                    <option value="RETAIL">Independent Retail / Tech</option>
-                    <option value="AGRI">Agricultural / Macro Warehouse</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>Verified Admin Email</label>
-                <input type="email" id="signup-email" placeholder="Enter authorized email">
-            </div>
-            <div class="form-group">
-                <label>Create Password</label>
-                <input type="password" id="signup-password" placeholder="Min. 6 characters">
-            </div>
-            <button class="btn-submit" onclick="registerNode()">FINALIZE & ESTABLISH NODE</button>
+            <p>People get excited with trends and proactive responses. Data sources are collated, content is distributed, published, and followed by rapid viral spread. But during this expansion, file management and physical locating arrangements often become entangled in the chaos of busy or distracted vices.</p>
+            
+            <p><strong>Protocol 01 solves the architecture of this chaos.</strong> It replaces entanglement with absolute structural order. By utilizing an air-gapped ledger system, Protocol 01 ensures that vital business data, stock arrangements, and financial summaries are protected, instantly locatable, and immune to digital distraction.</p>
+
+            <h3>The Public Sector Mandate</h3>
+            
+            <p>At the state level, the Governorship office and procurement mandates require absolute accessibility to warehouse provisions, ensuring that local businesses remain well-structured and neatly arranged. When supply chains and independent businesses are meticulously organized, the true pillars of the state—Welfare, Agriculture, Nature, and Independent Labour practices—reflect clinical, highly efficient public maintenance. Protocol 01 provides the structural framework to achieve this, elevating local trade into recognized, professional services.</p>
         </div>
-    </div>
+    </section>
 
-    <script>
-        // --- 1. FIREBASE CONFIGURATION ---
-        const firebaseConfig = {
-            apiKey: "AIzaSyDuRjYY7jceuKgqrvfsjQiTqN54uu6vZxQ",
-            authDomain: "protocol-01-vci.firebaseapp.com",
-            projectId: "protocol-01-vci",
-            storageBucket: "protocol-01-vci.firebasestorage.app",
-            messagingSenderId: "137862917154",
-            appId: "1:137862917154:web:2eef7ba8205e0d98f12e7b",
-            measurementId: "G-NEZ7MHE259"
-        };
-        
-        firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
-        const db = firebase.firestore();
+    <footer>
+        <p>&copy; 2026 R.A.C.E. LLC. All rights reserved. Protocol 01 Virtual Consumption Index.</p>
+    </footer>
 
-        // --- 2. SECURE NAVIGATION CONTROLS ---
-        const loginForm = document.getElementById("login-form");
-        const keyReqForm = document.getElementById("key-request-form");
-        const signupForm = document.getElementById("signup-form");
-
-        function hideAll() {
-            loginForm.style.display = "none";
-            keyReqForm.style.display = "none";
-            signupForm.style.display = "none";
-        }
-
-        function showLoginForm() { hideAll(); loginForm.style.display = "block"; }
-        function showKeyRequest() { hideAll(); keyReqForm.style.display = "block"; }
-        function showSignupForm() { hideAll(); signupForm.style.display = "block"; }
-
-        // --- 3. KEY REQUEST & SESSION VALIDATION ---
-        function submitKeyRequest() {
-            const name = document.getElementById("req-name").value;
-            const email = document.getElementById("req-email").value;
-            const teller = document.getElementById("req-teller").value;
-
-            if (!name || !email || !teller) {
-                alert("SYSTEM ERROR: All verification parameters are required.");
-                return;
-            }
-
-            // Simulating SACIPHUB session verification and fresh key generation upon checklist clearance
-            const generatedKey = "KEY-" + Math.floor(100000 + Math.random() * 900000);
-            
-            alert("SACIPHUB CHECKLIST CLEARANCE SUCCESSFUL.\n\nYour Freshly Generated Onboarding Session Key is:\n" + generatedKey + "\n\nThis key has been verified against the R.A.C.E. LLC Treasury Center deposit ledger. Proceeding to Account Creation.");
-            
-            // Automatically populate the signup email with the verified request email
-            document.getElementById("signup-email").value = email;
-            showSignupForm();
-        }
-
-        // --- 4. SIGNUP LOGIC (VIA VERIFIED KEY SESSION) ---
-        function registerNode() {
-            const email = document.getElementById("signup-email").value;
-            const password = document.getElementById("signup-password").value;
-            const nodeType = document.getElementById("signup-type").value;
-
-            if (!email || !password) {
-                alert("SYSTEM ERROR: Credentials incomplete.");
-                return;
-            }
-
-            auth.createUserWithEmailAndPassword(email, password)
-            .then((userCredential) => {
-                const user = userCredential.user;
-                return db.collection("Nodes").doc(user.uid).set({
-                    email: email,
-                    nodeType: nodeType,
-                    status: "ACTIVE",
-                    authMode: "SACIPHUB_VERIFIED_KEY",
-                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
-                });
-            })
-            .then(() => {
-                alert("Node Successfully Established. Routing to Dashboard...");
-                routeUser(nodeType);
-            })
-            .catch((error) => {
-                alert("Registration Failed: " + error.message);
-            });
-        }
-
-        // --- 5. SIGN-IN (LOGIN) LOGIC ---
-        function loginNode() {
-            const email = document.getElementById("login-email").value;
-            const password = document.getElementById("login-password").value;
-
-            if (!email || !password) {
-                alert("SYSTEM ERROR: Enter login credentials.");
-                return;
-            }
-
-            auth.signInWithEmailAndPassword(email, password)
-            .then((userCredential) => {
-                const user = userCredential.user;
-                return db.collection("Nodes").doc(user.uid).get();
-            })
-            .then((doc) => {
-                if (doc.exists) { routeUser(doc.data().nodeType); }
-                else { alert("Node identity unverified in ledger."); }
-            })
-            .catch((error) => { alert("Sign-In Denied: " + error.message); });
-        }
-
-        // --- 6. ROUTING LOGIC ---
-        function routeUser(type) {
-            if (type === "AGRI") { window.location.href = "agri-dashboard.html"; } 
-            else if (type === "RETAIL") { window.location.href = "retail-dashboard.html"; }
-        }
-    </script>
 </body>
-                    </html>
+    </html>
