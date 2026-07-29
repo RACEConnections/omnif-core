@@ -42,9 +42,14 @@
         .pricing-amount { font-size: 28px; font-weight: 900; color: var(--dark-slate); margin-bottom: 5px; }
         .pricing-sub { font-size: 12px; color: #666; }
 
+        /* Loader */
+        .loader { border: 4px solid #f3f3f3; border-top: 4px solid var(--primary-green); border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 20px auto; display: none; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
         /* Section Visibility */
         #login-form { display: block; }
         #subscription-tier { display: none; }
+        #payment-gate { display: none; }
         #signup-form { display: none; }
     </style>
 </head>
@@ -88,13 +93,26 @@
                 <div class="pricing-sub">Full VCI Engine Access • Billed Annually</div>
             </div>
 
-            <button class="btn-submit" onclick="showSignupForm()">Accept Terms & Proceed</button>
+            <button class="btn-submit" onclick="showPaymentGate()">Proceed to Secure Checkout</button>
             <span class="toggle-link" onclick="showLoginForm()">← Return to Login</span>
         </div>
 
+        <div class="auth-card" id="payment-gate" style="text-align: center;">
+            <h2>Secure Checkout</h2>
+            <div class="auth-subtitle">Awaiting ₦30,000 Remittance</div>
+            
+            <div style="background: #f4f6f8; padding: 20px; border-radius: 6px; border: 1px solid #ddd; margin-bottom: 20px;">
+                <p style="font-size: 14px; color: #444; margin-bottom: 15px;">You are about to initiate a secure transaction to R.A.C.E. LLC. Once payment clears, your Node Registration key will be unlocked.</p>
+                <div class="loader" id="payment-loader"></div>
+            </div>
+
+            <button class="btn-submit" id="pay-btn" onclick="simulatePayment()">Pay ₦30,000 via Card/Transfer</button>
+            <span class="toggle-link" onclick="showSubscriptionTier()">← Cancel Transaction</span>
+        </div>
+
         <div class="auth-card" id="signup-form">
-            <h2>Register Node</h2>
-            <div class="auth-subtitle">Enter Node Credentials</div>
+            <h2>Registration Unlocked</h2>
+            <div class="auth-subtitle">Payment Verified. Enter Node Credentials.</div>
             
             <div class="form-group">
                 <label>Node Classification</label>
@@ -112,7 +130,6 @@
                 <input type="password" id="signup-password" placeholder="Min. 6 characters">
             </div>
             <button class="btn-submit" onclick="registerNode()">FINALIZE & ESTABLISH NODE</button>
-            <span class="toggle-link" onclick="showSubscriptionTier()">← Back to Subscription Terms</span>
         </div>
     </div>
 
@@ -135,27 +152,37 @@
         // --- 2. MULTI-STAGE UI NAVIGATION ---
         const loginForm = document.getElementById("login-form");
         const subTier = document.getElementById("subscription-tier");
+        const paymentGate = document.getElementById("payment-gate");
         const signupForm = document.getElementById("signup-form");
 
-        function showLoginForm() {
-            loginForm.style.display = "block";
+        function hideAll() {
+            loginForm.style.display = "none";
             subTier.style.display = "none";
+            paymentGate.style.display = "none";
             signupForm.style.display = "none";
         }
 
-        function showSubscriptionTier() {
-            loginForm.style.display = "none";
-            subTier.style.display = "block";
-            signupForm.style.display = "none";
+        function showLoginForm() { hideAll(); loginForm.style.display = "block"; }
+        function showSubscriptionTier() { hideAll(); subTier.style.display = "block"; }
+        function showPaymentGate() { hideAll(); paymentGate.style.display = "block"; }
+        function showSignupForm() { hideAll(); signupForm.style.display = "block"; }
+
+        // --- 3. PAYMENT SIMULATION (REPLACE WITH PAYSTACK/FLUTTERWAVE LATER) ---
+        function simulatePayment() {
+            const btn = document.getElementById("pay-btn");
+            const loader = document.getElementById("payment-loader");
+            
+            btn.style.display = "none";
+            loader.style.display = "block";
+
+            // Simulating a 2-second payment gateway response
+            setTimeout(() => {
+                alert("Transaction Successful! Your Registration Gateway is now unlocked.");
+                showSignupForm();
+            }, 2000);
         }
 
-        function showSignupForm() {
-            loginForm.style.display = "none";
-            subTier.style.display = "none";
-            signupForm.style.display = "block";
-        }
-
-        // --- 3. REGISTRATION (SIGNUP) LOGIC ---
+        // --- 4. REGISTRATION (SIGNUP) LOGIC ---
         function registerNode() {
             const email = document.getElementById("signup-email").value;
             const password = document.getElementById("signup-password").value;
@@ -173,7 +200,7 @@
                     email: email,
                     nodeType: nodeType,
                     status: "ACTIVE",
-                    subscription: "PENDING_VERIFICATION", // Commercial tracker
+                    subscription: "PAID_30000",
                     createdAt: firebase.firestore.FieldValue.serverTimestamp()
                 });
             })
@@ -186,15 +213,12 @@
             });
         }
 
-        // --- 4. AUTHENTICATION (LOGIN) LOGIC ---
+        // --- 5. AUTHENTICATION (LOGIN) LOGIC ---
         function loginNode() {
             const email = document.getElementById("login-email").value;
             const password = document.getElementById("login-password").value;
 
-            if (!email || !password) {
-                alert("SYSTEM ERROR: Email and Security Protocol are required.");
-                return;
-            }
+            if (!email || !password) { return; }
 
             auth.signInWithEmailAndPassword(email, password)
             .then((userCredential) => {
@@ -202,27 +226,16 @@
                 return db.collection("Nodes").doc(user.uid).get();
             })
             .then((doc) => {
-                if (doc.exists) {
-                    routeUser(doc.data().nodeType);
-                } else {
-                    alert("Node classification not found in database.");
-                }
+                if (doc.exists) { routeUser(doc.data().nodeType); }
             })
-            .catch((error) => {
-                alert("Access Denied: " + error.message);
-            });
+            .catch((error) => { alert("Access Denied: " + error.message); });
         }
 
-        // --- 5. ROUTING LOGIC ---
+        // --- 6. ROUTING LOGIC ---
         function routeUser(type) {
-            if (type === "AGRI") {
-                window.location.href = "agri-dashboard.html";
-            } else if (type === "RETAIL") {
-                window.location.href = "retail-dashboard.html";
-            } else {
-                alert("Unknown Node Classification.");
-            }
+            if (type === "AGRI") { window.location.href = "agri-dashboard.html"; } 
+            else if (type === "RETAIL") { window.location.href = "retail-dashboard.html"; }
         }
     </script>
 </body>
-</html>
+    </html>
