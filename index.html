@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Protocol 01 Engine | VCI Gateway</title>
+    
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
@@ -27,7 +28,8 @@
         .form-group input, .form-group select { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; outline: none; }
         .form-group input:focus, .form-group select:focus { border-color: var(--primary-green); }
         
-        .btn-submit { width: 100%; background: var(--primary-green); color: #fff; padding: 12px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        .btn-submit { width: 100%; background: var(--primary-green); color: #fff; padding: 12px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; margin-top: 10px; transition: background 0.3s; }
+        .btn-submit:hover { background: #004224; }
         .toggle-link { text-align: center; display: block; margin-top: 15px; color: var(--primary-green); font-size: 13px; cursor: pointer; text-decoration: underline; }
         
         /* Hide signup form by default */
@@ -81,16 +83,16 @@
     </div>
 
     <script>
-        // --- 1. FIREBASE CONFIGURATION (PASTE YOUR KEYS HERE) ---
+        // --- 1. FIREBASE CONFIGURATION ---
         const firebaseConfig = {
-  apiKey: "AIzaSyDuRjYY7jceuKgqrvfsjQiTqN54uu6vZxQ",
-  authDomain: "protocol-01-vci.firebaseapp.com",
-  projectId: "protocol-01-vci",
-  storageBucket: "protocol-01-vci.firebasestorage.app",
-  messagingSenderId: "137862917154",
-  appId: "1:137862917154:web:2eef7ba8205e0d98f12e7b",
-  measurementId: "G-NEZ7MHE259"
-}:
+            apiKey: "AIzaSyDuRjYY7jceuKgqrvfsjQiTqN54uu6vZxQ",
+            authDomain: "protocol-01-vci.firebaseapp.com",
+            projectId: "protocol-01-vci",
+            storageBucket: "protocol-01-vci.firebasestorage.app",
+            messagingSenderId: "137862917154",
+            appId: "1:137862917154:web:2eef7ba8205e0d98f12e7b",
+            measurementId: "G-NEZ7MHE259"
+        };
         
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
@@ -115,6 +117,11 @@
             const email = document.getElementById("signup-email").value;
             const password = document.getElementById("signup-password").value;
             const nodeType = document.getElementById("signup-type").value;
+
+            if (!email || !password) {
+                alert("SYSTEM ERROR: Email and Security Protocol are required.");
+                return;
+            }
 
             auth.createUserWithEmailAndPassword(email, password)
             .then((userCredential) => {
@@ -141,6 +148,11 @@
             const email = document.getElementById("login-email").value;
             const password = document.getElementById("login-password").value;
 
+            if (!email || !password) {
+                alert("SYSTEM ERROR: Email and Security Protocol are required.");
+                return;
+            }
+
             auth.signInWithEmailAndPassword(email, password)
             .then((userCredential) => {
                 const user = userCredential.user;
@@ -151,7 +163,7 @@
                 if (doc.exists) {
                     routeUser(doc.data().nodeType);
                 } else {
-                    alert("Node classification not found in database.");
+                    alert("Node classification not found in database. Contact SACIPHUB Administrator.");
                 }
             })
             .catch((error) => {
@@ -171,4 +183,4 @@
         }
     </script>
 </body>
-    </html>
+</html>
