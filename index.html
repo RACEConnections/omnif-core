@@ -3,144 +3,241 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Protocol 01 | R.A.C.E. LLC</title>
+    <title>Protocol 01 Engine | VCI Gateway</title>
+    
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    
     <style>
-        :root {
-            --primary-green: #005a32;
-            --dark-slate: #1a1f24;
-            --light-bg: #f4f6f8;
-            --text-main: #333333;
-            --text-light: #ffffff;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; }
-
-        body { background-color: var(--light-bg); color: var(--text-main); line-height: 1.6; }
-
-        /* Navigation Bar */
-        header {
-            background-color: var(--dark-slate);
-            padding: 20px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 3px solid var(--primary-green);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .logo { color: var(--text-light); font-size: 24px; font-weight: 800; letter-spacing: 2px; }
-        .logo span { color: var(--primary-green); }
-
-        .btn {
-            display: inline-block; padding: 12px 25px; font-size: 14px; font-weight: bold;
-            text-decoration: none; border-radius: 4px; transition: all 0.3s ease;
-            text-transform: uppercase; letter-spacing: 1px; cursor: pointer; border: none;
-        }
-
-        .btn-primary { background-color: var(--primary-green); color: var(--text-light); border: 2px solid var(--primary-green); }
-        .btn-primary:hover { background-color: transparent; color: var(--primary-green); }
-
-        .btn-secondary { background-color: transparent; color: var(--dark-slate); border: 2px solid var(--dark-slate); }
-        .btn-secondary:hover { background-color: var(--dark-slate); color: var(--text-light); }
-
-        /* Hero Section */
-        .hero { padding: 80px 5%; text-align: center; background-color: #ffffff; }
-        .hero h1 { font-size: 40px; color: var(--dark-slate); margin-bottom: 20px; }
-        .hero p { font-size: 18px; max-width: 800px; margin: 0 auto 30px auto; color: #555; }
+        :root { --primary-green: #005a32; --dark-slate: #1a1f24; --light-bg: #f4f6f8; --text-main: #333333; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: var(--light-bg); color: var(--text-main); display: flex; flex-direction: column; min-height: 100vh; }
         
-        .hero-cta-group { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
+        .top-nav { background-color: var(--dark-slate); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; }
+        .nav-title { color: var(--primary-green); font-weight: bold; letter-spacing: 1px; }
 
-        /* SACIPHUB Consultant Highlight Section */
-        .consultant-section {
-            padding: 60px 5%;
-            background-color: #e8f5e9;
-            border-top: 2px solid #c8e6c9;
-            border-bottom: 2px solid #c8e6c9;
-            text-align: center;
-        }
+        .dashboard-container { flex-grow: 1; padding: 40px 5%; display: flex; flex-direction: column; align-items: center; }
+        .auth-card { background: #fff; width: 100%; max-width: 450px; padding: 30px; border-radius: 6px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-top: 4px solid var(--primary-green); }
+        
+        .auth-card h2 { color: var(--dark-slate); margin-bottom: 5px; text-align: center; }
+        .auth-subtitle { text-align: center; color: #888; font-size: 13px; margin-bottom: 20px; }
+        
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; font-size: 13px; color: #666; margin-bottom: 5px; text-transform: uppercase; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; outline: none; }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--primary-green); }
+        
+        .btn-submit { width: 100%; background: var(--primary-green); color: #fff; padding: 14px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; margin-top: 10px; transition: background 0.3s; text-transform: uppercase; letter-spacing: 1px; }
+        .btn-submit:hover { background: #004224; }
+        .toggle-link { text-align: center; display: block; margin-top: 15px; color: var(--primary-green); font-size: 13px; cursor: pointer; text-decoration: underline; font-weight: bold; }
+        
+        .facts-list { list-style: none; margin-bottom: 20px; }
+        .facts-list li { font-size: 14px; margin-bottom: 12px; padding-left: 20px; position: relative; color: #444; }
+        .facts-list li::before { content: "✓"; position: absolute; left: 0; color: var(--primary-green); font-weight: bold; }
+        
+        .treasury-box { background: #e8f5e9; border: 2px solid var(--primary-green); padding: 20px; border-radius: 6px; margin-bottom: 20px; }
+        .treasury-box h3 { color: var(--primary-green); font-size: 15px; text-transform: uppercase; margin-bottom: 10px; text-align: center; }
+        .treasury-box p { font-size: 13px; color: #333; line-height: 1.5; margin-bottom: 8px; }
 
-        .consultant-card {
-            max-width: 800px;
-            margin: 0 auto;
-            background: #ffffff;
-            padding: 40px;
-            border-radius: 6px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            border-left: 6px solid var(--primary-green);
-            text-align: left;
-        }
-
-        .consultant-card h2 { color: var(--primary-green); font-size: 24px; margin-bottom: 15px; }
-        .consultant-card p { font-size: 16px; color: #444; margin-bottom: 20px; }
-
-        /* Public Sector Manifesto Section */
-        .manifesto-section { padding: 60px 5%; display: flex; justify-content: center; background-color: var(--light-bg); }
-        .manifesto-container {
-            max-width: 900px; background-color: #ffffff; padding: 50px;
-            border-left: 6px solid var(--primary-green); box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-        }
-        .manifesto-container h2 { color: var(--primary-green); font-size: 28px; margin-bottom: 25px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
-        .manifesto-container h3 { color: var(--dark-slate); font-size: 22px; margin: 35px 0 15px 0; }
-        .manifesto-container p { font-size: 17px; margin-bottom: 20px; text-align: justify; color: #444; }
-
-        footer { background-color: var(--dark-slate); color: #888; text-align: center; padding: 30px 20px; font-size: 14px; }
-
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 30px; }
-            .manifesto-container, .consultant-card { padding: 25px 20px; }
-            header { flex-direction: column; gap: 15px; }
-        }
+        /* Section Visibility */
+        #login-form { display: block; }
+        #subscription-tier { display: none; }
+        #saciphub-consult { display: none; }
+        #signup-form { display: none; }
     </style>
 </head>
 <body>
+    <div class="top-nav">
+        <div class="nav-title">VCI ENGINE GATEWAY</div>
+    </div>
 
-    <header>
-        <div class="logo">R.A.C.E. <span>LLC</span></div>
-        <a href="https://vci.protocolx.one" class="btn btn-primary">Access VCI Gateway</a>
-    </header>
-
-    <header class="hero">
-        <h1>Absolute Structural Order</h1>
-        <p>The Virtual Consumption Index (VCI) System. Protecting vital business data, stock arrangements, and financial summaries through verified offline treasury architecture.</p>
+    <div class="dashboard-container">
         
-        <div class="hero-cta-group">
-            <a href="https://vci.protocolx.one" class="btn btn-primary">Launch VCI Engine</a>
-            <a href="#saciphub-sync" class="btn btn-secondary">SACIPHUB Consultant Desk</a>
+        <div class="auth-card" id="login-form">
+            <h2>Secure Ledger Access</h2>
+            <div class="auth-subtitle">Authorized Business Nodes Only</div>
+            
+            <div class="form-group">
+                <label>Admin Email</label>
+                <input type="email" id="login-email" placeholder="Enter registration email">
+            </div>
+            <div class="form-group">
+                <label>Security Protocol (Password)</label>
+                <input type="password" id="login-password" placeholder="Enter password">
+            </div>
+            <button class="btn-submit" onclick="loginNode()">INITIALIZE LEDGER</button>
+            <span class="toggle-link" onclick="showSubscriptionTier()">Register a New Business Node</span>
         </div>
-    </header>
 
-    <section id="saciphub-sync" class="consultant-section">
-        <div class="consultant-card">
-            <h2>SACIPHUB Consultant & Treasury Verification</h2>
-            <p>
-                In strict compliance with R.A.C.E. LLC institutional standards, public online registrations are permanently disabled. Commercial onboarding, system licensing (₦30,000), and fresh single-use Onboarding Keys are issued <strong>exclusively</strong> after free consultation with the SACIPHUB Consultant desk and verified commercial bank deposit confirmation.
+        <div class="auth-card" id="subscription-tier">
+            <h2>Protocol 01 Business Arm</h2>
+            <div class="auth-subtitle">System Facts & Commercial Mandate</div>
+            
+            <ul class="facts-list">
+                <li><strong>Absolute Structural Order:</strong> Digitize and protect your inventory with an immutable ledger.</li>
+                <li><strong>Predictive Analytics:</strong> Instantly track Capital Lock-Up and Depletion Horizons.</li>
+                <li><strong>SACIPHUB Compliance:</strong> Elevate your business for state-level procurement eligibility.</li>
+                <li><strong>Public Directory Access:</strong> Automatic free listing on our marketplace.</li>
+            </ul>
+
+            <button class="btn-submit" onclick="showConsultation()">Request Free SACIPHUB Consultation</button>
+            <span class="toggle-link" onclick="showLoginForm()">← Return to Login</span>
+        </div>
+
+        <div class="auth-card" id="saciphub-consult">
+            <h2>SACIPHUB Consultation Desk</h2>
+            <div class="auth-subtitle">Mandatory Pre-Onboarding Review</div>
+            
+            <p style="font-size: 14px; color: #555; margin-bottom: 20px; text-align: justify;">
+                Before commercial activation, all prospective nodes undergo a free structural alignment review with the State Agricultural & Commercial Intervention Program Hub (SACIPHUB). Submit your inquiry below to receive treasury deposit routing instructions.
             </p>
-            <p>
-                Are you an enterprise entity or agricultural cooperative ready to establish your verified node?
-            </p>
-            <a href="https://vci.protocolx.one" class="btn btn-primary">Initiate Key Request Protocol</a>
+
+            <div class="form-group">
+                <label>Business / Entity Name</label>
+                <input type="text" id="consult-name" placeholder="e.g., Old Garage Technical Supplies">
+            </div>
+            <div class="form-group">
+                <label>Operational Focus / Location</label>
+                <input type="text" id="consult-loc" placeholder="e.g., Osogbo, Osun State">
+            </div>
+
+            <button class="btn-submit" onclick="submitConsultation()">Submit for SACIPHUB Review</button>
+            <span class="toggle-link" onclick="showSubscriptionTier()">← Back to Subscription Facts</span>
         </div>
-    </section>
 
-    <section class="manifesto-section">
-        <div class="manifesto-container">
-            <h2>Protocol 01: The Architecture of Public Maintenance</h2>
+        <div class="auth-card" id="signup-form">
+            <h2>Treasury Verification Unlocked</h2>
+            <div class="auth-subtitle">Bank Deposit Confirmed. Establish Node.</div>
             
-            <p>People get excited with trends and proactive responses. Data sources are collated, content is distributed, published, and followed by rapid viral spread. But during this expansion, file management and physical locating arrangements often become entangled in the chaos of busy or distracted vices.</p>
-            
-            <p><strong>Protocol 01 solves the architecture of this chaos.</strong> It replaces entanglement with absolute structural order. By utilizing an air-gapped ledger system, Protocol 01 ensures that vital business data, stock arrangements, and financial summaries are protected, instantly locatable, and immune to digital distraction.</p>
+            <div class="treasury-box">
+                <h3>R.A.C.E. LLC Treasury Directive</h3>
+                <p><strong>Status:</strong> SACIPHUB Consultation Cleared.</p>
+                <p><strong>Mandate:</strong> Ensure your physical commercial bank deposit slip is secured for audit. Enter your authorized credentials below.</p>
+            </div>
 
-            <h3>The Public Sector Mandate</h3>
-            
-            <p>At the state level, the Governorship office and procurement mandates require absolute accessibility to warehouse provisions, ensuring that local businesses remain well-structured and neatly arranged. When supply chains and independent businesses are meticulously organized, the true pillars of the state—Welfare, Agriculture, Nature, and Independent Labour practices—reflect clinical, highly efficient public maintenance. Protocol 01 provides the structural framework to achieve this, elevating local trade into recognized, professional services.</p>
+            <div class="form-group">
+                <label>Node Classification</label>
+                <select id="signup-type">
+                    <option value="RETAIL">Independent Retail / Tech</option>
+                    <option value="AGRI">Agricultural / Macro Warehouse</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Admin Email</label>
+                <input type="email" id="signup-email" placeholder="Enter official email">
+            </div>
+            <div class="form-group">
+                <label>Create Password</label>
+                <input type="password" id="signup-password" placeholder="Min. 6 characters">
+            </div>
+            <button class="btn-submit" onclick="registerNode()">FINALIZE & ESTABLISH NODE</button>
         </div>
-    </section>
+    </div>
 
-    <footer>
-        <p>&copy; 2026 R.A.C.E. LLC. All rights reserved. Protocol 01 Virtual Consumption Index.</p>
-    </footer>
+    <script>
+        // --- 1. FIREBASE CONFIGURATION ---
+        const firebaseConfig = {
+            apiKey: "AIzaSyDuRjYY7jceuKgqrvfsjQiTqN54uu6vZxQ",
+            authDomain: "protocol-01-vci.firebaseapp.com",
+            projectId: "protocol-01-vci",
+            storageBucket: "protocol-01-vci.firebasestorage.app",
+            messagingSenderId: "137862917154",
+            appId: "1:137862917154:web:2eef7ba8205e0d98f12e7b",
+            measurementId: "G-NEZ7MHE259"
+        };
+        
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
 
+        // --- 2. MULTI-STAGE UI NAVIGATION ---
+        const loginForm = document.getElementById("login-form");
+        const subTier = document.getElementById("subscription-tier");
+        const consultDesk = document.getElementById("saciphub-consult");
+        const signupForm = document.getElementById("signup-form");
+
+        function hideAll() {
+            loginForm.style.display = "none";
+            subTier.style.display = "none";
+            consultDesk.style.display = "none";
+            signupForm.style.display = "none";
+        }
+
+        function showLoginForm() { hideAll(); loginForm.style.display = "block"; }
+        function showSubscriptionTier() { hideAll(); subTier.style.display = "block"; }
+        function showConsultation() { hideAll(); consultDesk.style.display = "block"; }
+        function showSignupForm() { hideAll(); signupForm.style.display = "block"; }
+
+        // --- 3. SACIPHUB CONSULTATION SUBMISSION ---
+        function submitConsultation() {
+            const name = document.getElementById("consult-name").value;
+            const loc = document.getElementById("consult-loc").value;
+
+            if (!name || !loc) {
+                alert("SYSTEM ERROR: Entity Name and Operational Location are required for consultation.");
+                return;
+            }
+
+            // Directs user to the Treasury Bank Deposit Instructions
+            alert("Consultation Request Logged with SACIPHUB.\n\nTREASURY INSTRUCTION:\nMake a direct bank deposit of ₦30,000 to the R.A.C.E. LLC Treasury Center at any commercial bank. Present your deposit teller to SACIPHUB to unlock your registration key.");
+            showSignupForm();
+        }
+
+        // --- 4. REGISTRATION (SIGNUP) LOGIC ---
+        function registerNode() {
+            const email = document.getElementById("signup-email").value;
+            const password = document.getElementById("signup-password").value;
+            const nodeType = document.getElementById("signup-type").value;
+
+            if (!email || !password) {
+                alert("SYSTEM ERROR: Email and Security Protocol are required.");
+                return;
+            }
+
+            auth.createUserWithEmailAndPassword(email, password)
+            .then((userCredential) => {
+                const user = userCredential.user;
+                return db.collection("Nodes").doc(user.uid).set({
+                    email: email,
+                    nodeType: nodeType,
+                    status: "ACTIVE",
+                    subscription: "TREASURY_BANK_DEPOSIT",
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+            })
+            .then(() => {
+                alert("Commercial Node Established via Treasury Verification. Routing to Dashboard...");
+                routeUser(nodeType);
+            })
+            .catch((error) => {
+                alert("Registration Failed: " + error.message);
+            });
+        }
+
+        // --- 5. AUTHENTICATION (LOGIN) LOGIC ---
+        function loginNode() {
+            const email = document.getElementById("login-email").value;
+            const password = document.getElementById("login-password").value;
+
+            if (!email || !password) { return; }
+
+            auth.signInWithEmailAndPassword(email, password)
+            .then((userCredential) => {
+                const user = userCredential.user;
+                return db.collection("Nodes").doc(user.uid).get();
+            })
+            .then((doc) => {
+                if (doc.exists) { routeUser(doc.data().nodeType); }
+            })
+            .catch((error) => { alert("Access Denied: " + error.message); });
+        }
+
+        // --- 6. ROUTING LOGIC ---
+        function routeUser(type) {
+            if (type === "AGRI") { window.location.href = "agri-dashboard.html"; } 
+            else if (type === "RETAIL") { window.location.href = "retail-dashboard.html"; }
+        }
+    </script>
 </body>
     </html>
