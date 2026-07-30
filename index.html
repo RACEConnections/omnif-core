@@ -66,7 +66,7 @@
             <button class="btn-action" style="background: var(--gold); color: #000;" onclick="alert('Digital portal opening soon. Please utilize physical dispatch.')">
                 Initiate Digital Application
             </button>
-            <button class="btn-action btn-outline" style="border-color: var(--gold); color: var(--gold);" onclick="window.location.href='mailto:treasury@protocolx.one?subject=Physical Audit Request'">
+            <button class="btn-action btn-outline" style="border-color: var(--gold); color: var(--gold);" onclick="window.location.href='https://wa.me/2348127833493?text=Request%20Physical%20Dispatch%20Form'">
                 Request Physical Dispatch Form
             </button>
             
@@ -96,5 +96,54 @@
             }
         }
     </script>
+    <style>
+    .saciphub-chat {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background-color: var(--primary-green);
+        color: #fff;
+        padding: 15px 25px;
+        border-radius: 50px;
+        box-shadow: 0 5px 20px rgba(0, 90, 50, 0.4);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        z-index: 1000;
+        transition: transform 0.3s ease, background-color 0.3s ease;
+        border: 1px solid #007a45;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .saciphub-chat:hover {
+        transform: translateY(-3px);
+        background-color: #007a45;
+    }
+    .ping-dot {
+        width: 8px;
+        height: 8px;
+        background-color: #00ff88;
+        border-radius: 50%;
+        box-shadow: 0 0 10px #00ff88;
+        animation: pulse-ping 2s infinite;
+    }
+    @keyframes pulse-ping {
+        0% { transform: scale(1); opacity: 1; }
+        50% { transform: scale(1.5); opacity: 0.5; }
+        100% { transform: scale(1); opacity: 1; }
+    }
+    @media (max-width: 768px) {
+        .saciphub-chat { bottom: 20px; right: 20px; padding: 12px 20px; font-size: 10px; }
+    }
+</style>
+
+<a href="https://wa.me/2348127833493?text=SACIPHUB%20System:%20I%20am%20requesting%20connection%20to%20the%20Enquiry%20Desk%20regarding%20Protocol%2001." class="saciphub-chat" target="_blank">
+    <div class="ping-dot"></div>
+    SACIPHUB ENQUIRY DESK
+</a>
 </body>
     </html> 
