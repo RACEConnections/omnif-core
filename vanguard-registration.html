@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protocol 01 | Vanguard Registration</title>
+    <style>
+        :root {
+            --primary-green: #005a32;
+            --dark-slate: #0a0c10;
+            --panel-bg: #151921;
+            --text-light: #ffffff;
+            --text-muted: #8892b0;
+            --border-color: #333;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Courier New', Courier, monospace; }
+
+        body { background-color: var(--dark-slate); color: var(--text-light); display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+
+        .registration-container { background-color: var(--panel-bg); padding: 40px; border-radius: 8px; border-top: 4px solid var(--primary-green); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); width: 100%; max-width: 500px; }
+
+        .crest { font-size: 20px; font-weight: bold; letter-spacing: 2px; margin-bottom: 5px; font-family: 'Segoe UI', sans-serif; text-align: center; }
+        .crest span { color: var(--primary-green); }
+        .auth-title { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 25px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; text-align: center; }
+
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-size: 11px; color: var(--primary-green); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; font-weight: bold; }
+        
+        .form-group input { width: 100%; padding: 12px 15px; background-color: rgba(0, 0, 0, 0.3); border: 1px solid var(--border-color); color: var(--text-light); font-size: 14px; border-radius: 4px; outline: none; font-family: 'Segoe UI', sans-serif; }
+        .form-group input:focus { border-color: var(--primary-green); }
+        .form-group input:disabled { color: #666; background-color: #0c0f14; cursor: not-allowed; border-color: #222; }
+
+        .terms-box { background: #0c0f14; padding: 15px; border-left: 3px solid #555; font-size: 10px; color: #888; margin-bottom: 25px; line-height: 1.5; font-family: 'Segoe UI', sans-serif; }
+
+        .btn-authorize { width: 100%; background-color: var(--primary-green); color: #fff; padding: 16px; border: none; border-radius: 4px; font-weight: bold; font-size: 13px; cursor: pointer; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s; font-family: 'Segoe UI', sans-serif; }
+        .btn-authorize:hover { background-color: #007a45; }
+
+        .status-msg { display: none; margin-top: 20px; padding: 15px; background: #005a3220; border: 1px solid var(--primary-green); color: var(--primary-green); font-size: 12px; text-align: center; font-weight: bold; border-radius: 4px; text-transform: uppercase; }
+    </style>
+</head>
+<body>
+
+    <div class="registration-container">
+        <div class="crest">R.A.C.E. <span>LLC</span></div>
+        <div class="auth-title">Vanguard Node Registration & Key Generation</div>
+
+        <div id="registration-form">
+            <div class="form-group">
+                <label>Node Identification (Pre-Assigned)</label>
+                <input type="text" id="node-id" value="VANGUARD-001" disabled>
+            </div>
+
+            <div class="form-group">
+                <label>Official Enterprise Name</label>
+                <input type="text" id="business-name" placeholder="Enter Registered Business Name">
+            </div>
+
+            <div class="form-group">
+                <label>Chairman / Operator Name</label>
+                <input type="text" id="chairman-name" placeholder="Enter Full Name for Digital Signature">
+            </div>
+
+            <div class="terms-box">
+                <strong>ZERO-KNOWLEDGE MANDATE:</strong> By authorizing this node, the operator confirms alignment with Protocol 01 structural standards. Local architecture will deploy immediately. Permanent cloud synchronization requires standard Treasury Clearance within the 48-Hour Ignition Window.
+            </div>
+
+            <button class="btn-authorize" onclick="generateToken()">Sign & Authorize Node</button>
+        </div>
+
+        <div id="success-status" class="status-msg">
+            Authorization Token Generated.<br>Redirecting to Dedicated Vault...
+        </div>
+    </div>
+
+    <script>
+        function generateToken() {
+            const bizName = document.getElementById('business-name').value.trim();
+            const chairName = document.getElementById('chairman-name').value.trim();
+
+            if (!bizName || !chairName) {
+                alert("Protocol Error: Digital Signature and Enterprise Name are required to generate token.");
+                return;
+            }
+
+            // 1. Generate and save the secure token locally on the Chairman's device
+            localStorage.setItem('vanguard_chairman_key_active', 'true');
+            localStorage.setItem('vanguard_node_name', bizName);
+            
+            // 2. Set the secure Cookie for Middleware verification
+            document.cookie = "chairman_auth_token=verified; path=/; max-age=31536000; Secure; SameSite=Strict"; 
+            // Note: max-age set to 1 year (31536000 seconds) so he doesn't have to register again.
+
+            // 3. UI Transition
+            document.getElementById('registration-form').style.display = 'none';
+            document.getElementById('success-status').style.display = 'block';
+
+            // 4. Redirect directly to his dedicated page (e.g., /vault/vanguard-001)
+            setTimeout(() => {
+                // You can dynamically route them to their specific node page here
+                window.location.href = "/vault/index.html"; 
+            }, 2500);
+        }
+    </script>
+</body>
+      </html>
