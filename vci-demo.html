@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VCI Engine | Protocol 01</title>
+    <style>
+        :root {
+            --primary-green: #005a32;
+            --alert-red: #d32f2f;
+            --dark-slate: #1a1f24;
+            --light-bg: #f4f6f8;
+            --text-main: #333333;
+            --border: #e0e4e8;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: var(--light-bg); color: var(--text-main); padding-bottom: 30px; }
+
+        /* Executive Mobile Header */
+        header { background-color: var(--dark-slate); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid var(--primary-green); position: sticky; top: 0; z-index: 100; }
+        .logo { color: #fff; font-size: 16px; font-weight: bold; letter-spacing: 1px; }
+        .logo span { color: var(--primary-green); }
+        .node-badge { background: #333; color: #aaa; font-size: 10px; padding: 4px 8px; border-radius: 4px; text-transform: uppercase; }
+
+        .container { padding: 20px 5%; max-width: 800px; margin: 0 auto; }
+
+        /* Financial Metrics Grid */
+        .metrics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 25px; }
+        
+        .metric-card { background: #fff; padding: 20px; border-radius: 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); border-top: 3px solid var(--primary-green); }
+        .metric-card.alert { border-top-color: var(--alert-red); }
+        .metric-title { font-size: 11px; color: #888; text-transform: uppercase; font-weight: bold; margin-bottom: 5px; }
+        .metric-value { font-size: 22px; font-weight: 800; color: var(--dark-slate); }
+        .metric-value.alert-text { color: var(--alert-red); }
+
+        /* Primary Action Button */
+        .btn-action { width: 100%; background: var(--primary-green); color: #fff; padding: 15px; border: none; border-radius: 4px; font-weight: bold; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 4px 15px rgba(0, 90, 50, 0.3); margin-bottom: 25px; cursor: pointer; transition: 0.2s; }
+        .btn-action:active { transform: scale(0.98); }
+
+        /* Inventory Ledger */
+        .section-title { font-size: 14px; color: var(--dark-slate); text-transform: uppercase; font-weight: bold; margin-bottom: 15px; border-bottom: 1px solid var(--border); padding-bottom: 5px; }
+        
+        .ledger-card { background: #fff; border-radius: 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); overflow: hidden; margin-bottom: 15px; border-left: 4px solid var(--dark-slate); }
+        .ledger-card.warning { border-left-color: #f57c00; }
+        .ledger-card.critical { border-left-color: var(--alert-red); }
+        
+        .ledger-header { padding: 12px 15px; background: #fdfdfd; display: flex; justify-content: space-between; border-bottom: 1px solid #eee; }
+        .item-name { font-weight: bold; font-size: 14px; color: var(--dark-slate); }
+        .item-qty { font-size: 14px; font-weight: bold; }
+        
+        .ledger-body { padding: 12px 15px; display: flex; justify-content: space-between; font-size: 12px; color: #666; }
+        .status-badge { padding: 3px 8px; border-radius: 3px; font-size: 10px; font-weight: bold; text-transform: uppercase; }
+        .bg-safe { background: #e8f5e9; color: var(--primary-green); }
+        .bg-warn { background: #fff3e0; color: #e65100; }
+        .bg-crit { background: #ffebee; color: var(--alert-red); }
+
+        /* Activity Feed */
+        .activity-feed { background: #fff; padding: 15px; border-radius: 6px; font-size: 12px; color: #555; }
+        .activity-item { padding: 8px 0; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; }
+        .activity-item:last-child { border-bottom: none; }
+        .time-stamp { color: #aaa; font-size: 10px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">VCI <span>ENGINE</span></div>
+        <div class="node-badge">Node: VANGUARD-001</div>
+    </header>
+
+    <div class="container">
+        <div class="metrics-grid">
+            <div class="metric-card alert">
+                <div class="metric-title">Capital Lock-Up (Idle)</div>
+                <div class="metric-value alert-text" id="capital-locked">₦450,000</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value" style="font-size: 14px; color: #555; margin-top: 10px;">Depletion Horizon:</div>
+                <div style="font-size: 11px; font-weight: bold; color: var(--alert-red); margin-top: 5px;">⚠️ 1 Item Critically Low</div>
+            </div>
+        </div>
+
+        <button class="btn-action" onclick="simulateLiveSale()">
+            ⚡ + Log Sale (Live Demo)
+        </button>
+
+        <div class="section-title">Active Ledger Diagnostics</div>
+
+        <div class="ledger-card warning">
+            <div class="ledger-header">
+                <div class="item-name">Dell 24" IPS Monitor</div>
+                <div class="item-qty">Qty: 6</div>
+            </div>
+            <div class="ledger-body">
+                <div>Value: ₦75,000/unit</div>
+                <div class="status-badge bg-warn">STALLED (60 DAYS)</div>
+            </div>
+        </div>
+
+        <div class="ledger-card critical" id="cable-card">
+            <div class="ledger-header">
+                <div class="item-name">HDMI to VGA Adapter</div>
+                <div class="item-qty" id="cable-qty">Qty: 2</div>
+            </div>
+            <div class="ledger-body">
+                <div>Value: ₦4,500/unit</div>
+                <div class="status-badge bg-crit">DEPLETING FAST</div>
+            </div>
+        </div>
+
+        <div class="section-title" style="margin-top: 25px;">Encrypted Activity Feed</div>
+        <div class="activity-feed" id="feed-container">
+            <div class="activity-item">
+                <span>System Initialized. Zero-Knowledge Active.</span>
+                <span class="time-stamp">08:00 AM</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Interactive Script for the One-Take Pitch
+        let clickCount = 0;
+        
+        function simulateLiveSale() {
+            clickCount++;
+            
+            if (clickCount === 1) {
+                // First click: Simulate selling a stalled monitor to reduce Capital Lock-Up
+                document.getElementById('capital-locked').innerText = "₦375,000";
+                addFeedItem("Sold: 1x Dell 24\" IPS Monitor. Capital Freed: ₦75,000.");
+            } 
+            else if (clickCount === 2) {
+                // Second click: Simulate selling the fast-moving adapter
+                document.getElementById('cable-qty').innerText = "Qty: 1";
+                document.getElementById('cable-qty').style.color = "red";
+                addFeedItem("Sold: 1x HDMI to VGA Adapter. Alert: Restock Required Today.");
+            }
+            else {
+                alert("Demo Sequence Complete. Treasury Setup Required for further logging.");
+            }
+        }
+
+        function addFeedItem(text) {
+            const feed = document.getElementById('feed-container');
+            const now = new Date();
+            const timeString = now.getHours().toString().padStart(2, '0') + ':' + now.getMinutes().toString().padStart(2, '0');
+            
+            const newItem = document.createElement('div');
+            newItem.className = 'activity-item';
+            newItem.innerHTML = `<span><strong style="color:var(--primary-green);">LOG:</strong> ${text}</span> <span class="time-stamp">${timeString}</span>`;
+            
+            feed.prepend(newItem);
+        }
+    </script>
+</body>
+</html>
