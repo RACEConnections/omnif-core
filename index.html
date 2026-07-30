@@ -51,7 +51,7 @@
     <div class="main-grid">
         
         <div class="card" style="border-top: 3px solid var(--primary-green);">
-            <h2>Vanguard Authorization</h2>
+            <h2>Guardian Authorization</h2>
             <p>For active Chairmen with secured architecture. Input your assigned Zero-Knowledge token key to decrypt and route to your localized digital vault.</p>
             
             <input type="text" class="input-box" id="access-key" placeholder="E.G., VANGUARD-001">
@@ -61,7 +61,7 @@
 
         <div class="card" style="border-top: 3px solid var(--gold);">
             <h2 style="color: var(--gold);">Node Registration</h2>
-            <p>Vanguard Architecture is currently deployed via physical audit. Select your preferred method of Treasury Clearance and setup.</p>
+            <p>Guardian Architecture is currently deployed via physical audit. Select your preferred method of Treasury Clearance and setup.</p>
             
             <button class="btn-action" style="background: var(--gold); color: #000;" onclick="alert('Digital portal opening soon. Please utilize physical dispatch.')">
                 Initiate Digital Application
@@ -83,8 +83,8 @@
             const errorDisplay = document.getElementById('auth-error');
             errorDisplay.innerText = "";
 
-            if (rawKey.startsWith("VANGUARD-") && rawKey.length >= 12) {
-                localStorage.setItem('vanguard_chairman_key_active', 'true');
+            if (rawKey.startsWith("GUARDIAN-") && rawKey.length >= 12) {
+                localStorage.setItem('guardian_chairman_key_active', 'true');
                 document.cookie = "chairman_auth_token=verified; path=/; max-age=86400; Secure; SameSite=Strict";
                 
                 document.querySelector('.card:first-child .btn-action').innerText = "ROUTING TO NODE...";
