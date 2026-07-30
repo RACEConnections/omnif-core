@@ -1,5 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
+    <script>
+    // R.A.C.E. LLC PROTOCOL: STRICT DEVICE & PAYMENT VERIFICATION
+    (function enforceAccess() {
+        // 1. Database Flag (Change this to 'true' ONLY when Uncle Joe pays)
+        const treasuryCleared = false; 
+
+        // 2. Check for the Master Key on the device loading the page
+        const isCustodianDevice = localStorage.getItem('saciphub_master_custodian') === 'authorized_architect';
+
+        if (!treasuryCleared) {
+            // The node is unpaid. 
+            if (isCustodianDevice) {
+                // It is your Infinix. Grant access for the demo and setup.
+                console.log("CUSTODIAN OVERRIDE ACTIVE. Pre-payment access granted to Architect.");
+            } else {
+                // It is Uncle Joe's computer (or his boy's phone), and he hasn't paid yet.
+                // Erase the screen and show the Treasury Lock.
+                document.addEventListener("DOMContentLoaded", () => {
+                    document.body.innerHTML = `
+                        <div style="background: #0a0c10; color: #fff; height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: 'Courier New', monospace; text-align: center; padding: 20px;">
+                            <h1 style="color: #d32f2f; margin-bottom: 10px;">NODE LOCKED</h1>
+                            <p style="color: #8892b0; max-width: 400px; line-height: 1.5; margin-bottom: 20px;">
+                                Local architecture deployment confirmed. Zero-Knowledge Cloud Sync and UI access are pending.<br><br>
+                                <strong>Treasury Clearance (₦30,000) required to ignite this node.</strong>
+                            </p>
+                            <p style="font-size: 11px; color: #555;">SACIPHUB | PROTOCOL 01</p>
+                        </div>
+                    `;
+                });
+            }
+        }
+    })();
+</script>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
