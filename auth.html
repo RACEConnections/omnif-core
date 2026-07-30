@@ -7,6 +7,7 @@
     <style>
         :root {
             --primary-green: #005a32;
+            --alert-orange: #f57c00;
             --dark-slate: #0a0c10;
             --panel-bg: #151921;
             --text-light: #ffffff;
@@ -15,106 +16,34 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Courier New', Courier, monospace; }
 
-        body {
-            background-color: var(--dark-slate);
-            color: var(--text-light);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            overflow: hidden;
-        }
+        body { background-color: var(--dark-slate); color: var(--text-light); display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; }
 
-        .auth-container {
-            background-color: var(--panel-bg);
-            padding: 50px 40px;
-            border-radius: 8px;
-            border-top: 4px solid var(--primary-green);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            text-align: center;
-            width: 100%;
-            max-width: 450px;
-        }
+        .auth-container { background-color: var(--panel-bg); padding: 40px; border-radius: 8px; border-top: 4px solid var(--primary-green); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); text-align: center; width: 100%; max-width: 480px; }
 
-        .crest {
-            font-size: 24px;
-            font-weight: bold;
-            letter-spacing: 3px;
-            margin-bottom: 10px;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
+        .crest { font-size: 24px; font-weight: bold; letter-spacing: 3px; margin-bottom: 5px; font-family: 'Segoe UI', sans-serif; }
         .crest span { color: var(--primary-green); }
+        .auth-title { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 30px; border-bottom: 1px solid #333; padding-bottom: 15px; }
 
-        .auth-title {
-            font-size: 14px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 40px;
-            border-bottom: 1px solid #333;
-            padding-bottom: 15px;
-        }
-
-        .input-group { margin-bottom: 25px; text-align: left; }
-        
-        .input-group label {
-            display: block;
-            font-size: 12px;
-            color: var(--primary-green);
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .input-group input {
-            width: 100%;
-            padding: 15px;
-            background-color: rgba(0, 0, 0, 0.5);
-            border: 1px solid #333;
-            color: var(--text-light);
-            font-size: 16px;
-            border-radius: 4px;
-            outline: none;
-            letter-spacing: 2px;
-            text-align: center;
-        }
-
+        .input-group { margin-bottom: 20px; text-align: left; }
+        .input-group label { display: block; font-size: 11px; color: var(--primary-green); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+        .input-group input { width: 100%; padding: 15px; background-color: rgba(0, 0, 0, 0.5); border: 1px solid #333; color: var(--text-light); font-size: 16px; border-radius: 4px; outline: none; letter-spacing: 2px; text-align: center; }
         .input-group input:focus { border-color: var(--primary-green); }
 
-        .btn-auth {
-            width: 100%;
-            background-color: var(--primary-green);
-            color: #fff;
-            padding: 16px;
-            border: none;
-            border-radius: 4px;
-            font-weight: bold;
-            font-size: 14px;
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            transition: 0.3s;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
+        .btn-auth { width: 100%; background-color: var(--primary-green); color: #fff; padding: 16px; border: none; border-radius: 4px; font-weight: bold; font-size: 14px; cursor: pointer; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s; font-family: 'Segoe UI', sans-serif; }
         .btn-auth:hover { background-color: #007a45; }
 
-        .error-msg {
-            color: #ff4c4c;
-            font-size: 12px;
-            margin-top: 15px;
-            min-height: 15px;
-            text-transform: uppercase;
-        }
+        /* The Asymmetric Trust Status Panel (Hidden by default) */
+        .status-panel { display: none; margin-top: 25px; text-align: left; background: #0c0f14; padding: 15px; border-radius: 4px; border-left: 3px solid var(--alert-orange); font-family: 'Segoe UI', sans-serif; }
+        .status-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 12px; font-weight: bold; }
+        .status-row:last-child { margin-bottom: 0; }
+        .status-label { color: #aaa; text-transform: uppercase; }
+        .status-active { color: var(--primary-green); }
+        .status-pending { color: var(--alert-orange); animation: pulse 2s infinite; }
+        
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
 
-        .footer-note {
-            margin-top: 30px;
-            font-size: 10px;
-            color: #555;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
+        .error-msg { color: #ff4c4c; font-size: 11px; margin-top: 15px; min-height: 15px; text-transform: uppercase; }
+        .footer-note { margin-top: 30px; font-size: 10px; color: #555; text-transform: uppercase; letter-spacing: 1px; }
     </style>
 </head>
 <body>
@@ -123,18 +52,34 @@
         <div class="crest">R.A.C.E. <span>LLC</span></div>
         <div class="auth-title">Zero-Knowledge Authentication Gateway</div>
 
-        <div class="input-group">
-            <label>Input Engraved Onboarding Key</label>
-            <input type="password" id="vanguard-key" placeholder="XXXX-XXXX-XXXX" autocomplete="off">
+        <div id="login-section">
+            <div class="input-group">
+                <label>Input Engraved Onboarding Key</label>
+                <input type="password" id="vanguard-key" placeholder="XXXX-XXXX-XXXX" autocomplete="off">
+            </div>
+            <button class="btn-auth" onclick="verifyKey()">Initialize Node</button>
+            <div id="error-display" class="error-msg"></div>
         </div>
 
-        <button class="btn-auth" onclick="verifyKey()">Initialize Vault</button>
-        
-        <div id="error-display" class="error-msg"></div>
-
-        <div class="footer-note">
-            Protocol 01 | SACIPHUB Authorized Personnel Only
+        <div class="status-panel" id="status-panel">
+            <div class="status-row">
+                <span class="status-label">Local Architecture:</span>
+                <span class="status-active">UNLOCKED</span>
+            </div>
+            <div class="status-row">
+                <span class="status-label">Cloud Vault Sync:</span>
+                <span class="status-pending">PENDING CLEARANCE</span>
+            </div>
+            <div class="status-row">
+                <span class="status-label">State Directory Listing:</span>
+                <span class="status-pending">PENDING CLEARANCE</span>
+            </div>
+            <div style="margin-top: 15px; padding-top: 10px; border-top: 1px solid #222; font-size: 10px; color: #777;">
+                *Treasury node activation (₦30,000) required within 48-Hour Ignition Window for full institutional sync.
+            </div>
         </div>
+
+        <div class="footer-note">Protocol 01 | Absolute Structural Order</div>
     </div>
 
     <script>
@@ -142,36 +87,21 @@
             const keyInput = document.getElementById('vanguard-key').value.trim();
             const errorDisplay = document.getElementById('error-display');
             
-            // Clear previous errors
             errorDisplay.innerText = "";
 
-            // PROTOCOL: Key Validation Logic
-            // In a production environment, this would query your backend database.
-            // For the Vanguard Demo phase, we validate against a secure format or hardcoded Vanguard Key.
-            
-            if (keyInput === "") {
-                errorDisplay.innerText = "PROTOCOL ERROR: KEY CANNOT BE EMPTY.";
-                return;
-            }
-
-            // Example Demo Validation: Accepting a specific key length or exact Vanguard string
             if (keyInput === "VANGUARD-001" || keyInput.length >= 8) {
-                
-                // 1. Set the LocalStorage Token (For the JS Bouncer in the Vault)
+                // Set Auth Tokens
                 localStorage.setItem('vanguard_chairman_key_active', 'true');
-                
-                // 2. Set the secure Cookie (For the Vercel Middleware.js)
-                // This cookie expires in 1 day (86400 seconds)
                 document.cookie = "chairman_auth_token=verified; path=/; max-age=86400; Secure; SameSite=Strict";
                 
-                // 3. Visual feedback for the Chairman
-                document.querySelector('.btn-auth').innerText = "DECRYPTING...";
-                document.querySelector('.btn-auth').style.backgroundColor = "#555";
+                // Hide inputs, reveal the Asymmetric Status
+                document.getElementById('login-section').style.display = 'none';
+                document.getElementById('status-panel').style.display = 'block';
                 
-                // 4. Redirect into the isolated Vault folder
+                // Redirect after the Chairman reads the pending status
                 setTimeout(() => {
                     window.location.href = "/vault/";
-                }, 1200);
+                }, 4500);
 
             } else {
                 errorDisplay.innerText = "ACCESS DENIED: INVALID OR EXPIRED KEY.";
@@ -180,4 +110,4 @@
         }
     </script>
 </body>
-  </html>
+</html>
