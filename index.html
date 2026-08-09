@@ -22,17 +22,21 @@
         .terminal-container { max-width: 1000px; margin: 0 auto; border: 1px solid var(--border); background: var(--panel); }
         
         /* Respect Protocol Header */
-        .terminal-header { padding: 15px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: #000; }
-        .header-title { color: #fff; text-transform: uppercase; font-weight: bold; letter-spacing: 1px; }
-        .header-honors { color: var(--gold); font-size: 10px; text-transform: uppercase; letter-spacing: 2px; }
+        .respect-protocol { background: #000; color: var(--gold); padding: 8px 15px; font-size: 9px; text-transform: uppercase; letter-spacing: 2px; text-align: center; border-bottom: 1px solid var(--border); }
+        .terminal-header { padding: 15px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: #0a0c10; }
+        .header-title { color: #fff; text-transform: uppercase; font-weight: bold; letter-spacing: 1px; font-size: 16px; }
+        .header-honors { color: #8892b0; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; }
         
-        .upload-section { padding: 40px; text-align: center; border-bottom: 1px solid var(--border); background: #08090a; }
-        .respect-text { color: #8892b0; font-size: 10px; text-transform: uppercase; margin-bottom: 15px; display: block; letter-spacing: 1px; }
+        /* Narrative Banner */
+        .vci-directive { background: #08090a; padding: 15px; border-bottom: 1px solid var(--border); border-left: 3px solid var(--gold); font-size: 10px; line-height: 1.5; color: #a0aabf; }
+        .vci-directive strong { color: #fff; }
+
+        .upload-section { padding: 30px; text-align: center; border-bottom: 1px solid var(--border); background: var(--panel); }
         .upload-btn { background: var(--highlight); color: #fff; border: none; padding: 12px 25px; cursor: pointer; text-transform: uppercase; font-size: 11px; letter-spacing: 1px; transition: 0.3s; }
         .upload-btn:hover { background: #555; border-left: 2px solid var(--gold); border-right: 2px solid var(--gold); }
         #fileInput { display: none; }
 
-        .status-bar { padding: 10px 15px; font-size: 10px; border-bottom: 1px solid var(--border); display: flex; gap: 20px; }
+        .status-bar { padding: 10px 15px; font-size: 10px; border-bottom: 1px solid var(--border); display: flex; gap: 20px; background: #08090a; }
         .status-indicator { color: #888; }
         .hash-verified { color: var(--valid); font-weight: bold; }
         .hash-failed { color: var(--invalid); font-weight: bold; }
@@ -51,13 +55,23 @@
 <body>
 
     <div class="terminal-container">
+        
+        <!-- The Respect Protocol -->
+        <div class="respect-protocol">
+            HONORING MONARCH, FEDERAL, LOCAL, AND STATE AUTHORITY
+        </div>
+
         <div class="terminal-header">
             <span class="header-title">Virtual Command Index (VCI)</span>
             <span class="header-honors">Authorized Principal Access</span>
         </div>
 
+        <!-- The Directive & Reason for Change -->
+        <div class="vci-directive">
+            <strong>SYSTEM ARCHITECTURE UPDATE:</strong> The redesignation from <em>Virtual Consumption Index</em> to <em>Virtual Command Index</em> marks a necessary separation of operational scope. The grassroots nodes consume the day-to-day operations—the physical labor, the sorting, the raw data entry. The elite nodes do not consume; they command. This index translates grassroots consumption into macro-level oversight, empowering the Chairman to exact absolute control over capital flows.
+        </div>
+
         <div class="upload-section">
-            <span class="respect-text">System honors the Chairman's audit. Awaiting cryptographic ledger submission.</span>
             <button class="upload-btn" onclick="document.getElementById('fileInput').click()">Authorize & Ingest Ledger</button>
             <input type="file" id="fileInput" accept=".json" onchange="processLedger(event)">
         </div>
@@ -73,7 +87,7 @@
                 <span class="cell-value" id="val-labor">--</span>
             </div>
             <div class="data-cell">
-                <span class="cell-label">Intercepted Yield</span>
+                <span class="cell-label">Intercepted Yield (Fraud)</span>
                 <span class="cell-value" id="val-qa">--</span>
             </div>
             <div class="data-cell">
@@ -92,7 +106,7 @@
                 </tr>
             </thead>
             <tbody id="ledger-body">
-                <tr><td colspan="4" style="text-align: center; padding: 30px; color: #555;">[ WAITING FOR DATA ]</td></tr>
+                <tr><td colspan="4" style="text-align: center; padding: 30px; color: #555;">[ WAITING FOR AUDIT DATA ]</td></tr>
             </tbody>
         </table>
     </div>
@@ -139,12 +153,16 @@
                 if (log.code.includes('LBR')) labor += log.price;
                 if (log.price === 0) qa++;
 
+                // Backward compatibility for clean rendering
+                let displayStatus = log.price === 0 ? 'VOIDED' : 'COMMITTED';
+                if (log.status === 'SHORTFALL') displayStatus = 'SHORTFALL (DEBT)';
+
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
                     <td>${log.time}</td>
                     <td class="code">${log.code}</td>
                     <td>₦${log.price.toLocaleString()}</td>
-                    <td style="color: ${log.price === 0 ? '#888' : '#fff'}">${log.price === 0 ? 'VOIDED' : 'COMMITTED'}</td>
+                    <td style="color: ${log.price === 0 || log.status === 'SHORTFALL' ? '#ff5252' : '#00e676'}">${displayStatus}</td>
                 `;
                 tbody.appendChild(tr);
             });
@@ -155,4 +173,4 @@
         }
     </script>
 </body>
-</html>
+                </html>
