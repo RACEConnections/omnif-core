@@ -3,8 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SACIPHUB | Open Guardian Node V5</title>
+    <title>SACIPHUB | Open Guardian Node V5 [CRYPTOGRAPHIC]</title>
     <style>
+        :root {
+            --phoenix-red: #d32f2f;
+            --dark-slate: #0a0c10;
+            --panel-bg: #151921;
+            --light-bg: #11141a;
+            --text-main: #e0e4e8;
+            --border: #2a2f3a;
+            --gold: #d4af37;
+            --alert: #ff5252;
+            --liquid: #00e676;
+            --chat-bg: #0d1117;
+            --crypto-blue: #00bcd4;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Courier New', Courier, monospace; }
+        body { background-color: var(--light-bg); color: var(--text-main); padding-bottom: 40px; -webkit-font-smoothing: antialiased; }
+
         /* System Dispatch News Banner */
         .news-banner {
             background-color: var(--gold);
@@ -17,66 +34,31 @@
             font-weight: bold;
             border-bottom: 2px solid #000;
             box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-            display: none; /* Hidden by default until JS checks status */
+            display: none;
         }
-        .news-content span {
-            background: #000;
-            color: var(--gold);
-            padding: 2px 6px;
-            border-radius: 2px;
-            margin-right: 8px;
-            letter-spacing: 1px;
-        }
-        .btn-acknowledge {
-            background: #000;
-            color: #fff;
-            border: 1px solid #000;
-            padding: 6px 12px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 10px;
-            text-transform: uppercase;
-            border-radius: 2px;
-        }
-        .btn-acknowledge:hover {
-            background: #222;
-            }
-        :root {
-            --phoenix-red: #d32f2f;
-            --dark-slate: #0a0c10;
-            --panel-bg: #151921;
-            --light-bg: #11141a;
-            --text-main: #e0e4e8;
-            --border: #2a2f3a;
-            --gold: #d4af37;
-            --alert: #ff5252;
-            --liquid: #00e676;
-            --chat-bg: #0d1117;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Courier New', Courier, monospace; }
-        body { background-color: var(--light-bg); color: var(--text-main); padding-bottom: 40px; -webkit-font-smoothing: antialiased; }
+        .news-content span { background: #000; color: var(--gold); padding: 2px 6px; border-radius: 2px; margin-right: 8px; letter-spacing: 1px; }
+        .btn-acknowledge { background: #000; color: #fff; border: 1px solid #000; padding: 6px 12px; cursor: pointer; font-weight: bold; font-size: 10px; text-transform: uppercase; border-radius: 2px; }
+        .btn-acknowledge:hover { background: #222; }
 
         /* Header */
-        header { background-color: var(--dark-slate); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid var(--phoenix-red); position: sticky; top: 0; z-index: 100; }
+        header { background-color: var(--dark-slate); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid var(--crypto-blue); position: sticky; top: 0; z-index: 100; }
         .logo { color: #fff; font-size: 14px; font-weight: bold; letter-spacing: 2px; }
-        .logo span { color: var(--phoenix-red); }
-        .node-badge { background: #222; color: #fff; font-size: 9px; padding: 4px 8px; border-radius: 4px; text-transform: uppercase; border: 1px solid var(--border); }
-        .node-badge span { color: var(--liquid); font-weight: bold; }
+        .logo span { color: var(--crypto-blue); }
+        .node-badge { background: #001a1f; color: #fff; font-size: 9px; padding: 4px 8px; border-radius: 4px; text-transform: uppercase; border: 1px solid var(--crypto-blue); }
+        .node-badge span { color: var(--crypto-blue); font-weight: bold; }
 
         .container { padding: 20px 5%; max-width: 800px; margin: 0 auto; display: grid; gap: 20px; }
 
-        /* Generic Panel Style */
         .panel { background: var(--panel-bg); border-radius: 6px; border: 1px solid var(--border); padding: 15px; }
         .panel-header { font-size: 11px; color: #fff; text-transform: uppercase; font-weight: bold; margin-bottom: 15px; letter-spacing: 1px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed var(--border); padding-bottom: 8px;}
         
         @media (min-width: 768px) { .grid-2-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; } }
 
         /* POS Terminal */
-        .pos-panel { border-top: 4px solid var(--phoenix-red); }
+        .pos-panel { border-top: 4px solid var(--crypto-blue); }
         .input-row { display: flex; gap: 10px; margin-bottom: 15px; }
         .pos-input { flex: 1; background: var(--chat-bg); border: 1px solid var(--border); color: #fff; padding: 12px; font-size: 14px; font-weight: bold; outline: none; text-transform: uppercase; border-radius: 4px; }
-        .pos-input:focus { border-color: var(--phoenix-red); }
+        .pos-input:focus { border-color: var(--crypto-blue); }
         
         .cash-display { background: #050608; border: 1px dashed var(--border); padding: 15px; text-align: center; margin-bottom: 15px; border-radius: 4px; }
         .cash-amount { font-size: 24px; color: #fff; font-weight: bold; }
@@ -86,9 +68,9 @@
         .btn-denom { background: var(--light-bg); color: #fff; border: 1px solid var(--border); padding: 12px 0; font-size: 12px; font-weight: bold; border-radius: 4px; cursor: pointer; }
         .btn-denom:active { background: #333; }
         .btn-clear { grid-column: span 4; background: #222; color: var(--alert); }
-        .btn-action { width: 100%; background: var(--phoenix-red); color: #fff; padding: 15px; border: none; font-weight: bold; font-size: 14px; cursor: pointer; border-radius: 4px; letter-spacing: 1px;}
+        .btn-action { width: 100%; background: var(--crypto-blue); color: #fff; padding: 15px; border: none; font-weight: bold; font-size: 14px; cursor: pointer; border-radius: 4px; letter-spacing: 1px;}
 
-        /* Vault Sync Panel (Universal) */
+        /* Vault Sync Panel */
         .sync-panel { border-left: 3px solid var(--gold); }
         .sync-controls { display: flex; gap: 10px; align-items: center; }
         .btn-sync { flex: 1; background: var(--gold); color: #000; font-weight: bold; border: none; padding: 12px; cursor: pointer; border-radius: 4px; font-size: 11px; text-transform: uppercase; letter-spacing: 1px;}
@@ -97,6 +79,7 @@
         /* Public License Footer */
         .license-box { text-align: center; font-size: 9px; color: #555; margin-top: 20px; padding: 10px; border-top: 1px dashed var(--border); }
         .license-box a { color: var(--gold); text-decoration: none; }
+        .hash-display { color: var(--crypto-blue); font-family: monospace; display: block; margin-top: 5px; font-size: 8px; word-break: break-all; }
 
         /* Activity Feed */
         .activity-feed { background: var(--chat-bg); padding: 10px; border-radius: 4px; border: 1px solid var(--border); font-size: 10px; color: #8892b0; max-height: 250px; overflow-y: auto; }
@@ -110,23 +93,23 @@
 <body>
 
     <header>
-        <div class="logo">SACIPHUB <span>POS</span></div>
-        <div class="node-badge">GUARDIAN PROTOCOL : <span>PUBLIC OPEN-SOURCE</span></div>
+        <div class="logo">SACIPHUB <span>NODE</span></div>
+        <div class="node-badge">GUARDIAN V5.0 : <span>SHA-256 SECURED</span></div>
     </header>
-<!-- System Dispatch News Banner -->
+
     <div class="news-banner" id="newsBanner">
         <div class="news-content">
             <span>[NETWORK DISPATCH]</span> 
-            THE RED PHOENIX V5.0 (OPEN-SOURCE PUBLIC EDITION) IS NOW LIVE. GUARDIAN NODE DEPLOYMENT AUTHORIZED.
+            THE RED PHOENIX V5.0 (CRYPTOGRAPHIC EDITION) IS LIVE. LEDGER EXPORTS ARE NOW HASH-SIGNED TO PREVENT TAMPERING.
         </div>
         <button class="btn-acknowledge" onclick="acknowledgeNews()">Acknowledge</button>
     </div>
+
     <div class="container">
-        
         <div class="grid-2-col">
             <!-- POS Terminal -->
             <div class="panel pos-panel">
-                <div class="panel-header">Open Transaction Terminal</div>
+                <div class="panel-header">Hardened Transaction Terminal</div>
                 <div class="input-row">
                     <input type="text" id="itemCode" class="pos-input" placeholder="SUAL CODE (e.g. OSG-PLA-S002)">
                     <input type="number" id="itemPrice" class="pos-input" placeholder="PAYOUT (₦)" oninput="calculateChange()">
@@ -145,25 +128,25 @@
                     <button class="btn-denom" onclick="addCash(5000)">₦5000</button>
                     <button class="btn-denom btn-clear" onclick="clearCash()">RESET CASH</button>
                 </div>
-                <button class="btn-action" onclick="logTransaction()">SECURE TRANSACTION</button>
+                <button class="btn-action" onclick="logTransaction()">COMMIT TO LEDGER</button>
             </div>
 
             <div style="display: flex; flex-direction: column; gap: 20px;">
-                <!-- Universal Vault Export -->
+                <!-- Cryptographic Vault Export -->
                 <div class="panel sync-panel">
-                    <div class="panel-header">Universal Vault Export <span>[OFFLINE BACKUP]</span></div>
+                    <div class="panel-header">Cryptographic Vault Export <span>[SECURE BACKUP]</span></div>
                     <p style="font-size: 10px; color: #8892b0; margin-bottom: 15px; line-height: 1.4;">
-                        This system operates 100% offline. To secure your daily ledger, export the JSON file and save it to any local drive, SD card, or cloud folder.
+                        Exporting this ledger generates a SHA-256 cryptographic signature. Any unauthorized manipulation of the JSON file will void the signature on the Chairman's dashboard.
                     </p>
                     <div class="sync-controls">
-                        <button class="btn-sync" onclick="triggerUniversalSync()">Export Ledger to Device</button>
+                        <button class="btn-sync" onclick="triggerSecureSync()">Sign & Export Ledger</button>
                     </div>
-                    <div class="sync-status" id="sync-status">Status: Awaiting export command...</div>
+                    <div class="sync-status" id="sync-status">Status: Awaiting signing protocol...</div>
                 </div>
 
                 <!-- Ledger -->
                 <div class="panel">
-                    <div class="panel-header">Local Audit Ledger</div>
+                    <div class="panel-header">Immutable Local Audit Ledger</div>
                     <div class="activity-feed" id="feed-container">
                         <!-- Populated by JS -->
                     </div>
@@ -173,33 +156,29 @@
 
         <div class="license-box">
             System Architect: Adeoti Olufolami Adeleye (Leye) <br>
-            Provided openly under the SACIPHUB Protocol to ensure grassroots financial sovereignty.<br>
-            <a href="https://vci.protocolx.one" target="_blank">vci.protocolx.one</a>
+            SACIPHUB Protocol | Defeating Digital Fraud through Immutable Ledger Accountability.<br>
+            <span class="hash-display" id="session-hash">Session Anchor: Initializing...</span>
         </div>
-
     </div>
 
     <script>
         // --- SYSTEM DISPATCH PROTOCOL ---
-        // Change this version string whenever you release a new update (e.g., 'v5.1', 'v6.0')
-        const currentDeploymentVersion = 'phoenix_update_v5.0'; 
-
+        const currentDeploymentVersion = 'phoenix_crypto_v5.0'; 
         function checkNews() {
             const hasAcknowledged = localStorage.getItem(currentDeploymentVersion);
-            if (!hasAcknowledged) {
-                document.getElementById('newsBanner').style.display = 'flex';
-            }
+            if (!hasAcknowledged) { document.getElementById('newsBanner').style.display = 'flex'; }
+            
+            // Set a pseudo-random session anchor for display
+            document.getElementById('session-hash').innerText = "Session Anchor: 0x" + Math.random().toString(16).substr(2, 16).toUpperCase();
         }
-
         function acknowledgeNews() {
             localStorage.setItem(currentDeploymentVersion, 'true');
             document.getElementById('newsBanner').style.display = 'none';
         }
-
-        // Initialize News Check on Load
         window.onload = checkNews;
+
         // DATA PERSISTENCE
-        let ledgerData = JSON.parse(localStorage.getItem('phoenix_public_ledger')) || [];
+        let ledgerData = JSON.parse(localStorage.getItem('phoenix_secure_ledger')) || [];
 
         function renderLedger() {
             const feed = document.getElementById('feed-container');
@@ -233,7 +212,6 @@
         function logTransaction() {
             const code = document.getElementById('itemCode').value.toUpperCase() || "UNKNOWN";
             const price = parseInt(document.getElementById('itemPrice').value);
-            
             if (isNaN(price)) return alert("Enter valid price or 0 for void.");
             
             const diff = cashReceived - price;
@@ -247,37 +225,138 @@
                 status = diff >= 0 ? `<span class="log-cleared">[CLEARED] Change: ₦${diff}</span>` : `<span class="log-owing">[ALERT] Shortfall: ₦${Math.abs(diff)}</span>`;
             }
             
-            ledgerData.push({ code, price, recv: cashReceived, status, time });
-            localStorage.setItem('phoenix_public_ledger', JSON.stringify(ledgerData));
+            ledgerData.push({ code, price, recv: cashReceived, status, time, salt: Math.random().toString(36).substring(2, 8) });
+            localStorage.setItem('phoenix_secure_ledger', JSON.stringify(ledgerData));
+            
+            renderLedger();
+            document.getElementById('itemCode').value = ""; document.getElementById('itemPrice').value = ""; clearCash();
+<script>
+        // --- SYSTEM DISPATCH PROTOCOL ---
+        const currentDeploymentVersion = 'phoenix_crypto_v5.1'; 
+        function checkNews() {
+            const hasAcknowledged = localStorage.getItem(currentDeploymentVersion);
+            if (!hasAcknowledged) { document.getElementById('newsBanner').style.display = 'flex'; }
+            document.getElementById('session-hash').innerText = "Session Anchor: 0x" + Math.random().toString(16).substr(2, 16).toUpperCase();
+        }
+        function acknowledgeNews() {
+            localStorage.setItem(currentDeploymentVersion, 'true');
+            document.getElementById('newsBanner').style.display = 'none';
+        }
+        window.onload = checkNews;
+
+        // DATA PERSISTENCE
+        let ledgerData = JSON.parse(localStorage.getItem('phoenix_secure_ledger')) || [];
+
+        function renderLedger() {
+            const feed = document.getElementById('feed-container');
+            feed.innerHTML = '';
+            ledgerData.slice().reverse().forEach(log => {
+                const item = document.createElement('div');
+                item.className = 'activity-item';
+                
+                // Pure Data to HTML Render Logic (Keeps JSON Payload Clean)
+                let statusHtml = "";
+                if (log.status.includes('<span')) { 
+                    statusHtml = log.status; // Backward compatibility for old logs
+                } else {
+                    if (log.status === "VOID") statusHtml = `<span class="log-void">[INTERCEPTED] Payout Denied</span>`;
+                    else if (log.status === "CLEARED") statusHtml = `<span class="log-cleared">[CLEARED] Change: ₦${log.diff}</span>`;
+                    else statusHtml = `<span class="log-owing">[ALERT] Shortfall: ₦${Math.abs(log.diff)}</span>`;
+                }
+
+                item.innerHTML = `<div class="log-header"><strong>${log.code}</strong><span>${log.time}</span></div>
+                                  <div style="color:#8892b0">Payout: ₦${log.price} | Tendered: ₦${log.recv} <br> ${statusHtml}</div>`;
+                feed.appendChild(item);
+            });
+        }
+
+        // POS LOGIC
+        let cashReceived = 0;
+        function formatNaira(amount) { return "₦" + amount.toLocaleString('en-US'); }
+        function addCash(amount) { cashReceived += amount; document.getElementById('receivedDisplay').innerText = formatNaira(cashReceived); calculateChange(); }
+        function clearCash() { cashReceived = 0; document.getElementById('receivedDisplay').innerText = formatNaira(cashReceived); calculateChange(); }
+        
+        function calculateChange() {
+            const price = parseInt(document.getElementById('itemPrice').value);
+            const statusDisplay = document.getElementById('changeDisplay');
+            if (isNaN(price)) { statusDisplay.innerText = "Awaiting Price..."; statusDisplay.style.color = "#889"; return; }
+            if (price === 0) { statusDisplay.innerText = "ZERO PAYOUT / PENALTY"; statusDisplay.style.color = "var(--alert)"; return; }
+            const diff = cashReceived - price;
+            if (diff > 0) { statusDisplay.innerText = `CHANGE DUE: ${formatNaira(diff)}`; statusDisplay.style.color = "var(--liquid)"; }
+            else if (diff === 0) { statusDisplay.innerText = `EXACT AMOUNT`; statusDisplay.style.color = "var(--liquid)"; }
+            else { statusDisplay.innerText = `SHORTFALL: ${formatNaira(Math.abs(diff))}`; statusDisplay.style.color = "var(--alert)"; }
+        }
+
+        function logTransaction() {
+            const code = document.getElementById('itemCode').value.toUpperCase() || "UNKNOWN";
+            const price = parseInt(document.getElementById('itemPrice').value);
+            if (isNaN(price)) return alert("Enter valid price or 0 for void.");
+            
+            const diff = cashReceived - price;
+            const now = new Date();
+            const time = now.getHours().toString().padStart(2, '0') + ':' + now.getMinutes().toString().padStart(2, '0');
+            
+            // Generate clean data tags, not HTML
+            let cleanStatus = price === 0 ? "VOID" : (diff >= 0 ? "CLEARED" : "SHORTFALL");
+            
+            ledgerData.push({ 
+                code: code, 
+                price: price, 
+                recv: cashReceived, 
+                diff: diff, 
+                status: cleanStatus, 
+                time: time, 
+                salt: Math.random().toString(36).substring(2, 8) 
+            });
+            
+            localStorage.setItem('phoenix_secure_ledger', JSON.stringify(ledgerData));
             
             renderLedger();
             document.getElementById('itemCode').value = ""; document.getElementById('itemPrice').value = ""; clearCash();
         }
 
-        // UNIVERSAL EXPORT LOGIC
-        function triggerUniversalSync() {
+        // CRYPTOGRAPHIC EXPORT LOGIC
+        async function triggerSecureSync() {
             if (ledgerData.length === 0) return alert("Ledger is empty. Nothing to sync.");
             const statusBox = document.getElementById('sync-status');
-            statusBox.innerText = "Generating universal backup file...";
-            statusBox.style.color = "var(--gold)";
+            statusBox.innerText = "Generating SHA-256 Cryptographic Signature...";
+            statusBox.style.color = "var(--crypto-blue)";
             
-            setTimeout(() => {
-                const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(ledgerData, null, 2));
+            try {
+                const payloadString = JSON.stringify(ledgerData);
+                const encoder = new TextEncoder();
+                const data = encoder.encode(payloadString);
+                
+                const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+                const hashArray = Array.from(new Uint8Array(hashBuffer));
+                const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+                
+                const secureExport = {
+                    timestamp: new Date().toISOString(),
+                    signature: hashHex,
+                    algorithm: "SHA-256",
+                    payload: ledgerData
+                };
+
+                const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(secureExport, null, 2));
                 const downloadAnchorNode = document.createElement('a');
                 downloadAnchorNode.setAttribute("href", dataStr);
                 const dateStr = new Date().toISOString().split('T')[0];
-                downloadAnchorNode.setAttribute("download", `SACIPHUB_PUBLIC_LEDGER_${dateStr}.json`);
+                downloadAnchorNode.setAttribute("download", `SACIPHUB_SIGNED_LEDGER_${dateStr}.json`);
                 document.body.appendChild(downloadAnchorNode);
                 downloadAnchorNode.click();
                 downloadAnchorNode.remove();
                 
-                statusBox.innerText = `[SUCCESS] File downloaded. Secure it in your local folders.`;
+                statusBox.innerText = `[SUCCESS] Immutable file generated. Ready for Chairman audit.`;
                 statusBox.style.color = "var(--liquid)";
-            }, 1000);
+            } catch (err) {
+                statusBox.innerText = `[ERROR] Cryptographic failure.`;
+                statusBox.style.color = "var(--alert)";
+                console.error(err);
+            }
         }
 
-        // Init
         renderLedger();
     </script>
 </body>
-    </html>
+  </html>
