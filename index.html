@@ -3,578 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VCI Engine | State Protocol</title>
+    <title>Virtual Command Index (VCI)</title>
     <style>
-        :root { --primary-green: #005a32; --gold: #d4af37; --dark-slate: #0a0c10; --panel-bg: #151921; --text-light: #ffffff; }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: var(--dark-slate); color: var(--text-light); }
+        :root {
+            --bg-dark: #050608;
+            --panel: #0a0c10;
+            --text: #cccccc;
+            --border: #222;
+            --highlight: #444;
+            --valid: #00e676;
+            --invalid: #ff5252;
+        }
 
-        /* Institutional Header */
-        header { background-color: var(--panel-bg); padding: 30px 20px; text-align: center; border-bottom: 4px solid var(--primary-green); }
-        .crest-title { font-size: 28px; font-weight: bold; font-family: 'Courier New', Courier, monospace; letter-spacing: 2px; }
-        .crest-title span { color: var(--primary-green); }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Courier New', Courier, monospace; }
+        body { background-color: var(--bg-dark); color: var(--text); padding: 20px; font-size: 12px; }
+
+        .terminal-container { max-width: 1000px; margin: 0 auto; border: 1px solid var(--border); background: var(--panel); }
         
-        /* The Tribute Section */
-        .tribute-box { max-width: 800px; margin: 20px auto 0; padding: 15px; border: 1px solid #333; border-radius: 4px; background: rgba(0,0,0,0.3); }
-        .tribute-text { font-size: 11px; color: var(--gold); text-transform: uppercase; letter-spacing: 1px; line-height: 1.6; }
-
-        /* Gateway Container */
-        .main-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; max-width: 1000px; margin: 50px auto; padding: 0 20px; }
-        @media (max-width: 768px) { .main-grid { grid-template-columns: 1fr; } }
+        .terminal-header { padding: 15px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; color: #fff; text-transform: uppercase; font-weight: bold; letter-spacing: 1px; }
         
-        .card { background-color: var(--panel-bg); padding: 40px; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .card h2 { color: var(--primary-green); font-size: 18px; text-transform: uppercase; margin-bottom: 15px; border-bottom: 1px solid #333; padding-bottom: 10px; }
-        .card p { font-size: 13px; color: #8892b0; margin-bottom: 25px; line-height: 1.5; }
+        .upload-section { padding: 40px; text-align: center; border-bottom: 1px solid var(--border); background: #08090a; }
+        .upload-btn { background: var(--highlight); color: #fff; border: none; padding: 10px 20px; cursor: pointer; text-transform: uppercase; font-size: 11px; letter-spacing: 1px; }
+        .upload-btn:hover { background: #555; }
+        #fileInput { display: none; }
 
-        .input-box { width: 100%; padding: 15px; background: rgba(0,0,0,0.5); border: 1px solid #333; color: #fff; font-size: 16px; margin-bottom: 20px; outline: none; text-align: center; font-family: 'Courier New', Courier, monospace; }
-        .input-box:focus { border-color: var(--primary-green); }
+        .status-bar { padding: 10px 15px; font-size: 10px; border-bottom: 1px solid var(--border); display: flex; gap: 20px; }
+        .status-indicator { color: #888; }
+        .hash-verified { color: var(--valid); font-weight: bold; }
+        .hash-failed { color: var(--invalid); font-weight: bold; }
 
-        .btn-action { width: 100%; background: var(--primary-green); color: #fff; padding: 15px; border: none; font-weight: bold; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; margin-bottom: 10px; }
-        .btn-action:hover { background: #007a45; }
-        .btn-outline { background: transparent; border: 1px solid var(--primary-green); color: var(--primary-green); }
-        .btn-outline:hover { background: rgba(0, 90, 50, 0.1); }
+        .data-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border-bottom: 1px solid var(--border); }
+        .data-cell { background: var(--panel); padding: 20px; text-align: center; }
+        .cell-label { display: block; font-size: 9px; color: #777; margin-bottom: 5px; text-transform: uppercase; }
+        .cell-value { font-size: 20px; color: #fff; }
+
+        table { width: 100%; border-collapse: collapse; font-size: 11px; }
+        th { background: #08090a; color: #888; text-align: left; padding: 10px 15px; border-bottom: 1px solid var(--border); font-weight: normal; }
+        td { padding: 10px 15px; border-bottom: 1px dashed #1a1a1a; }
+        .code { font-family: monospace; color: #fff; }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="crest-title">VCI <span>ENGINE</span> | PROTOCOL 01</div>
-        <div class="tribute-box">
-            <p class="tribute-text">
-                Deployed in structural alignment with the Federal Republic of Nigeria.<br>
-                With profound institutional respect to the Osun State Government, Osogbo Local Government Area, <br>
-                and the traditional authority of His Royal Majesty, the Ataoja of Osogbo.
-            </p>
-        </div>
-    </header>
-
-    <div class="main-grid">
-        
-        <div class="card" style="border-top: 3px solid var(--primary-green);">
-            <h2>Guardian Authorization</h2>
-            <p>For active Chairmen with secured architecture. Input your assigned Zero-Knowledge token key to decrypt and route to your localized digital vault.</p>
-            
-            <input type="text" class="input-box" id="access-key" placeholder="E.G., GUARDIAN-001">
-            <button class="btn-action" onclick="routeNode()">Authorize & Route</button>
-            <div id="auth-error" style="color: #ff4c4c; font-size: 12px; margin-top: 10px; text-align: center;"></div>
+    <div class="terminal-container">
+        <div class="terminal-header">
+            <span>Virtual Command Index (VCI)</span>
+            <span>SYSTEM: ACTIVE</span>
         </div>
 
-        <div class="card" style="border-top: 3px solid var(--gold);">
-            <h2 style="color: var(--gold);">Node Registration</h2>
-            <p>Guardian Architecture is currently deployed via physical audit. Contact Regional Custodian on SACIPHUB HELP DESK for Treasury Clearance and setup.</p>
-            
-            <button class="btn-action" style="background: var(--gold); color: #000;" onclick="alert('Digital portal opening soon.')">
-                Initiate Digital Application
-            </button>
-            <style>
-    #saciphub-chat-root {
-        position: fixed;
-        bottom: 30px;
-        right: 30px;
-        z-index: 9999;
-        font-family: 'Courier New', Courier, monospace;
-    }
-
-    /* Floating Trigger Button */
-    .chat-trigger {
-        background-color: #005a32;
-        color: #fff;
-        padding: 14px 24px;
-        border-radius: 50px;
-        box-shadow: 0 6px 20px rgba(0, 90, 50, 0.4);
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        cursor: pointer;
-        font-weight: bold;
-        font-size: 11px;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        border: 1px solid #007a45;
-        transition: transform 0.2s ease, background-color 0.2s ease;
-    }
-    .chat-trigger:hover {
-        transform: translateY(-2px);
-        background-color: #007a45;
-    }
-    .ping-dot {
-        width: 8px;
-        height: 8px;
-        background-color: #00ff88;
-        border-radius: 50%;
-        box-shadow: 0 0 10px #00ff88;
-        animation: pulse-ping 2s infinite;
-    }
-    @keyframes pulse-ping {
-        0% { transform: scale(1); opacity: 1; }
-        50% { transform: scale(1.5); opacity: 0.5; }
-        100% { transform: scale(1); opacity: 1; }
-    }
-
-    /* Chat Window Container */
-    .chat-window {
-        display: none;
-        position: absolute;
-        bottom: 70px;
-        right: 0;
-        width: 350px;
-        background: #151921;
-        border: 1px solid #333;
-        border-top: 4px solid #005a32;
-        border-radius: 8px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.7);
-        color: #fff;
-        overflow: hidden;
-        flex-direction: column;
-    }
-    .chat-header {
-        background: #0a0c10;
-        padding: 15px;
-        border-bottom: 1px solid #333;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-    .chat-title {
-        font-size: 12px;
-        font-weight: bold;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        color: #fff;
-    }
-    .chat-title span { color: #005a32; }
-    .chat-close {
-        background: none;
-        border: none;
-        color: #888;
-        font-size: 16px;
-        cursor: pointer;
-    }
-    .chat-close:hover { color: #fff; }
-
-    /* Chat Body */
-    .chat-body {
-        padding: 15px;
-        max-height: 300px;
-        overflow-y: auto;
-        font-size: 11px;
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-    }
-    .msg {
-        padding: 10px 12px;
-        border-radius: 6px;
-        line-height: 1.4;
-        max-width: 85%;
-    }
-    .msg-system {
-        background: #1a1f24;
-        border-left: 3px solid #005a32;
-        color: #ccc;
-        align-self: flex-start;
-    }
-    .msg-user {
-        background: #005a32;
-        color: #fff;
-        align-self: flex-end;
-    }
-
-    /* Interactive Options */
-    .chat-options {
-        display: flex;
-        flex-direction: column;
-        gap: 6px;
-        margin-top: 5px;
-    }
-    .option-btn {
-        background: #21262d;
-        border: 1px solid #30363d;
-        color: #58a6ff;
-        padding: 8px 12px;
-        text-align: left;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 10px;
-        font-family: 'Courier New', Courier, monospace;
-        transition: 0.2s;
-    }
-    .option-btn:hover {
-        background: #30363d;
-        border-color: #005a32;
-        color: #fff;
-    }
-
-    /* Chat Footer / Input */
-    .chat-footer {
-        padding: 10px 15px;
-        background: #0a0c10;
-        border-top: 1px solid #333;
-        display: flex;
-        gap: 8px;
-    }
-    .chat-input {
-        flex: 1;
-        background: #1a1f24;
-        border: 1px solid #333;
-        color: #fff;
-        padding: 8px 10px;
-        border-radius: 4px;
-        font-size: 11px;
-        outline: none;
-    }
-    .chat-input:focus { border-color: #005a32; }
-    .chat-send {
-        background: #005a32;
-        color: #fff;
-        border: none;
-        padding: 0 12px;
-        border-radius: 4px;
-        cursor: pointer;
-        font-weight: bold;
-        font-size: 10px;
-        text-transform: uppercase;
-    }
-</style>
-
-<div id="saciphub-chat-root">
-    <div class="chat-trigger" onclick="toggleChat()">
-        <div class="ping-dot"></div>
-        SACIPHUB ENQUIRY DESK
-    </div>
-
-    <div class="chat-window" id="chatWindow">
-        <div class="chat-header">
-            <div class="chat-title">SACIPHUB <span>Concierge</span></div>
-            <button class="chat-close" onclick="toggleChat()">×</button>
+        <div class="upload-section">
+            <button class="upload-btn" onclick="document.getElementById('fileInput').click()">Ingest Ledger Archive</button>
+            <input type="file" id="fileInput" accept=".json" onchange="processLedger(event)">
         </div>
-        
-        <div class="chat-body" id="chatBody">
-            <div class="msg msg-system">
-                🏛️ Welcome to R.A.C.E. LLC | Guardian Protocol Desk.<br>Select your inquiry category below to connect with the Regional Custodian:
+
+        <div class="status-bar">
+            <span class="status-indicator">Signature Check: <span id="sig-status">AWAITING INGESTION</span></span>
+            <span class="status-indicator">Timestamp: <span id="sig-time">--</span></span>
+        </div>
+
+        <div class="data-grid">
+            <div class="data-cell">
+                <span class="cell-label">Direct Labor Capital</span>
+                <span class="cell-value" id="val-labor">--</span>
             </div>
-            <div class="chat-options" id="chatOptions">
-                <button class="option-btn" onclick="selectOption(1)">[ 1 ] Request Physical Dispatch Form (Guardian Node)</button>
-                <button class="option-btn" onclick="selectOption(2)">[ 2 ] General Enquiries & Enterprise Verification</button>
-                <button class="option-btn" onclick="selectOption(3)">[ 3 ] Active Guardian Node Support</button>
+            <div class="data-cell">
+                <span class="cell-label">Intercepted Yield</span>
+                <span class="cell-value" id="val-qa">--</span>
+            </div>
+            <div class="data-cell">
+                <span class="cell-label">Operation Events</span>
+                <span class="cell-value" id="val-events">--</span>
             </div>
         </div>
 
-        <div class="chat-footer">
-            <input type="text" class="chat-input" id="chatInput" placeholder="Type message..." autocomplete="off">
-            <button class="chat-send" onclick="sendUserMessage()">Send</button>
-        </div>
-    </div>
-</div>
-
-<script>
-    function toggleChat() {
-        const win = document.getElementById('chatWindow');
-        win.style.display = win.style.display === 'flex' ? 'none' : 'flex';
-    }
-
-    function selectOption(choice) {
-        const chatBody = document.getElementById('chatBody');
-        const options = document.getElementById('chatOptions');
-        
-        // Remove options after selection
-        if (options) options.style.display = 'none';
-
-        let userChoiceText = "";
-        let systemReplyText = "";
-
-        if (choice === 1) {
-            userChoiceText = "Requesting Physical Dispatch Form (Guardian Node)";
-            systemReplyText = "Request logged. To finalize your Guardian Node deployment, please download the official PDF Dispatch Form or forward your enterprise details directly to our secure line at +234 812 783 3493.";
-        } else if (choice === 2) {
-            userChoiceText = "General Enquiries & Enterprise Verification";
-            systemReplyText = "Protocol 01 architecture is deployed under absolute institutional order. For enterprise verification, please inspect your local FCMB routing code or verify your Guardian Token credentials.";
-        } else if (choice === 3) {
-            userChoiceText = "Active Guardian Node Support";
-            systemReplyText = "Connecting to active Guardian node ledger... Please input your specific Guardian ID (e.g., GUARDIAN-001) for priority regional custodian support.";
-        }
-
-        // Append User Message
-        const userMsg = document.createElement('div');
-        userMsg.className = 'msg msg-user';
-        userMsg.innerText = userChoiceText;
-        chatBody.appendChild(userMsg);
-
-        // Append System Reply
-        setTimeout(() => {
-            const sysMsg = document.createElement('div');
-            sysMsg.className = 'msg msg-system';
-            sysMsg.innerHTML = systemReplyText;
-            chatBody.appendChild(sysMsg);
-            chatBody.scrollTop = chatBody.scrollHeight;
-        }, 600);
-    }
-
-    function sendUserMessage() {
-        const input = document.getElementById('chatInput');
-        const text = input.value.trim();
-        if (!text) return;
-
-        const chatBody = document.getElementById('chatBody');
-        
-        const userMsg = document.createElement('div');
-        userMsg.className = 'msg msg-user';
-        userMsg.innerText = text;
-        chatBody.appendChild(userMsg);
-        
-        input.value = "";
-        chatBody.scrollTop = chatBody.scrollHeight;
-
-        setTimeout(() => {
-            const sysMsg = document.createElement('div');
-            sysMsg.className = 'msg msg-system';
-            sysMsg.innerText = "Transmission received by Regional Custodian. We will review your secure input shortly.";
-            chatBody.appendChild(sysMsg);
-            chatBody.scrollTop = chatBody.scrollHeight;
-        }, 800);
-    }
-</script>
-            
-            <div style="font-size: 11px; color: #555; margin-top: 20px; text-align: center; text-transform: uppercase;">
-                *All applications subject to SACIPHUB Treasury clearance.
-            </div>
-        </div>
-
+        <table>
+            <thead>
+                <tr>
+                    <th>Time</th>
+                    <th>Reference</th>
+                    <th>Capital Flow</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="ledger-body">
+                <tr><td colspan="4" style="text-align: center; padding: 30px; color: #555;">[ WAITING FOR DATA ]</td></tr>
+            </tbody>
+        </table>
     </div>
 
     <script>
-        function routeNode() {
-            let rawKey = document.getElementById('access-key').value.trim().toUpperCase();
-            const errorDisplay = document.getElementById('auth-error');
-            errorDisplay.innerText = "";
+        async function processLedger(event) {
+            const file = event.target.files[0];
+            if (!file) return;
 
-            if (rawKey.startsWith("GUARDIAN-") && rawKey.length >= 12) {
-                localStorage.setItem('guardian_chairman_key_active', 'true');
-                document.cookie = "chairman_auth_token=verified; path=/; max-age=86400; Secure; SameSite=Strict";
-                
-                document.querySelector('.card:first-child .btn-action').innerText = "ROUTING TO NODE...";
-                
-                const folderPath = rawKey.toLowerCase(); 
-                setTimeout(() => { window.location.href = `/vault/${folderPath}/`; }, 1500);
-            } else {
-                errorDisplay.innerText = "ACCESS DENIED: INVALID KEY STRUCTURE.";
-            }
+            const reader = new FileReader();
+            reader.onload = async function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    
+                    // Verify Cryptographic Signature
+                    const payloadString = JSON.stringify(data.payload);
+                    const encoder = new TextEncoder();
+                    const encodedData = encoder.encode(payloadString);
+                    const hashBuffer = await crypto.subtle.digest('SHA-256', encodedData);
+                    const hashArray = Array.from(new Uint8Array(hashBuffer));
+                    const calculatedHash = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+
+                    const sigStatus = document.getElementById('sig-status');
+                    if (calculatedHash === data.signature) {
+                        sigStatus.innerHTML = '<span class="hash-verified">VERIFIED [UNALTERED]</span>';
+                        renderData(data.payload);
+                        document.getElementById('sig-time').innerText = data.timestamp;
+                    } else {
+                        sigStatus.innerHTML = '<span class="hash-failed">BREACH DETECTED [TAMPERED]</span>';
+                        document.getElementById('ledger-body').innerHTML = '<tr><td colspan="4" style="text-align:center; color:var(--invalid);">SYSTEM HALTED: CORRUPT LEDGER REJECTED</td></tr>';
+                    }
+                } catch (err) {
+                    alert("Ingestion Failed. Invalid File Structure.");
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        function renderData(payload) {
+            let labor = 0; let qa = 0;
+            const tbody = document.getElementById('ledger-body');
+            tbody.innerHTML = '';
+
+            payload.forEach(log => {
+                if (log.code.includes('LBR')) labor += log.price;
+                if (log.price === 0) qa++;
+
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${log.time}</td>
+                    <td class="code">${log.code}</td>
+                    <td>₦${log.price.toLocaleString()}</td>
+                    <td style="color: ${log.price === 0 ? '#888' : '#fff'}">${log.price === 0 ? 'VOIDED' : 'COMMITTED'}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            document.getElementById('val-labor').innerText = '₦' + labor.toLocaleString();
+            document.getElementById('val-qa').innerText = qa + ' EVENTS';
+            document.getElementById('val-events').innerText = payload.length;
         }
     </script>
-    <style>
-    .saciphub-chat {
-        position: fixed;
-        bottom: 30px;
-        right: 30px;
-        background-color: var(--primary-green);
-        color: #fff;
-        padding: 15px 25px;
-        border-radius: 50px;
-        box-shadow: 0 5px 20px rgba(0, 90, 50, 0.4);
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        text-decoration: none;
-        font-weight: bold;
-        font-size: 11px;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        z-index: 1000;
-        transition: transform 0.3s ease, background-color 0.3s ease;
-        border: 1px solid #007a45;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-    .saciphub-chat:hover {
-        transform: translateY(-3px);
-        background-color: #007a45;
-    }
-    .ping-dot {
-        width: 8px;
-        height: 8px;
-        background-color: #00ff88;
-        border-radius: 50%;
-        box-shadow: 0 0 10px #00ff88;
-        animation: pulse-ping 2s infinite;
-    }
-    @keyframes pulse-ping {
-        0% { transform: scale(1); opacity: 1; }
-        50% { transform: scale(1.5); opacity: 0.5; }
-        100% { transform: scale(1); opacity: 1; }
-    }
-    @media (max-width: 768px) {
-        .saciphub-chat { bottom: 20px; right: 20px; padding: 12px 20px; font-size: 10px; }
-    }
-</style>
-
-<style>
-    #saciphub-chat-root {
-        position: fixed;
-        bottom: 30px;
-        right: 30px;
-        z-index: 9999;
-        font-family: 'Courier New', Courier, monospace;
-    }
-
-    /* Floating Trigger Button */
-    .chat-trigger {
-        background-color: #005a32;
-        color: #fff;
-        padding: 14px 24px;
-        border-radius: 50px;
-        box-shadow: 0 6px 20px rgba(0, 90, 50, 0.4);
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        cursor: pointer;
-        font-weight: bold;
-        font-size: 11px;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        border: 1px solid #007a45;
-        transition: transform 0.2s ease, background-color 0.2s ease;
-    }
-    .chat-trigger:hover {
-        transform: translateY(-2px);
-        background-color: #007a45;
-    }
-    .ping-dot {
-        width: 8px;
-        height: 8px;
-        background-color: #00ff88;
-        border-radius: 50%;
-        box-shadow: 0 0 10px #00ff88;
-        animation: pulse-ping 2s infinite;
-    }
-    @keyframes pulse-ping {
-        0% { transform: scale(1); opacity: 1; }
-        50% { transform: scale(1.5); opacity: 0.5; }
-        100% { transform: scale(1); opacity: 1; }
-    }
-
-    /* Chat Window Container */
-    .chat-window {
-        display: none;
-        position: absolute;
-        bottom: 70px;
-        right: 0;
-        width: 350px;
-        background: #151921;
-        border: 1px solid #333;
-        border-top: 4px solid #005a32;
-        border-radius: 8px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.7);
-        color: #fff;
-        overflow: hidden;
-        flex-direction: column;
-    }
-    .chat-header {
-        background: #0a0c10;
-        padding: 15px;
-        border-bottom: 1px solid #333;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-    .chat-title {
-        font-size: 12px;
-        font-weight: bold;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        color: #fff;
-    }
-    .chat-title span { color: #005a32; }
-    .chat-close {
-        background: none;
-        border: none;
-        color: #888;
-        font-size: 16px;
-        cursor: pointer;
-    }
-    .chat-close:hover { color: #fff; }
-
-    /* Chat Body */
-    .chat-body {
-        padding: 15px;
-        max-height: 300px;
-        overflow-y: auto;
-        font-size: 11px;
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-    }
-    .msg {
-        padding: 10px 12px;
-        border-radius: 6px;
-        line-height: 1.4;
-        max-width: 85%;
-    }
-    .msg-system {
-        background: #1a1f24;
-        border-left: 3px solid #005a32;
-        color: #ccc;
-        align-self: flex-start;
-    }
-    .msg-user {
-        background: #005a32;
-        color: #fff;
-        align-self: flex-end;
-    }
-
-    /* Interactive Options */
-    .chat-options {
-        display: flex;
-        flex-direction: column;
-        gap: 6px;
-        margin-top: 5px;
-    }
-    .option-btn {
-        background: #21262d;
-        border: 1px solid #30363d;
-        color: #58a6ff;
-        padding: 8px 12px;
-        text-align: left;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 10px;
-        font-family: 'Courier New', Courier, monospace;
-        transition: 0.2s;
-    }
-    .option-btn:hover {
-        background: #30363d;
-        border-color: #005a32;
-        color: #fff;
-    }
-
-    /* Chat Footer / Input */
-    .chat-footer {
-        padding: 10px 15px;
-        background: #0a0c10;
-        border-top: 1px solid #333;
-        display: flex;
-        gap: 8px;
-    }
-    .chat-input {
-        flex: 1;
-        background: #1a1f24;
-        border: 1px solid #333;
-        color: #fff;
-        padding: 8px 10px;
-        border-radius: 4px;
-        font-size: 11px;
-        outline: none;
-    }
-    .chat-input:focus { border-color: #005a32; }
-    .chat-send {
-        background: #005a32;
-        color: #fff;
-        border: none;
-        padding: 0 12px;
-        border-radius: 4px;
-        cursor: pointer;
-        font-weight: bold;
-        font-size: 10px;
-        text-transform: uppercase;
-    }
-</style>
 </body>
-    </html> 
+                    </html>
